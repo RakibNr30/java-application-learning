@@ -17,13 +17,16 @@
                     <a class="nav-link <%--active--%>" <%--aria-current="page"--%> href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="user">User</a>
+                    <a class="nav-link" href="/about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about">About</a>
+                    <a class="nav-link" href="/skill">Skill</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact">Contact</a>
+                    <a class="nav-link" href="/user">User</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
                 </li>
             </ul>
             <form class="d-flex margin-block-end-auto" action="#">

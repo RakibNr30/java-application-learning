@@ -18,12 +18,9 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <c:if test="${not empty status}">
-                    <div class="alert alert-dark" role="alert">
-                            ${status}
-                        <c:remove var="status" />
-                    </div>
-                </c:if>
+                <%-- notifier --%>
+                <%@ include file="/views/partials/front/notifier.jsp" %>
+
                 <form class="row g-3" action="/user/store" method="POST">
                     <div class="col-md-6">
                         <label for="name" class="form-label">Name</label>
@@ -34,7 +31,7 @@
                         <input type="email" id="email" name="email" placeholder="Enter email" class="form-control" required>
                     </div>
                     <div class="col-md-12">
-                        <label for="address" class="form-label">E-mail</label>
+                        <label for="address" class="form-label">Address</label>
                         <input type="text" id="address" name="address" placeholder="Enter address" class="form-control" required>
                     </div>
 

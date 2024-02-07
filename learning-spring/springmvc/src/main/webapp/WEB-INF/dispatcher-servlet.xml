@@ -44,6 +44,7 @@
         </property>
         <property name="annotatedClasses">
             <list>
+                <value>com.springmvc.entity.Skill</value>
                 <value>com.springmvc.entity.User</value>
                 <value>com.springmvc.entity.Contact</value>
             </list>

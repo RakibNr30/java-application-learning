@@ -13,26 +13,27 @@
 
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title float-start">Edit User (${user.name})</h5>
-            <a href="/user" class="btn btn-primary btn-sm float-end">User List</a>
+            <h5 class="card-title float-start">Add Skill</h5>
+            <a href="/skill" class="btn btn-primary btn-sm float-end">Skill List</a>
         </div>
         <div class="card-body">
             <div class="container">
                 <%-- notifier --%>
                 <%@ include file="/views/partials/front/notifier.jsp" %>
 
-                <form class="row g-3" action="/user/${user.id}/update" method="POST">
+                <form class="row g-3" action="/skill/store" method="POST">
                     <div class="col-md-6">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter name" class="form-control" value="${user.name}" required>
+                        <input type="text" id="name" name="name" placeholder="Enter name" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" id="email" name="email" placeholder="Enter email" class="form-control" value="${user.email}" required>
-                    </div>
-                    <div class="col-md-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" id="address" name="address" placeholder="Enter address" class="form-control" value="${user.address}" required>
+                        <label for="proficiency" class="form-label">Proficiency</label>
+                        <select id="proficiency" name="proficiency" class="form-select" aria-label="Select Proficiency" required>
+                            <option selected>Select Proficiency</option>
+                            <option value="1">Basic</option>
+                            <option value="2">Intermediate</option>
+                            <option value="3">Advanced</option>
+                        </select>
                     </div>
 
                     <div class="col-12">
