@@ -31,7 +31,7 @@ public class App
         studentBasic.setCity("Mymensingh");
         studentBasic.setValue(1.05);
 
-        FileInputStream fileInputStream = new FileInputStream("/media/rakib/Works/Java/Spring/spring-learning/hibernate/src/main/resources/img/sign.jpg");
+        FileInputStream fileInputStream = new FileInputStream("/media/rakib/Documents/PROJECT/JAVA/LEARNING/learning-java-application/learning-hibernate/hibernate/src/main/resources/img/sign.jpg");
         byte[] image = new byte[fileInputStream.available()];
         fileInputStream.read(image);
         studentBasic.setImage(image);
