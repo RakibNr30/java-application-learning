@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- standalone list -->
+    <util:list list-class="java.util.LinkedList" id="myFriends1">
+        <value>N.S.</value>
+        <value>Nafis</value>
+        <value>Kajol</value>
+        <value>Samss</value>
+    </util:list>
+    <util:list list-class="java.util.Vector" id="myFriends2">
+        <value>N.S. V.</value>
+        <value>Nafis V.</value>
+        <value>Kajol V.</value>
+        <value>Samss V.</value>
+    </util:list>
+
+    <!-- standalone map -->
+    <util:map map-class="java.util.HashMap" id="myCourseFees1">
+        <entry key="PHP" value="1250" />
+        <entry key="PYTHON" value="1550" />
+        <entry key="JAVA" value="2350" />
+    </util:map>
+    <util:map map-class="java.util.LinkedHashMap" id="myCourseFees2">
+        <entry key="PHP LHSM" value="1250" />
+        <entry key="PYTHON LHSM" value="1550" />
+        <entry key="JAVA LHSM" value="2350" />
+    </util:map>
+
+    <!-- standalone properties -->
+    <util:properties id="dbConfig">
+        <prop key="driver">org.postgresql.Driver</prop>
+        <prop key="username">postgres</prop>
+        <prop key="password">postgres</prop>
+        <prop key="url">jdbc:postgresql://127.0.0.1:5432/resume</prop>
+    </util:properties>
+    
+    <bean class="com.springcore.collections.standalone.Student" name="student1">
+        <property name="id" value="1" />
+        <property name="name" value="Abdur Rakib" />
+        <property name="friends" ref="myFriends1"/>
+        <property name="courseFees" ref="myCourseFees1"/>
+        <property name="properties" ref="dbConfig"/>
+    </bean>
+    <bean class="com.springcore.collections.standalone.Student" name="student2">
+        <property name="id" value="2" />
+        <property name="name" value="Abdur Rakib V." />
+        <property name="friends" ref="myFriends2"/>
+        <property name="courseFees" ref="myCourseFees2"/>
+        <property name="properties" ref="dbConfig"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- instead of <context:annotation-config /> we can use-->
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+
+   <bean class="com.springcore.lifecycle.XmlLifecycleProduct" name="xmlLifecycleProduct1" init-method="customInit" destroy-method="customDestroy">
+       <property name="id" value="1" />
+       <property name="name" value="Monitor" />
+       <property name="price" value="25500.5" />
+   </bean>
+
+    <bean class="com.springcore.lifecycle.InterfaceLifecycle" name="interfaceLifecycle1">
+        <property name="id" value="1" />
+        <property name="name" value="Abdur Rakib" />
+    </bean>
+
+    <bean class="com.springcore.lifecycle.AnnotationLifecycle" name="annotationLifecycle1">
+        <property name="id" value="1" />
+        <property name="name" value="Interface LC1" />
+    </bean>
+
+</beans>

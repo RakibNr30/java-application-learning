@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- connection -->
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://127.0.0.1:5432/hibernate</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">postgres</property>
+        <!-- other db properties -->
+        <property name="dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">false</property>
+        <property name="hbm2ddl.auto">update</property>
+        <!-- cache properties -->
+        <property name="cache.use_second_level_cache">true</property>
+        <property name="cache.region.factory_class">org.hibernate.cache.ehcache.internal.EhcacheRegionFactory</property>
+        <!-- mapping -->
+        <mapping class="com.hibernate.entity.Student" />
+        <mapping class="com.hibernate.entity.StudentBasic" />
+        <mapping class="com.hibernate.entity.relation.Question" />
+        <mapping class="com.hibernate.entity.relation.Answer" />
+        <mapping class="com.hibernate.entity.relation.m2m.Employee" />
+        <mapping class="com.hibernate.entity.relation.m2m.Project" />
+    </session-factory>
+</hibernate-configuration>

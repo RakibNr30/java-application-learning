@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean class="com.springcore.constructors.Address" name="address1">
+        <constructor-arg value="1" />
+        <constructor-arg value="Mymensingh City" />
+        <constructor-arg value="Mymensingh Division" />
+    </bean>
+    <bean class="com.springcore.constructors.User" name="user1">
+        <constructor-arg value="1"/>
+        <constructor-arg value="Abdur Rakib" />
+        <constructor-arg ref="address1" />
+    </bean>
+
+    <bean class="com.springcore.constructors.Address" name="address2" c:id="2" c:city="Dhaka C" c:division="Dhaka D" />
+    <bean class="com.springcore.constructors.User" name="user2" c:id="2" c:name="NST" c:address-ref="address2" />
+
+    <!-- ambiguity resolve technique -->
+    <!-- here firstly search for string constructor and then for appearance order in class because no type attribute specified -->
+    <bean class="com.springcore.constructors.Addition" name="addition1">
+        <constructor-arg value="10" />
+        <constructor-arg value="20" />
+    </bean>
+    <!-- here search for parameter types in class -->
+    <bean class="com.springcore.constructors.Addition" name="addition2">
+        <constructor-arg value="10" type="int" />
+        <constructor-arg value="20" type="int" />
+    </bean>
+    <!-- here search for parameter types and order (index) in class -->
+    <bean class="com.springcore.constructors.Addition" name="addition3">
+        <constructor-arg value="10" type="int" index="1"/>
+        <constructor-arg value="20" type="int" index="0" />
+    </bean>
+</beans>
