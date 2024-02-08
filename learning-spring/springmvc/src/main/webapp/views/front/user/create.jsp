@@ -27,12 +27,24 @@
                         <input type="text" id="name" name="name" placeholder="Enter name" class="form-control" required>
                     </div>
                     <div class="col-md-6">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" placeholder="Enter date of birth" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
                         <label for="email" class="form-label">E-mail</label>
                         <input type="email" id="email" name="email" placeholder="Enter email" class="form-control" required>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label for="address" class="form-label">Address</label>
                         <input type="text" id="address" name="address" placeholder="Enter address" class="form-control" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="selectedSkills" class="form-label">Skills</label>
+                        <select id="selectedSkills" name="selectedSkills" class="form-select" multiple aria-label="multiple select">
+                            <c:forEach items="${skills}" var="skill">
+                                <option value="${skill.id}">${skill.name}</option>
+                            </c:forEach>
+                        </select>
                     </div>
 
                     <div class="col-12">

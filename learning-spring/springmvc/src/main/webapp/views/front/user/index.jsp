@@ -27,6 +27,7 @@
                         <tr>
                             <th scope="col">SL</th>
                             <th scope="col">Name</th>
+                            <th scope="col">DOB</th>
                             <th scope="col">E-mail</th>
                             <th scope="col">Address</th>
                             <th scope="col">Created At</th>
@@ -42,6 +43,7 @@
                                     <tr>
                                         <th scope="row">${loop.index + 1}</th>
                                         <td>${user.name}</td>
+                                        <td>${user.dob}</td>
                                         <td>${user.email}</td>
                                         <td>${user.address}</td>
                                         <td>${user.createdAt}</td>
@@ -60,7 +62,7 @@
                             </c:when>
                             <c:otherwise>
                                 <tr>
-                                    <td colspan="7">No user found.</td>
+                                    <td colspan="8">No user found.</td>
                                 </tr>
                             </c:otherwise>
                         </c:choose>

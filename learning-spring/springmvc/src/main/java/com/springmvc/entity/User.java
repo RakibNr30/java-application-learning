@@ -4,7 +4,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -16,11 +18,18 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "dob")
+    private LocalDate dob;
+
     @Column(name = "email")
     private String email;
 
     @Column(name = "address")
     private String address;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "skill_id")})
+    private List<Skill> skills;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -46,6 +55,14 @@ public class User {
         this.name = name;
     }
 
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -60,6 +77,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -83,6 +108,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", dob=" + dob +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", createdAt=" + createdAt +

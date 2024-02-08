@@ -5,6 +5,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "skills")
@@ -16,6 +18,9 @@ public class Skill {
     private String name;
 
     private int proficiency;
+
+    @ManyToMany(mappedBy = "skills", cascade = CascadeType.ALL)
+    private List<User> users;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -49,6 +54,14 @@ public class Skill {
         this.proficiency = proficiency;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -74,5 +87,13 @@ public class Skill {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Skill skill = (Skill) o;
+        return Objects.equals(id, skill.id);
     }
 }

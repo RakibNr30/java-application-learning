@@ -1,17 +1,19 @@
 package com.springmvc.controller;
 
+import com.springmvc.entity.Skill;
 import com.springmvc.entity.User;
+import com.springmvc.service.SkillService;
 import com.springmvc.service.UserService;
 import com.springmvc.utils.Notifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SkillService skillService;
 
     @ModelAttribute
     public void common(Model model) {
@@ -35,13 +40,25 @@ public class UserController {
     }
 
     @RequestMapping("/create")
-    public String create() {
+    public String create(Model model) {
+        List<Skill> skills = this.skillService.getAll();
+
+        model.addAttribute("skills", skills);
         return "front/user/create";
     }
 
     @RequestMapping(value = "/store", method = RequestMethod.POST)
-    public String store(@ModelAttribute User user, RedirectAttributes attributes) {
+    public String store(@ModelAttribute User user, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
+
+        List<Skill> skills = new ArrayList<>();
+
         try {
+            for (Integer skillId: selectedSkills) {
+                skills.add(this.skillService.get(skillId));
+            }
+
+            user.setSkills(skills);
+
             this.userService.save(user);
             new Notifier(attributes).message("User added successfully.").success();
         } catch (Exception e) {
@@ -77,13 +94,16 @@ public class UserController {
             return "redirect:/user";
         }
 
+        List<Skill> skills = this.skillService.getAll();
+
         model.addAttribute("user", user);
+        model.addAttribute("skills", skills);
 
         return "front/user/edit";
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Long id, @ModelAttribute User user, RedirectAttributes attributes) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute User user, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
 
         User updatableUser = this.userService.get(id);
 
@@ -92,7 +112,15 @@ public class UserController {
             return "redirect:/user";
         }
 
+        List<Skill> skills = new ArrayList<>();
+
         try {
+            for (Integer skillId: selectedSkills) {
+                skills.add(this.skillService.get(skillId));
+            }
+
+            user.setSkills(skills);
+
             this.userService.update(user);
             new Notifier(attributes).message("User updated successfully.").success();
         } catch (Exception e) {

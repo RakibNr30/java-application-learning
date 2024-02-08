@@ -24,8 +24,20 @@
                         <td>${user.email}</td>
                     </tr>
                     <tr>
+                        <th>Date of Birth</th>
+                        <td>${user.dob}</td>
+                    </tr>
+                    <tr>
                         <th>Address</th>
                         <td>${user.address}</td>
+                    </tr>
+                    <tr>
+                        <th>Skills</th>
+                        <td>
+                            <c:forEach items="${user.skills}" var="skill" varStatus="loop">
+                                <span class="d-block">${loop.index + 1}.  ${skill.name}</span>
+                            </c:forEach>
+                        </td>
                     </tr>
                     <tr>
                         <th>Created At</th>
