@@ -60,4 +60,12 @@
     <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+
+    <!-- interceptor -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/contact/**"/>
+            <bean class="com.springmvc.interceptor.ContactInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

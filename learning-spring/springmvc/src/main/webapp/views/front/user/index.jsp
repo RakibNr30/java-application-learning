@@ -30,6 +30,7 @@
                             <th scope="col">DOB</th>
                             <th scope="col">E-mail</th>
                             <th scope="col">Address</th>
+                            <th scope="col">Skill(s)</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
                             <th scope="col">Action</th>
@@ -46,6 +47,11 @@
                                         <td>${user.dob}</td>
                                         <td>${user.email}</td>
                                         <td>${user.address}</td>
+                                        <td>
+                                            <c:forEach items="${user.skills}" var="skill" varStatus="loop">
+                                                <span>${skill.name}</span><c:if test="${ loop.index + 1 < user.skills.size() }"> ,</c:if>
+                                            </c:forEach>
+                                        </td>
                                         <td>${user.createdAt}</td>
                                         <td>${user.updatedAt}</td>
                                         <td>
