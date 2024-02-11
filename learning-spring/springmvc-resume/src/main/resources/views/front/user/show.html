@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/front::layout(~{::section})">
+<body>
+
+<section>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title float-start" th:text="${user.name}"></h5>
+            <a th:href="@{/user}" class="btn btn-primary btn-sm float-end">User List</a>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <table class="table">
+                    <tr>
+                        <th>E-mail</th>
+                        <td th:text="${user.email}"></td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td th:text="${user.dob}"></td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td th:text="${user.address}"></td>
+                    </tr>
+                    <tr>
+                        <th>Skills</th>
+                        <td>
+                            <span th:each="skill, loop : ${user.skills}" class="d-block" th:text="${loop.index + 1} + '. ' + ${skill.name}"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Created At</th>
+                        <td th:text="${user.createdAt}"></td>
+                    </tr>
+                    <tr>
+                        <th>Updated At</th>
+                        <td th:text="${user.updatedAt}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

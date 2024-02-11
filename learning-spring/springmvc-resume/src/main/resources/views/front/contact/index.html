@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/front::layout(~{::section})">
+<body>
+
+<section>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title float-start" th:text="${title}"></h5>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <th:block th:replace="/fragments/front/notifier"></th:block>
+
+                <div class="contact-form">
+                    <form th:action="@{/contact/update}" method="POST">
+                        <div class="row">
+                            <input type="hidden" name="id" th:value="${contact.id}">
+                            <div class="col-md-4 mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input id="email" name="email" type="email" placeholder="Enter email" class="form-control" th:value="${contact.email}" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="mobile" class="form-label">Mobile</label>
+                                <input id="mobile" name="mobile" type="text" placeholder="Enter mobile" class="form-control" th:value="${contact.mobile}" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input id="location" name="location" type="text" placeholder="Enter location" class="form-control" th:value="${contact.location}" />
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="details" class="form-label">Details</label>
+                                <textarea id="details" name="details" placeholder="Enter details" class="form-control" rows="8" th:field="${contact.details}" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <div class="float-end">
+                                    <button type="reset" class="btn btn-danger">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

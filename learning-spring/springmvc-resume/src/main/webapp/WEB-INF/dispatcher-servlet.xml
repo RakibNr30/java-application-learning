@@ -13,20 +13,34 @@
        http://www.springframework.org/schema/tx
        https://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="com.springmvc" />
+    <context:component-scan base-package="com.resume" />
     <mvc:resources mapping="/static/**" location="/static/front/" />
+
     <mvc:annotation-driven />
     <tx:annotation-driven />
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" name="viewResolver">
+    <!-- thymeleaf configuration -->
+
+    <bean class="org.thymeleaf.templateresolver.ClassLoaderTemplateResolver" id="templateResolver">
         <property name="prefix" value="/views/" />
-        <property name="suffix" value=".jsp" />
+        <property name="suffix" value=".html" />
+        <property name="cacheable" value="false" />
     </bean>
+
+    <bean class="org.thymeleaf.spring6.SpringTemplateEngine" id="templateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+    </bean>
+
+    <bean class="org.thymeleaf.spring6.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+    </bean>
+
+    <!-- thymeleaf configuration end -->
 
     <!-- data source configuration -->
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" name="dataSource">
         <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://127.0.0.1:5432/springmvc" />
+        <property name="url" value="jdbc:postgresql://127.0.0.1:5432/springmvc-resume" />
         <property name="username" value="postgres" />
         <property name="password" value="postgres" />
     </bean>
@@ -44,9 +58,9 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.springmvc.entity.Skill</value>
-                <value>com.springmvc.entity.User</value>
-                <value>com.springmvc.entity.Contact</value>
+                <value>com.resume.entity.Skill</value>
+                <value>com.resume.entity.User</value>
+                <value>com.resume.entity.Contact</value>
             </list>
         </property>
     </bean>
@@ -60,12 +74,4 @@
     <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-
-    <!-- interceptor -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/contact/**"/>
-            <bean class="com.springmvc.interceptor.ContactInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
 </beans>
