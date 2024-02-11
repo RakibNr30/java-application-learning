@@ -24,5 +24,6 @@
         <mapping class="com.hibernate.entity.relation.Answer" />
         <mapping class="com.hibernate.entity.relation.m2m.Employee" />
         <mapping class="com.hibernate.entity.relation.m2m.Project" />
+        <mapping resource="person.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
