@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/dashboard::layout(~{::section})">
+
+<body>
+<section>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">User</h1>
+            <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/user}">
+                <i class="fas fa-list"></i> User List
+            </a>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">User Edit</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/dashboard/user/{id}/update(id=${user.id})}" method="POST">
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6 gx-3 mb-3">
+                            <label class="mb-1" for="name">Name</label>
+                            <input class="form-control" id="name" name="name" type="text" placeholder="Enter name" th:value="${user.name}" required>
+                        </div>
+                        <div class="col-md-6 gx-3 mb-3">
+                            <label class="mb-1" for="dob">Date of Birth</label>
+                            <input class="form-control" id="dob" name="dob" type="date" placeholder="Enter dob" th:value="${user.dob}" required>
+                        </div>
+                        <div class="col-md-6 gx-3 mb-3">
+                            <label class="mb-1" for="email">E-mail</label>
+                            <input class="form-control" id="email" name="email" type="email" placeholder="Enter email" th:value="${user.email}" required>
+                        </div>
+                        <div class="col-md-6 gx-3 mb-3">
+                            <label class="mb-1" for="address">Address</label>
+                            <input class="form-control" id="address" name="address" type="text" placeholder="Enter address" th:value="${user.address}" required>
+                        </div>
+                        <div class="col-md-12 gx-3 mb-3">
+                            <label class="mb-1" for="selectedSkills">Skills</label>
+                            <select id="selectedSkills" name="selectedSkills" class="form-control" multiple="" size="8" aria-label="multiple select">
+                                <option th:each="skill : ${skills}" th:value="${skill.id}" th:selected="${user.skills != null and user.skills.contains(skill)}" th:text="${skill.name}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="float-right">
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

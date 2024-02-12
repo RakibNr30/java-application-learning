@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/dashboard::layout(~{::section})">
+
+<body>
+<section>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Skill</h1>
+            <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/skill}">
+                <i class="fas fa-list"></i> Skill List
+            </a>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Skill Edit</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/dashboard/skill/{id}/update(id=${skill.id})}" method="POST">
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6 gx-3 mb-3">
+                            <label class="mb-1" for="name">Name</label>
+                            <input class="form-control" id="name" name="name" type="text" placeholder="Enter name" th:value="${skill.name}" required>
+                        </div>
+                        <div class="col-md-6 gx-3 mb-3">
+                            <label class="mb-1" for="proficiency">Date of Birth</label>
+                            <select class="form-control" id="proficiency" name="proficiency" aria-label="Select Proficiency" required>
+                                <option selected>Select Proficiency</option>
+                                <option value="1" th:selected="${skill.proficiency == 1}">Basic</option>
+                                <option value="2" th:selected="${skill.proficiency == 2}">Intermediate</option>
+                                <option value="3" th:selected="${skill.proficiency == 3}">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="float-right">
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>
