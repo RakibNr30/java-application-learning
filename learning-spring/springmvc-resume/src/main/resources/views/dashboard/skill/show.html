@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-6 gx-3 mb-3">
                         <label class="mb-1">Proficiency</label>
-                        <span class="d-block" th:text="${skill.proficiency}"></span>
+                        <span class="d-block" th:text="${T(com.resume.constants.Proficiency).getLabelByValue(skill.proficiency)}"></span>
                     </div>
                     <div class="col-md-6 gx-3 mb-3">
                         <label class="mb-1">Created At</label>

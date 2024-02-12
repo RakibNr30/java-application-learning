@@ -2,7 +2,7 @@ package com.resume.controller.dashboard;
 
 import com.resume.entity.Skill;
 import com.resume.service.SkillService;
-import com.resume.utils.Notifier;
+import com.resume.helpers.NotifierHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,11 +43,11 @@ public class SkillController {
     public String store(@ModelAttribute Skill skill, RedirectAttributes attributes) {
         try {
             this.skillService.save(skill);
-            new Notifier(attributes).message("Skill added successfully.").success();
+            new NotifierHelper(attributes).message("Skill added successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
 
-            new Notifier(attributes).message("Skill can not be added.").error();
+            new NotifierHelper(attributes).message("Skill can not be added.").error();
             return "redirect:/dashboard/skill/create";
         }
 
@@ -59,7 +59,7 @@ public class SkillController {
         Skill skill = this.skillService.get(id);
 
         if (skill == null) {
-            new Notifier(attributes).message("Skill not found.").error();
+            new NotifierHelper(attributes).message("Skill not found.").error();
             return "redirect:/dashboard/skill";
         }
 
@@ -73,7 +73,7 @@ public class SkillController {
         Skill skill = this.skillService.get(id);
 
         if (skill == null) {
-            new Notifier(attributes).message("Skill not found.").error();
+            new NotifierHelper(attributes).message("Skill not found.").error();
             return "redirect:/dashboard/skill";
         }
 
@@ -88,16 +88,16 @@ public class SkillController {
         Skill updatableSkill = this.skillService.get(id);
 
         if (updatableSkill == null) {
-            new Notifier(attributes).message("Skill not found.").error();
+            new NotifierHelper(attributes).message("Skill not found.").error();
             return "redirect:/dashboard/skill";
         }
 
         try {
             this.skillService.update(skill);
-            new Notifier(attributes).message("Skill updated successfully.").success();
+            new NotifierHelper(attributes).message("Skill updated successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            new Notifier(attributes).message("Skill can not be updated.").error();
+            new NotifierHelper(attributes).message("Skill can not be updated.").error();
         }
 
         return "redirect:/dashboard/skill/" + id + "/edit";
@@ -109,15 +109,15 @@ public class SkillController {
         Skill skill = this.skillService.get(id);
 
         if (skill == null) {
-            new Notifier(attributes).message("Skill not found.").error();
+            new NotifierHelper(attributes).message("Skill not found.").error();
         }
 
         try {
             this.skillService.delete(skill);
-            new Notifier(attributes).message("Skill deleted successfully.").success();
+            new NotifierHelper(attributes).message("Skill deleted successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            new Notifier(attributes).message("Skill can not be deleted.").error();
+            new NotifierHelper(attributes).message("Skill can not be deleted.").error();
         }
 
         return "redirect:/dashboard/skill";

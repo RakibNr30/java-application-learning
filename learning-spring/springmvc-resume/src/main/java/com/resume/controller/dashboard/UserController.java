@@ -4,7 +4,7 @@ import com.resume.entity.Skill;
 import com.resume.entity.User;
 import com.resume.service.SkillService;
 import com.resume.service.UserService;
-import com.resume.utils.Notifier;
+import com.resume.helpers.NotifierHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,11 +58,11 @@ public class UserController {
             user.setSkills(skills);
 
             this.userService.save(user);
-            new Notifier(attributes).message("User added successfully.").success();
+            new NotifierHelper(attributes).message("User added successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
 
-            new Notifier(attributes).message("User can not be added.").error();
+            new NotifierHelper(attributes).message("User can not be added.").error();
             return "redirect:/dashboard/user/create";
         }
 
@@ -74,7 +74,7 @@ public class UserController {
         User user = this.userService.get(id);
 
         if (user == null) {
-            new Notifier(attributes).message("User not found.").error();
+            new NotifierHelper(attributes).message("User not found.").error();
             return "redirect:/dashboard/user";
         }
 
@@ -88,7 +88,7 @@ public class UserController {
         User user = this.userService.get(id);
 
         if (user == null) {
-            new Notifier(attributes).message("User not found.").error();
+            new NotifierHelper(attributes).message("User not found.").error();
             return "redirect:/dashboard/user";
         }
 
@@ -106,7 +106,7 @@ public class UserController {
         User updatableUser = this.userService.get(id);
 
         if (updatableUser == null) {
-            new Notifier(attributes).message("User not found.").error();
+            new NotifierHelper(attributes).message("User not found.").error();
             return "redirect:/dashboard/user";
         }
 
@@ -120,10 +120,10 @@ public class UserController {
             user.setSkills(skills);
 
             this.userService.update(user);
-            new Notifier(attributes).message("User updated successfully.").success();
+            new NotifierHelper(attributes).message("User updated successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            new Notifier(attributes).message("User can not be updated.").error();
+            new NotifierHelper(attributes).message("User can not be updated.").error();
         }
 
         return "redirect:/dashboard/user/" + id + "/edit";
@@ -135,15 +135,15 @@ public class UserController {
         User user = this.userService.get(id);
 
         if (user == null) {
-            new Notifier(attributes).message("User not found.").error();
+            new NotifierHelper(attributes).message("User not found.").error();
         }
 
         try {
             this.userService.delete(user);
-            new Notifier(attributes).message("User deleted successfully.").success();
+            new NotifierHelper(attributes).message("User deleted successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            new Notifier(attributes).message("User can not ber deleted.").error();
+            new NotifierHelper(attributes).message("User can not ber deleted.").error();
         }
 
         return "redirect:/dashboard/user";

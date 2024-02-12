@@ -2,7 +2,7 @@ package com.resume.controller;
 
 import com.resume.entity.Contact;
 import com.resume.service.ContactService;
-import com.resume.utils.Notifier;
+import com.resume.helpers.NotifierHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,10 +37,10 @@ public class ContactController {
     {
         try {
             this.contactService.saveOrUpdate(contact);
-            new Notifier(attributes).message("Contact updated successfully.").success();
+            new NotifierHelper(attributes).message("Contact updated successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            new Notifier(attributes).message("Contact can not be updated.").error();
+            new NotifierHelper(attributes).message("Contact can not be updated.").error();
         }
 
         model.addAttribute("contact", contact);

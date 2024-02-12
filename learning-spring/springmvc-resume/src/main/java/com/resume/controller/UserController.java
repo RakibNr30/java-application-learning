@@ -2,7 +2,7 @@ package com.resume.controller;
 
 import com.resume.entity.User;
 import com.resume.service.UserService;
-import com.resume.utils.Notifier;
+import com.resume.helpers.NotifierHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +36,7 @@ public class UserController {
         User user = this.userService.get(id);
 
         if (user == null) {
-            new Notifier(attributes).message("User not found.").error();
+            new NotifierHelper(attributes).message("User not found.").error();
             return "redirect:/user";
         }
 

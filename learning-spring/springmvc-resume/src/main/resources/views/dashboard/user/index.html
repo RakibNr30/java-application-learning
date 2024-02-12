@@ -11,6 +11,8 @@
             </a>
         </div>
 
+        <th:block th:replace="/fragments/dashboard/notifier" />
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">User List</h6>
@@ -28,7 +30,7 @@
                             <th>Skill(s)</th>
                             <th>Created At</th>
                             <th>Updated At</th>
-                            <th>Actions</th>
+                            <th class="action">Action</th>
                         </tr>
                         </thead>
                         <!--<tfoot>
@@ -52,17 +54,15 @@
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.address}"></td>
                             <td>
-                                <span th:each="skill, innerLoop : ${user.skills}">
-                                    <span th:text="${skill.name}"></span><span th:if="${ not innerLoop.last }">,</span>
-                                </span>
+                                <div class="badge bg-primary text-white rounded-pill" th:each="skill : ${user.skills}" th:text="${skill.name}"></div>
                             </td>
                             <td th:text="${user.createdAt}"></td>
                             <td th:text="${user.updatedAt}"></td>
-                            <td>
-                                <a th:href="@{/dashboard/user/{id}(id=${user.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                            <td class="action">
+                                <a th:href="@{/dashboard/user/{id}(id=${user.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
                                     <i class="fas fa-solid fa-eye"></i>
                                 </a>
-                                <a th:href="@{/dashboard/user/{id}/edit(id=${user.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                <a th:href="@{/dashboard/user/{id}/edit(id=${user.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
                                      <i class="fas fa-solid fa-pen text-primary"></i>
                                 </a>
                                 <form th:action="@{/dashboard/user/{id}/destroy(id=${user.id})}" method="POST" style="all: unset">

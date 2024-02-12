@@ -11,6 +11,8 @@
             </a>
         </div>
 
+        <th:block th:replace="/fragments/dashboard/notifier" />
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Skill Edit</h6>
@@ -25,10 +27,10 @@
                         <div class="col-md-6 gx-3 mb-3">
                             <label class="mb-1" for="proficiency">Date of Birth</label>
                             <select class="form-control" id="proficiency" name="proficiency" aria-label="Select Proficiency" required>
-                                <option selected>Select Proficiency</option>
-                                <option value="1" th:selected="${skill.proficiency == 1}">Basic</option>
-                                <option value="2" th:selected="${skill.proficiency == 2}">Intermediate</option>
-                                <option value="3" th:selected="${skill.proficiency == 3}">Advanced</option>
+                                <option value="" selected>Select Proficiency</option>
+                                <option th:each="proficiency : ${T(com.resume.constants.Proficiency).values()}"
+                                        th:value="${proficiency.getValue()}"
+                                        th:text="${proficiency.getLabel()}" th:selected="${skill.proficiency == proficiency.getValue()}"></option>
                             </select>
                         </div>
                     </div>
