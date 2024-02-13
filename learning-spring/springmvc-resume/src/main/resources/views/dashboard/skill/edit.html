@@ -25,7 +25,7 @@
                             <input class="form-control" id="name" name="name" type="text" placeholder="Enter name" th:value="${skill.name}" required>
                         </div>
                         <div class="col-md-6 gx-3 mb-3">
-                            <label class="mb-1" for="proficiency">Date of Birth</label>
+                            <label class="mb-1" for="proficiency">Proficiency</label>
                             <select class="form-control" id="proficiency" name="proficiency" aria-label="Select Proficiency" required>
                                 <option value="" selected>Select Proficiency</option>
                                 <option th:each="proficiency : ${T(com.resume.constants.Proficiency).values()}"

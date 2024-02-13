@@ -7,20 +7,22 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "contacts")
-public class Contact {
+@Table(name = "user_awards")
+public class UserAward {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String email;
+    private String institute;
 
-    private String mobile;
-
-    private String location;
+    private String title;
 
     @Column(length = 65535)
     private String details;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -38,28 +40,20 @@ public class Contact {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getInstitute() {
+        return institute;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setInstitute(String institute) {
+        this.institute = institute;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDetails() {
@@ -68,6 +62,14 @@ public class Contact {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getCreatedAt() {

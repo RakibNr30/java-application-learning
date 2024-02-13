@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/dashboard::layout(~{::section})">
+
+<body>
+<section>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">User Education</h1>
+            <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/user-education}">
+                <i class="fas fa-list"></i> User Education List
+            </a>
+        </div>
+
+        <th:block th:replace="/fragments/dashboard/notifier" />
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">User Education Edit</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/dashboard/user-education/{id}/update(id=${userEducation.id})}" method="POST">
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-4 gx-3">
+                            <label class="mb-1" for="user_id">User</label>
+                            <select id="user_id" name="user_id" class="form-control" aria-label="select">
+                                <option value="" selected>Select User</option>
+                                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}" th:selected="${userEducation.user.id == user.id}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="start_date">Start Date</label>
+                            <input class="form-control" id="start_date" name="startDate" type="date" placeholder="Enter start date" th:value="${userEducation.startDate}" required>
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="end_date">End Date</label>
+                            <input class="form-control" id="end_date" name="endDate" type="date" placeholder="Enter end date" th:value="${userEducation.endDate}">
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="institute">Institute</label>
+                            <input class="form-control" id="institute" name="institute" type="text" placeholder="Enter institute" th:value="${userEducation.institute}" required>
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="institute">Degree</label>
+                            <input class="form-control" id="degree" name="degree" type="text" placeholder="Enter degree" th:value="${userEducation.degree}" required>
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="grade">Grade</label>
+                            <input class="form-control" id="grade" name="grade" type="text" placeholder="Enter grade" th:value="${userEducation.grade}" required>
+                        </div>
+                        <div class="col-12">
+                            <div class="float-right">
+                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

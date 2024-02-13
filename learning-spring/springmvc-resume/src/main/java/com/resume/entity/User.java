@@ -1,6 +1,8 @@
 package com.resume.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -15,21 +17,30 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "dob")
     private LocalDate dob;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "address")
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "skill_id")})
     private List<Skill> skills;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserEducation> userEducations;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserExperience> userExperiences;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserAward> userAwards;
+
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -87,6 +98,30 @@ public class User {
         this.skills = skills;
     }
 
+    public List<UserEducation> getUserEducations() {
+        return userEducations;
+    }
+
+    public void setUserEducations(List<UserEducation> userEducations) {
+        this.userEducations = userEducations;
+    }
+
+    public List<UserExperience> getUserExperiences() {
+        return userExperiences;
+    }
+
+    public void setUserExperiences(List<UserExperience> userExperiences) {
+        this.userExperiences = userExperiences;
+    }
+
+    public List<UserAward> getUserAwards() {
+        return userAwards;
+    }
+
+    public void setUserAwards(List<UserAward> userAwards) {
+        this.userAwards = userAwards;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -101,18 +136,5 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dob=" + dob +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
     }
 }

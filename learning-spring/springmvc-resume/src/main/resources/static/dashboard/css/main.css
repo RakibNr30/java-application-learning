@@ -33,3 +33,6 @@ table .action .btn {
     padding: 0.275rem 0.5rem;
     border: 1px solid var(--secondary);
 }
+label {
+    font-weight: bold !important;
+}

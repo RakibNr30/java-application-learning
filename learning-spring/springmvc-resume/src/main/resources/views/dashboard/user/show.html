@@ -43,9 +43,91 @@
                     </div>
                     <div class="col-md-6 gx-3 mb-3">
                         <label class="mb-1">Updated At</label>
-                        <span class="d-block" th:text="${updated.createdAt}"></span>
+                        <span class="d-block" th:text="${user.updatedAt}"></span>
                     </div>
                 </div>
+
+                <th:block th:if="${user.userEducations.size() > 0}">
+                    <hr>
+                    <label>Educational Information</label>
+                    <hr>
+
+                    <div th:each="userEducation : ${user.userEducations}">
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-12 gx-3 mb-3">
+                                <label class="mb-1">Institute</label>
+                                <span class="d-block" th:text="${userEducation.institute}"></span>
+                            </div>
+                            <div class="col-md-3 gx-3 mb-3">
+                                <label class="mb-1">Degree</label>
+                                <span class="d-block" th:text="${userEducation.degree}"></span>
+                            </div>
+                            <div class="col-md-3 gx-3 mb-3">
+                                <label class="mb-1">Grade</label>
+                                <span class="d-block" th:text="${userEducation.grade}"></span>
+                            </div>
+                            <div class="col-md-3 gx-3 mb-3">
+                                <label class="mb-1">Start Date</label>
+                                <span class="d-block" th:text="${userEducation.startDate}"></span>
+                            </div>
+                            <div class="col-md-3 gx-3 mb-3">
+                                <label class="mb-1">End Date</label>
+                                <span class="d-block" th:text="${userEducation.endDate}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+                <th:block th:if="${user.userExperiences.size() > 0}">
+                    <hr>
+                    <label>Experience Information</label>
+                    <hr>
+
+                    <div th:each="userExperience : ${user.userExperiences}">
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-12 gx-3 mb-3">
+                                <label class="mb-1">Organization</label>
+                                <span class="d-block" th:text="${userExperience.organization}"></span>
+                            </div>
+                            <div class="col-md-4 gx-3 mb-3">
+                                <label class="mb-1">Designation</label>
+                                <span class="d-block" th:text="${userExperience.designation}"></span>
+                            </div>
+                            <div class="col-md-4 gx-3 mb-3">
+                                <label class="mb-1">Start Date</label>
+                                <span class="d-block" th:text="${userExperience.startDate}"></span>
+                            </div>
+                            <div class="col-md-4 gx-3 mb-3">
+                                <label class="mb-1">End Date</label>
+                                <span class="d-block" th:text="${userExperience.endDate}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+                <th:block th:if="${user.userExperiences.size() > 0}">
+                    <hr>
+                    <label>Awards Information</label>
+                    <hr>
+
+                    <div th:each="userAward : ${user.userAwards}">
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="mb-1">Title</label>
+                                <span class="d-block" th:text="${userAward.title}"></span>
+                            </div>
+                            <div class="col-md-6 gx-3 mb-3">
+                                <label class="mb-1">Institute</label>
+                                <span class="d-block" th:text="${userAward.institute}"></span>
+                            </div>
+                            <div class="col-md-12 gx-3 mb-3">
+                                <label class="mb-1">Details</label>
+                                <span class="d-block" th:text="${userAward.details}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
             </div>
         </div>
     </div>
