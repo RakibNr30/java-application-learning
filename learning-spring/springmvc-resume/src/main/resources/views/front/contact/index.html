@@ -12,24 +12,28 @@
                 <th:block th:replace="/fragments/front/notifier"></th:block>
 
                 <div class="contact-form">
-                    <form th:action="@{/contact/update}" method="POST">
+                    <form th:action="@{/contact/update}" th:object="${contact}" method="POST">
                         <div class="row">
                             <input type="hidden" name="id" th:value="${contact.id}">
                             <div class="col-md-4 mb-3">
                                 <label for="email" class="form-label">E-mail</label>
-                                <input id="email" name="email" type="email" placeholder="Enter email" class="form-control" th:value="${contact.email}" />
+                                <input th:field="*{email}" id="email" type="email" placeholder="Enter email" class="form-control" th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" th:value="${contact.email}" />
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="mobile" class="form-label">Mobile</label>
-                                <input id="mobile" name="mobile" type="text" placeholder="Enter mobile" class="form-control" th:value="${contact.mobile}" />
+                                <input th:field="*{mobile}" id="mobile" type="text" placeholder="Enter mobile" class="form-control" th:classappend="${#fields.hasErrors('mobile') ? 'is-invalid' : ''}" th:value="${contact.mobile}" />
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}"></div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="location" class="form-label">Location</label>
-                                <input id="location" name="location" type="text" placeholder="Enter location" class="form-control" th:value="${contact.location}" />
+                                <input th:field="*{location}" id="location" type="text" placeholder="Enter location" class="form-control" th:classappend="${#fields.hasErrors('location') ? 'is-invalid' : ''}" th:value="${contact.location}" />
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="details" class="form-label">Details</label>
-                                <textarea id="details" name="details" placeholder="Enter details" class="form-control" rows="8" th:field="${contact.details}" required></textarea>
+                                <textarea th:field="*{details}" id="details" placeholder="Enter details" class="form-control" th:classappend="${#fields.hasErrors('details') ? 'is-invalid' : ''}" rows="8" th:text="${contact.details}" required></textarea>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('details')}" th:errors="*{details}"></div>
                             </div>
                             <div class="col-12">
                                 <div class="float-end">

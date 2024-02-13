@@ -5,8 +5,7 @@
   <artifactId>springmvc-resume</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Spring MVC</name>
-  <url>http://maven.apache.org</url>
+  <name>Resume Maker</name>
 
   <dependencies>
     <dependency>
@@ -23,6 +22,11 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>5.4.25.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>8.0.1.Final</version>
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
