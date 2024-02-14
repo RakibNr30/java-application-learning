@@ -23,7 +23,7 @@ public class Skill {
     @NotNull
     private int proficiency;
 
-    @ManyToMany(mappedBy = "skills")
+    @ManyToMany(mappedBy = "skills", fetch = FetchType.EAGER)
     private List<User> users;
 
     @Column(name = "created_at", updatable = false)

@@ -29,6 +29,9 @@ public class User {
     @Email
     private String email;
 
+    @Length(min = 11, max = 11, message = "Length must be 11 characters")
+    private String mobile;
+
     @Length(min = 3, max = 255)
     private String address;
 
@@ -87,6 +90,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getAddress() {

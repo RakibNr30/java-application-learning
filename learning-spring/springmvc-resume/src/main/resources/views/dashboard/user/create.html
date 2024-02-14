@@ -27,15 +27,20 @@
                         </div>
                         <div class="col-md-6 gx-3 mb-3">
                             <label class="mb-1" for="dob">Date of Birth</label>
-                            <input id="dob" th:name="name" class="form-control" th:classappend="${#fields.hasErrors('dob') ? 'is-invalid' : ''}" type="date" placeholder="Enter dob" required>
+                            <input id="dob" th:name="dob" class="form-control" th:classappend="${#fields.hasErrors('dob') ? 'is-invalid' : ''}" type="date" placeholder="Enter dob" required>
                             <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></div>
                         </div>
-                        <div class="col-md-6 gx-3 mb-3">
+                        <div class="col-md-4 gx-3 mb-3">
                             <label class="mb-1" for="email">E-mail</label>
                             <input id="email" th:field="*{email}" class="form-control" th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" type="email" placeholder="Enter email" required>
                             <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
-                        <div class="col-md-6 gx-3 mb-3">
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="mobile">Mobile</label>
+                            <input id="mobile" th:field="*{mobile}" class="form-control" th:classappend="${#fields.hasErrors('mobile') ? 'is-invalid' : ''}" type="text" placeholder="Enter mobile" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}"></div>
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
                             <label class="mb-1" for="address">Address</label>
                             <input id="address" th:field="*{address}" class="form-control" th:classappend="${#fields.hasErrors('address') ? 'is-invalid' : ''}" type="text" placeholder="Enter address" required>
                             <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
