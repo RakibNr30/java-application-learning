@@ -3,11 +3,14 @@ package com.resume.controller.dashboard;
 import com.resume.entity.User;
 import com.resume.entity.UserAward;
 import com.resume.helpers.NotifierHelper;
+import com.resume.helpers.ValidationHelper;
 import com.resume.service.UserAwardService;
 import com.resume.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,6 +31,11 @@ public class UserAwardController {
         model.addAttribute("title", "User Award");
     }
 
+    @ModelAttribute
+    public UserAward getUserAward() {
+        return new UserAward();
+    }
+
     @RequestMapping
     public String index(Model model) {
         List<UserAward> userAwards = this.userAwardService.getAll();
@@ -45,7 +53,12 @@ public class UserAwardController {
     }
 
     @RequestMapping(value = "/store", method = RequestMethod.POST)
-    public String store(@ModelAttribute UserAward userAward, @RequestParam("user_id") Long userId, RedirectAttributes attributes) {
+    public String store(@Valid @ModelAttribute UserAward userAward, BindingResult result, @RequestParam("user_id") Long userId, RedirectAttributes attributes) {
+
+        if (result.hasErrors()) {
+            new ValidationHelper(attributes).model("userAward", userAward).bind(result);
+            return "redirect:/dashboard/user-award/create";
+        }
 
         User user = this.userService.get(userId);
 
@@ -83,6 +96,7 @@ public class UserAwardController {
 
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
+
         UserAward userAward = this.userAwardService.get(id);
 
         if (userAward == null) {
@@ -99,7 +113,12 @@ public class UserAwardController {
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Long id, @ModelAttribute UserAward userAward, @RequestParam("user_id") Long userId, RedirectAttributes attributes) {
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute UserAward userAward, BindingResult result, @RequestParam("user_id") Long userId, RedirectAttributes attributes) {
+
+        if (result.hasErrors()) {
+            new ValidationHelper(attributes).model("userAward", userAward).bind(result);
+            return "redirect:/dashboard/user-award/" + id + "/edit";
+        }
 
         UserAward updatableUserAward = this.userAwardService.get(id);
 

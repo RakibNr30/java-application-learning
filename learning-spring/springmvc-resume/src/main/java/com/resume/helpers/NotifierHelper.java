@@ -2,8 +2,10 @@ package com.resume.helpers;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-public class NotifierHelper {
-    private final RedirectAttributes attributes;
+public final class NotifierHelper {
+    private RedirectAttributes attributes;
+
+    private NotifierHelper() {}
 
     public NotifierHelper(RedirectAttributes attributes) {
         this.attributes = attributes;

@@ -1,7 +1,6 @@
 package com.resume.entity;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -19,11 +18,9 @@ public class Contact {
     @Email
     private String email;
 
-    @NotNull
     @Length(min = 11, max = 11, message = "Length must be 11 characters")
     private String mobile;
 
-    @NotNull
     @Length(min = 6, max = 255)
     private String location;
 

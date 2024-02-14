@@ -18,30 +18,35 @@
                 <h6 class="m-0 font-weight-bold text-primary">User Experience Edit</h6>
             </div>
             <div class="card-body">
-                <form th:action="@{/dashboard/user-experience/{id}/update(id=${userExperience.id})}" method="POST">
+                <form th:action="@{/dashboard/user-experience/{id}/update(id=${userExperience.id})}" th:object="${userExperience}" method="POST">
                     <div class="row gx-3 mb-3">
                         <div class="col-md-4 gx-3">
                             <label class="mb-1" for="user_id">User</label>
-                            <select id="user_id" name="user_id" class="form-control" aria-label="select">
+                            <select id="user_id" th:name="user_id" class="form-control" th:classappend="${#fields.hasErrors('user') ? 'is-invalid' : ''}" aria-label="select" required>
                                 <option value="" selected>Select User</option>
                                 <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}" th:selected="${userExperience.user.id == user.id}"></option>
+                                <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></div>
                             </select>
                         </div>
                         <div class="col-md-4 gx-3 mb-3">
                             <label class="mb-1" for="start_date">Start Date</label>
-                            <input class="form-control" id="start_date" name="startDate" type="date" placeholder="Enter start date" th:value="${userExperience.startDate}" required>
+                            <input id="start_date" th:name="startDate" class="form-control" th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}" type="date" placeholder="Enter start date" th:value="${userExperience.startDate}" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
                         </div>
                         <div class="col-md-4 gx-3 mb-3">
                             <label class="mb-1" for="end_date">End Date</label>
-                            <input class="form-control" id="end_date" name="endDate" type="date" placeholder="Enter end date" th:value="${userExperience.endDate}">
+                            <input id="end_date" th:name="startDate" class="form-control" th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}" type="date" placeholder="Enter end date" th:value="${userExperience.endDate}">
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
                         </div>
                         <div class="col-md-6 gx-3 mb-3">
                             <label class="mb-1" for="organization">Organization</label>
-                            <input class="form-control" id="organization" name="organization" type="text" placeholder="Enter organization" th:value="${userExperience.organization}" required>
+                            <input id="organization" th:field="*{organization}" class="form-control" th:classappend="${#fields.hasErrors('organization') ? 'is-invalid' : ''}" type="text" placeholder="Enter organization" th:value="${userExperience.organization}" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('organization')}" th:errors="*{organization}"></div>
                         </div>
                         <div class="col-md-6 gx-3 mb-3">
                             <label class="mb-1" for="designation">Designation</label>
-                            <input class="form-control" id="designation" name="designation" type="text" placeholder="Enter designation" th:value="${userExperience.designation}" required>
+                            <input id="designation" th:field="*{designation}" class="form-control" th:classappend="${#fields.hasErrors('designation') ? 'is-invalid' : ''}" type="text" placeholder="Enter designation" th:value="${userExperience.organization}" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}"></div>
                         </div>
                         <div class="col-12">
                             <div class="float-right">

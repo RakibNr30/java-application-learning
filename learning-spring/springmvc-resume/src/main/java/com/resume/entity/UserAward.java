@@ -2,6 +2,7 @@ package com.resume.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,10 +14,13 @@ public class UserAward {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Length(min = 3, max = 255)
     private String institute;
 
+    @Length(min = 3, max = 255)
     private String title;
 
+    @Length(min = 20, max = 65535)
     @Column(length = 65535)
     private String details;
 

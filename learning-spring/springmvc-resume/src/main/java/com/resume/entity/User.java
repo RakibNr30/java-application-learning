@@ -1,9 +1,12 @@
 package com.resume.entity;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,12 +20,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Length(min = 3, max = 255)
     private String name;
 
+    @NotNull
     private LocalDate dob;
 
+    @Email
     private String email;
 
+    @Length(min = 3, max = 255)
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)

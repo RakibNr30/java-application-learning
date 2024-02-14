@@ -2,12 +2,15 @@ package com.resume.controller.dashboard;
 
 import com.resume.entity.Skill;
 import com.resume.entity.User;
+import com.resume.helpers.ValidationHelper;
 import com.resume.service.SkillService;
 import com.resume.service.UserService;
 import com.resume.helpers.NotifierHelper;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,6 +32,11 @@ public class UserController {
         model.addAttribute("title", "User");
     }
 
+    @ModelAttribute
+    public User getUser() {
+        return new User();
+    }
+
     @RequestMapping
     public String index(Model model) {
         List<User> users = this.userService.getAll();
@@ -46,7 +54,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/store", method = RequestMethod.POST)
-    public String store(@ModelAttribute User user, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
+    public String store(@Valid @ModelAttribute User user, BindingResult result, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
+
+        if (result.hasErrors()) {
+            new ValidationHelper(attributes).model("user", user).bind(result);
+            return "redirect:/dashboard/user/create";
+        }
 
         List<Skill> skills = new ArrayList<>();
 
@@ -101,7 +114,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Long id, @ModelAttribute User user, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute User user, BindingResult result, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
+
+        if (result.hasErrors()) {
+            new ValidationHelper(attributes).model("user", user).bind(result);
+            return "redirect:/dashboard/user/" + id + "/edit";
+        }
 
         User updatableUser = this.userService.get(id);
 

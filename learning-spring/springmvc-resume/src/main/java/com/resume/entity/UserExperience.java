@@ -1,7 +1,9 @@
 package com.resume.entity;
 
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,10 +16,13 @@ public class UserExperience {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Length(min = 3, max = 255)
     private String organization;
 
+    @Length(min = 3, max = 255)
     private String designation;
 
+    @NotNull
     @Column(name = "start_date")
     private LocalDate startDate;
 

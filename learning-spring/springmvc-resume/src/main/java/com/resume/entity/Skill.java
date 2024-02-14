@@ -1,7 +1,9 @@
 package com.resume.entity;
 
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,8 +17,10 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Length(min = 3, max = 255)
     private String name;
 
+    @NotNull
     private int proficiency;
 
     @ManyToMany(mappedBy = "skills")

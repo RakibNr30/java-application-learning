@@ -1,6 +1,7 @@
 package com.resume.controller;
 
 import com.resume.entity.Contact;
+import com.resume.helpers.ValidationHelper;
 import com.resume.service.ContactService;
 import com.resume.helpers.NotifierHelper;
 import jakarta.validation.Valid;
@@ -24,18 +25,13 @@ public class ContactController {
         model.addAttribute("title", "Contact");
     }
 
-    @ModelAttribute("contact")
+    @ModelAttribute
     public Contact getContact() {
-        return new Contact();
+        return this.contactService.getOrSave(1);
     }
 
     @RequestMapping
     public String index(Model model) {
-
-        Contact contact = this.contactService.getOrSave(1);
-
-        model.addAttribute("contact", contact);
-
         return "front/contact/index";
     }
 
@@ -43,8 +39,7 @@ public class ContactController {
     public String update(@Valid @ModelAttribute Contact contact, BindingResult result, Model model, RedirectAttributes attributes)
     {
         if (result.hasErrors()) {
-            attributes.addFlashAttribute("org.springframework.validation.BindingResult.contact", result);
-            attributes.addFlashAttribute("contact", contact);
+            new ValidationHelper(attributes).model("contact", contact).bind(result);
             return "redirect:/contact";
         }
 

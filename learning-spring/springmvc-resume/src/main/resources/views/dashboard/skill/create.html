@@ -18,20 +18,22 @@
                 <h6 class="m-0 font-weight-bold text-primary">Skill Add</h6>
             </div>
             <div class="card-body">
-                <form th:action="@{/dashboard/skill/store}" method="POST">
+                <form th:action="@{/dashboard/skill/store}" th:object="${skill}" method="POST">
                     <div class="row gx-3 mb-3">
                         <div class="col-md-6 gx-3 mb-3">
                             <label class="mb-1" for="name">Name</label>
-                            <input class="form-control" id="name" name="name" type="text" placeholder="Enter name" required>
+                            <input id="name" th:field="*{name}" class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" type="text" placeholder="Enter name" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                         </div>
                         <div class="col-md-6 gx-3 mb-3">
                             <label class="mb-1" for="proficiency">Proficiency</label>
-                            <select class="form-control" id="proficiency" name="proficiency"  aria-label="Select Proficiency" required>
+                            <select id="proficiency" th:name="proficiency" class="form-control" th:classappend="${#fields.hasErrors('proficiency') ? 'is-invalid' : ''}" aria-label="Select Proficiency" required>
                                 <option value="" selected>Select Proficiency</option>
                                 <option th:each="proficiency : ${T(com.resume.constants.Proficiency).values()}"
                                         th:value="${proficiency.getValue()}"
                                         th:text="${proficiency.getLabel()}"></option>
                             </select>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('proficiency')}" th:errors="*{proficiency}"></div>
                         </div>
                     </div>
                     <div class="col-12">
