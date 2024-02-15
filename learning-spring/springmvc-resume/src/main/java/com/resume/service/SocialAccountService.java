@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class SocialAccountService {
 
+    private final SocialAccountRepository socialAccountRepository;
+
     @Autowired
-    private SocialAccountRepository socialAccountRepository;
+    public SocialAccountService(SocialAccountRepository socialAccountRepository) {
+        this.socialAccountRepository = socialAccountRepository;
+    }
 
     public List<SocialAccount> getAll() {
         return this.socialAccountRepository.getAll();

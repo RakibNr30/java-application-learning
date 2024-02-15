@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class UserEducationService {
 
+    private final UserEducationRepository userEducationRepository;
+
     @Autowired
-    private UserEducationRepository userEducationRepository;
+    public UserEducationService(UserEducationRepository userEducationRepository) {
+        this.userEducationRepository = userEducationRepository;
+    }
 
     public List<UserEducation> getAll() {
         return this.userEducationRepository.getAll();

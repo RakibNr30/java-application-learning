@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public class LanguageRepository {
 
+    private final HibernateTemplate hibernateTemplate;
+
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    public LanguageRepository(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
     public List<Language> getAll() {
         return this.hibernateTemplate.loadAll(Language.class);

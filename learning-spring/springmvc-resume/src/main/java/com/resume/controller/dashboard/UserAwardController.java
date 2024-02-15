@@ -20,11 +20,15 @@ import java.util.List;
 @RequestMapping("/dashboard/user-award")
 public class UserAwardController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final UserAwardService userAwardService;
 
     @Autowired
-    private UserAwardService userAwardService;
+    public UserAwardController(UserService userService, UserAwardService userAwardService) {
+        this.userService = userService;
+        this.userAwardService = userAwardService;
+    }
 
     @ModelAttribute
     public void common(Model model) {

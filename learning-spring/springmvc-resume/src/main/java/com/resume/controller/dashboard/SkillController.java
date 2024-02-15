@@ -21,8 +21,12 @@ import java.util.List;
 @RequestMapping("/dashboard/skill")
 public class SkillController {
 
+    private final SkillService skillService;
+
     @Autowired
-    private SkillService skillService;
+    public SkillController(SkillService skillService) {
+        this.skillService = skillService;
+    }
 
     @ModelAttribute
     public void common(Model model) {

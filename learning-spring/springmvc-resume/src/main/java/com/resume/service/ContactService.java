@@ -10,8 +10,13 @@ import java.util.List;
 
 @Service
 public class ContactService {
+
+    private final ContactRepository contactRepository;
+
     @Autowired
-    private ContactRepository contactRepository;
+    public ContactService(ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
+    }
 
     public List<Contact> getAll() {
         return this.contactRepository.getAll();

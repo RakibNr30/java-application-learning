@@ -21,11 +21,15 @@ import java.util.List;
 @RequestMapping("/dashboard/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final SkillService skillService;
 
     @Autowired
-    private SkillService skillService;
+    public UserController(UserService userService, SkillService skillService) {
+        this.userService = userService;
+        this.skillService = skillService;
+    }
 
     @ModelAttribute
     public void common(Model model) {

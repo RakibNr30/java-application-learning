@@ -21,8 +21,12 @@ import java.util.List;
 @RequestMapping("/dashboard/language")
 public class LanguageController {
 
+    private final LanguageService languageService;
+
     @Autowired
-    private LanguageService languageService;
+    public LanguageController(LanguageService languageService) {
+        this.languageService = languageService;
+    }
 
     @ModelAttribute
     public void common(Model model) {

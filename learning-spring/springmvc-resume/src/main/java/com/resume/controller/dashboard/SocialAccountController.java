@@ -21,8 +21,12 @@ import java.util.List;
 @RequestMapping("/dashboard/social-account")
 public class SocialAccountController {
 
+    private final SocialAccountService socialAccountService;
+
     @Autowired
-    private SocialAccountService socialAccountService;
+    public SocialAccountController(SocialAccountService socialAccountService) {
+        this.socialAccountService = socialAccountService;
+    }
 
     @ModelAttribute
     public void common(Model model) {

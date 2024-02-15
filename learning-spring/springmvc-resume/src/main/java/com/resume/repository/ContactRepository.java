@@ -10,8 +10,13 @@ import java.util.List;
 
 @Repository
 public class ContactRepository {
+
+    private final HibernateTemplate hibernateTemplate;
+
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    public ContactRepository(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
     public List<Contact> getAll() {
         return this.hibernateTemplate.loadAll(Contact.class);

@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public class UserAwardRepository {
 
+    private final HibernateTemplate hibernateTemplate;
+
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    public UserAwardRepository(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
     public List<UserAward> getAll() {
         return this.hibernateTemplate.loadAll(UserAward.class);

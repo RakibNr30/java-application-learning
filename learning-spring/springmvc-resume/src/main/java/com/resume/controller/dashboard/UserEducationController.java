@@ -20,11 +20,15 @@ import java.util.List;
 @RequestMapping("/dashboard/user-education")
 public class UserEducationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final UserEducationService userEducationService;
 
     @Autowired
-    private UserEducationService userEducationService;
+    public UserEducationController(UserService userService, UserEducationService userEducationService) {
+        this.userService = userService;
+        this.userEducationService = userEducationService;
+    }
 
     @ModelAttribute
     public void common(Model model) {

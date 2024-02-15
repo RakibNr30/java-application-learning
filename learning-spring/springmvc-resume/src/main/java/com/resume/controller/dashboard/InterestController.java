@@ -21,8 +21,12 @@ import java.util.List;
 @RequestMapping("/dashboard/interest")
 public class InterestController {
 
+    private final InterestService interestService;
+
     @Autowired
-    private InterestService interestService;
+    public InterestController(InterestService interestService) {
+        this.interestService = interestService;
+    }
 
     @ModelAttribute
     public void common(Model model) {

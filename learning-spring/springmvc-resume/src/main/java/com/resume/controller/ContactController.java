@@ -17,8 +17,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/contact")
 public class ContactController {
+
+    private final ContactService contactService;
+
     @Autowired
-    private ContactService contactService;
+    public ContactController(ContactService contactService) {
+        this.contactService = contactService;
+    }
 
     @ModelAttribute
     public void commonData(Model model) {

@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public class SocialAccountRepository {
 
+    private final HibernateTemplate hibernateTemplate;
+
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    public SocialAccountRepository(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
     public List<SocialAccount> getAll() {
         return this.hibernateTemplate.loadAll(SocialAccount.class);

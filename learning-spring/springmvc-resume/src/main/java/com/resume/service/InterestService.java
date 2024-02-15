@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class InterestService {
 
+    private final InterestRepository interestRepository;
+
     @Autowired
-    private InterestRepository interestRepository;
+    public InterestService(InterestRepository interestRepository) {
+        this.interestRepository = interestRepository;
+    }
 
     public List<Interest> getAll() {
         return this.interestRepository.getAll();

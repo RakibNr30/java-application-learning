@@ -11,8 +11,12 @@ import java.util.List;
 @Repository
 public class InterestRepository {
 
+    private final HibernateTemplate hibernateTemplate;
+
     @Autowired
-    private HibernateTemplate hibernateTemplate;
+    public InterestRepository(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
     public List<Interest> getAll() {
         return this.hibernateTemplate.loadAll(Interest.class);

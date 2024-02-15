@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class UserAwardService {
 
+    private final UserAwardRepository userAwardRepository;
+
     @Autowired
-    private UserAwardRepository userAwardRepository;
+    public UserAwardService(UserAwardRepository userAwardRepository) {
+        this.userAwardRepository = userAwardRepository;
+    }
 
     public List<UserAward> getAll() {
         return this.userAwardRepository.getAll();
