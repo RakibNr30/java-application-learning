@@ -47,14 +47,18 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" th:href="@{/dashboard/social-account}"><i class="fas fa-fw fa-thumbs-up"></i><span>Social Accounts</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings"
            aria-expanded="true" aria-controls="collapseSettings">
             <i class="fas fa-fw fa-cog"></i><span>Settings</span>
         </a>
         <div id="collapseSettings" class="sub-nav-item collapse" aria-labelledby="headingSettings" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" th:href="@{/dashboard/app-setting}">App Settings</a>
-                <a class="collapse-item" th:href="@{/dashboard/user-setting}">User Settings</a>
+                <a class="collapse-item" th:href="@{#/dashboard/app-setting}">App Settings</a>
+                <a class="collapse-item" th:href="@{#/dashboard/user-setting}">User Settings</a>
             </div>
         </div>
     </li>

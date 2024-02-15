@@ -1,6 +1,6 @@
 package com.resume.entity;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -11,19 +11,25 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "skills")
-public class Skill {
+@Table(name = "social_accounts")
+public class SocialAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Length(min = 2, max = 255)
+    @Length(max = 255)
+    @NotBlank
     private String name;
 
-    @NotNull
-    private int proficiency;
+    @Length(max = 255)
+    @NotBlank
+    private String icon;
 
-    @ManyToMany(mappedBy = "skills", fetch = FetchType.EAGER)
+    @Length(max = 255)
+    @NotBlank
+    private String url;
+
+    @ManyToMany(mappedBy = "socialAccounts", fetch = FetchType.EAGER)
     private List<User> users;
 
     @Column(name = "created_at", updatable = false)
@@ -50,12 +56,20 @@ public class Skill {
         this.name = name;
     }
 
-    public int getProficiency() {
-        return proficiency;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setProficiency(int proficiency) {
-        this.proficiency = proficiency;
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<User> getUsers() {
@@ -86,7 +100,7 @@ public class Skill {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Skill skill = (Skill) o;
-        return Objects.equals(id, skill.id);
+        SocialAccount socialAccount = (SocialAccount) o;
+        return Objects.equals(id, socialAccount.id);
     }
 }

@@ -37,7 +37,23 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "skill_id")})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Skill> skills;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "interest_id")})
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Interest> interests;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "language_id")})
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Language> languages;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "social_account_id")})
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<SocialAccount> socialAccounts;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -114,6 +130,30 @@ public class User {
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+    }
+
+    public List<Interest> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<Interest> interests) {
+        this.interests = interests;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> languages) {
+        this.languages = languages;
+    }
+
+    public List<SocialAccount> getSocialAccounts() {
+        return socialAccounts;
+    }
+
+    public void setSocialAccounts(List<SocialAccount> socialAccounts) {
+        this.socialAccounts = socialAccounts;
     }
 
     public List<UserEducation> getUserEducations() {

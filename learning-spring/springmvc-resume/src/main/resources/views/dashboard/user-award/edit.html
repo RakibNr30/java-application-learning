@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-12 gx-3 mb-3">
                             <label class="mb-1" for="details">Details</label>
-                            <textarea id="details" th:field="*{details}" class="form-control" th:classappend="${#fields.hasErrors('details') ? 'is-invalid' : ''}" placeholder="Enter details" rows="8" th:value="${userAward.institute}" required></textarea>
+                            <textarea id="details" th:field="*{details}" class="form-control" th:classappend="${#fields.hasErrors('details') ? 'is-invalid' : ''}" placeholder="Enter details" rows="8" th:value="${userAward.details}" required></textarea>
                             <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('details')}" th:errors="*{details}"></div>
                         </div>
                         <div class="col-12">

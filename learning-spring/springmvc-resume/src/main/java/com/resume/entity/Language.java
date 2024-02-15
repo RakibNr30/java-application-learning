@@ -1,6 +1,6 @@
 package com.resume.entity;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -11,19 +11,21 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "skills")
-public class Skill {
+@Table(name = "languages")
+public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Length(min = 2, max = 255)
+    @Length(max = 255)
+    @NotBlank
     private String name;
 
-    @NotNull
-    private int proficiency;
+    @Length(min = 3, max = 65535)
+    @Column(length = 65535)
+    private String details;
 
-    @ManyToMany(mappedBy = "skills", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "languages", fetch = FetchType.EAGER)
     private List<User> users;
 
     @Column(name = "created_at", updatable = false)
@@ -50,12 +52,12 @@ public class Skill {
         this.name = name;
     }
 
-    public int getProficiency() {
-        return proficiency;
+    public String getDetails() {
+        return details;
     }
 
-    public void setProficiency(int proficiency) {
-        this.proficiency = proficiency;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public List<User> getUsers() {
@@ -86,7 +88,7 @@ public class Skill {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Skill skill = (Skill) o;
-        return Objects.equals(id, skill.id);
+        Language language = (Language) o;
+        return Objects.equals(id, language.id);
     }
 }

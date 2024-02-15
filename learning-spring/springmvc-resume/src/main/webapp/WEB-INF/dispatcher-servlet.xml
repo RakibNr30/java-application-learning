@@ -63,6 +63,9 @@
                 <value>com.resume.entity.UserExperience</value>
                 <value>com.resume.entity.UserAward</value>
                 <value>com.resume.entity.Skill</value>
+                <value>com.resume.entity.Language</value>
+                <value>com.resume.entity.Interest</value>
+                <value>com.resume.entity.SocialAccount</value>
                 <value>com.resume.entity.Contact</value>
             </list>
         </property>

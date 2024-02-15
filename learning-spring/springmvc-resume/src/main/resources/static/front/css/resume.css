@@ -74,7 +74,7 @@ html {
     background-color: var(--body-color);
     color: var(--text-color);
 }
-h1, h2, h3, ul, p {
+h1, h2, h3, ul {
     color: var(--title-color);
     font-weight: var(--font-medium);
 }

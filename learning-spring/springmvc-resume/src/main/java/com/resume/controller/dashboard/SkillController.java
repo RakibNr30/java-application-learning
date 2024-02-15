@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@Controller("dashboardSkillController")
+@Controller
 @RequestMapping("/dashboard/skill")
 public class SkillController {
 

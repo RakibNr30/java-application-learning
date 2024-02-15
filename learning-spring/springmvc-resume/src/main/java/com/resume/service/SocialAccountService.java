@@ -1,0 +1,37 @@
+package com.resume.service;
+
+import com.resume.entity.SocialAccount;
+import com.resume.repository.SocialAccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+public class SocialAccountService {
+
+    @Autowired
+    private SocialAccountRepository socialAccountRepository;
+
+    public List<SocialAccount> getAll() {
+        return this.socialAccountRepository.getAll();
+    }
+
+    public void save(SocialAccount socialAccount) {
+        this.socialAccountRepository.save(socialAccount);
+    }
+
+    public SocialAccount get(long id) {
+        return this.socialAccountRepository.get(id);
+    }
+
+    public void update(SocialAccount socialAccount) {
+        this.socialAccountRepository.update(socialAccount);
+    }
+
+    @Transactional
+    public void delete(SocialAccount socialAccount) {
+        this.socialAccountRepository.delete(socialAccount);
+    }
+}
