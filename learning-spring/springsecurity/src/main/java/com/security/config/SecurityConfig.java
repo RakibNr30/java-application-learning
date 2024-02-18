@@ -96,9 +96,11 @@ public class SecurityConfig {
         return httpSecurity
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/hello").hasAnyRole("admin")
-                        .requestMatchers("/bye").authenticated()
-                        .requestMatchers("/hi", "/**").permitAll()
+                        .requestMatchers("/", "/signup", "/handle-signup").permitAll()
+                        .requestMatchers("/**").hasRole("ADMIN")
+                        .requestMatchers("/coder").hasRole("CODER")
+                        .requestMatchers("/trainer").hasRole("TRAINER")
+                        .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
@@ -106,6 +108,9 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(Customizer.withDefaults())
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/access-denied")
+                )
                 .build();
     }
 

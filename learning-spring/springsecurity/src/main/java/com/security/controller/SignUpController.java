@@ -3,6 +3,7 @@ package com.security.controller;
 import com.security.dto.SignUpDTO;
 import com.security.repository.SignUpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,12 +28,21 @@ public class SignUpController {
     }
 
     @RequestMapping("/signup")
-    public String signup() {
+    public String signup(Authentication auth) {
+        if (auth != null && auth.isAuthenticated()) {
+            return "redirect:/";
+        }
+
         return "signup";
     }
 
     @RequestMapping(value = "/handle-signup", method = RequestMethod.POST)
-    public String handleSignup(@ModelAttribute SignUpDTO signUpDTO) {
+    public String handleSignup(@ModelAttribute SignUpDTO signUpDTO, Authentication auth) {
+
+        if (auth != null && auth.isAuthenticated()) {
+            return "redirect:/";
+        }
+
         signUpDTO.setPassword(passwordEncoder.encode(signUpDTO.getPassword()));
         System.out.println(signUpDTO);
 

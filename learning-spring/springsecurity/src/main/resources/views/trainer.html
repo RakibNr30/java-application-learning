@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Spring Security</title>
@@ -55,31 +56,20 @@
 
 <div class="container">
     <div class="section">
-        <h1>Home <span sec:authorize="isAuthenticated()"> (<span sec:authentication="name"></span>)</span></h1>
-        <h3 sec:authorize="${isAuthenticated()}" sec:authentication="authorities"></h3>
-
-        <ul sec:authorize="isAuthenticated()">
-            <li sec:authorize="hasAnyRole('TRAINER', 'ADMIN')">
-                <a th:href="@{/trainer}">Go Trainer</a>
+        <h1>Trainer</h1>
+        <ul>
+            <li>
+                <a th:href="@{/}">Go Home</a>
             </li>
-            <li sec:authorize="hasAnyRole('CODER', 'ADMIN')">
-                <a th:href="@{/coder}">Go Coder</a>
-            </li>
+            <th:block sec:authorize="isAuthenticated()">
+                <li sec:authorize="hasAnyRole('CODER', 'ADMIN')">
+                    <a th:href="@{/coder}">Go Coder</a>
+                </li>
+                <li>
+                    <a th:href="@{/bye}">Go Bye</a>
+                </li>
+            </th:block>
         </ul>
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Password</th>
-            </tr>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.password}"></td>
-            </tr>
-        </table>
     </div>
 </div>
 

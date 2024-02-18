@@ -1,5 +1,6 @@
 package com.security.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoginController {
 
     @RequestMapping("/login")
-    public String login() {
+    public String login(Authentication auth) {
+
+        if (auth != null && auth.isAuthenticated()) {
+            return "redirect:/";
+        }
+
         return "login";
     }
 
