@@ -1,13 +1,14 @@
 package com.security.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class ByeController {
 
     @GetMapping("/bye")
     public String sayBye() {
-        return "Bye all!";
+        return "bye";
     }
 }

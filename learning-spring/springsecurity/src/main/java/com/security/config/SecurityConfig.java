@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,9 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +57,9 @@ public class SecurityConfig {
 
     /* second: we need to understand this config */
 
+    @Autowired
+    private DataSource dataSource;
+
     @Bean
     public UserDetailsManager getUserDetailsManager() {
          UserDetails admin =
@@ -74,7 +80,13 @@ public class SecurityConfig {
                          .roles("user")
                          .build();
 
-         return new InMemoryUserDetailsManager(admin, user);
+         //return new InMemoryUserDetailsManager(admin, user);
+
+        UserDetailsManager users = new JdbcUserDetailsManager(this.dataSource);
+        /*users.createUser(admin);
+        users.createUser(user);*/
+
+        return users;
     }
 
     /* setting up http security  */
@@ -82,14 +94,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain setSttpSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .formLogin(Customizer.withDefaults())
                 .httpBasic(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize ->
-                        authorize
-                                .requestMatchers("/hi", "/").permitAll()
-                                .requestMatchers("/hello").hasAnyRole("admin")
-                                .requestMatchers("/bye").authenticated()
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/hello").hasAnyRole("admin")
+                        .requestMatchers("/bye").authenticated()
+                        .requestMatchers("/hi", "/**").permitAll()
                 )
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .loginProcessingUrl("/handle-login")
+                        .permitAll()
+                )
+                .logout(Customizer.withDefaults())
                 .build();
     }
 
