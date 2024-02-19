@@ -1,8 +1,6 @@
-package com.security.config;
+package com.resume.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-/* Delegating Filter Proxy */
 public class SecurityInitializer extends AbstractSecurityWebApplicationInitializer {
-
 }

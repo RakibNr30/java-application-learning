@@ -2,13 +2,13 @@ package com.resume.entity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,14 +26,24 @@ public class User {
     @NotNull
     private LocalDate dob;
 
+    @Length(min = 3, max = 50)
+    private String username;
+
     @Email
+    @Column(unique = true)
     private String email;
 
     @Length(min = 11, max = 11, message = "Length must be 11 characters")
     private String mobile;
 
+    @Length(max = 100)
+    private String password;
+
     @Length(min = 3, max = 255)
     private String address;
+
+    @ColumnDefault(value = "true")
+    private Boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "skill_id")})
@@ -100,6 +110,14 @@ public class User {
         this.dob = dob;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -116,12 +134,28 @@ public class User {
         this.mobile = mobile;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<Skill> getSkills() {

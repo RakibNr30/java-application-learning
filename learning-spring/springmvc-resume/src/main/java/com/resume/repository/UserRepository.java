@@ -31,6 +31,10 @@ public class UserRepository {
         return this.hibernateTemplate.get(User.class, id);
     }
 
+    public User getByUsername(String username) {
+        return null;
+    }
+
     @Transactional
     public void update(User user) {
         this.hibernateTemplate.update(user);
