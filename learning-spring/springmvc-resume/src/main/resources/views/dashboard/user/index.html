@@ -24,6 +24,7 @@
                         <tr>
                             <th>SN</th>
                             <th>Name</th>
+                            <th>Username</th>
                             <th>DOB</th>
                             <th>Email</th>
                             <th>Mobile</th>
@@ -37,6 +38,7 @@
                         <tr th:each="user, loop : ${users}">
                             <th scope="row" th:text="${loop.index + 1}"></th>
                             <td th:text="${user.name}"></td>
+                            <td th:text="${user.username}"></td>
                             <td th:text="${user.dob}"></td>
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.mobile}"></td>

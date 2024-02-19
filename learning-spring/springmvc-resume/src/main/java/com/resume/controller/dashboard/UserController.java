@@ -1,13 +1,16 @@
 package com.resume.controller.dashboard;
 
+import com.resume.entity.Role;
 import com.resume.entity.Skill;
 import com.resume.entity.User;
 import com.resume.helpers.ValidationHelper;
+import com.resume.service.RoleService;
 import com.resume.service.SkillService;
 import com.resume.service.UserService;
 import com.resume.helpers.NotifierHelper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,10 +28,16 @@ public class UserController {
 
     private final SkillService skillService;
 
+    private final RoleService roleService;
+
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserController(UserService userService, SkillService skillService) {
+    public UserController(UserService userService, SkillService skillService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.skillService = skillService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @ModelAttribute
@@ -52,13 +61,15 @@ public class UserController {
     @RequestMapping("/create")
     public String create(Model model) {
         List<Skill> skills = this.skillService.getAll();
+        List<Role> roles = this.roleService.getAll();
 
         model.addAttribute("skills", skills);
+        model.addAttribute("roles", roles);
         return "dashboard/user/create";
     }
 
     @RequestMapping(value = "/store", method = RequestMethod.POST)
-    public String store(@Valid @ModelAttribute User user, BindingResult result, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
+    public String store(@Valid @ModelAttribute User user, BindingResult result, @RequestParam("selectedSkills") List<Integer> selectedSkills, @RequestParam("selectedRoles") List<Integer> selectedRoles, RedirectAttributes attributes) {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("user", user).bind(result);
@@ -66,13 +77,20 @@ public class UserController {
         }
 
         List<Skill> skills = new ArrayList<>();
+        List<Role> roles = new ArrayList<>();
 
         try {
             for (Integer skillId: selectedSkills) {
                 skills.add(this.skillService.get(skillId));
             }
 
+            for (Integer roleId: selectedRoles) {
+                roles.add(this.roleService.get(roleId));
+            }
+
             user.setSkills(skills);
+            user.setRoles(roles);
+            user.setPassword(passwordEncoder.encode("password"));
 
             this.userService.save(user);
             new NotifierHelper(attributes).message("User added successfully.").success();
@@ -110,15 +128,17 @@ public class UserController {
         }
 
         List<Skill> skills = this.skillService.getAll();
+        List<Role> roles = this.roleService.getAll();
 
         model.addAttribute("user", user);
         model.addAttribute("skills", skills);
+        model.addAttribute("roles", roles);
 
         return "dashboard/user/edit";
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
-    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute User user, BindingResult result, @RequestParam("selectedSkills") List<Integer> selectedSkills, RedirectAttributes attributes) {
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute User user, BindingResult result, @RequestParam("selectedSkills") List<Integer> selectedSkills, @RequestParam("selectedRoles") List<Integer> selectedRoles, RedirectAttributes attributes) {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("user", user).bind(result);
@@ -133,13 +153,20 @@ public class UserController {
         }
 
         List<Skill> skills = new ArrayList<>();
+        List<Role> roles = new ArrayList<>();
 
         try {
             for (Integer skillId: selectedSkills) {
                 skills.add(this.skillService.get(skillId));
             }
 
+            for (Integer roleId: selectedRoles) {
+                roles.add(this.roleService.get(roleId));
+            }
+
             user.setSkills(skills);
+            user.setRoles(roles);
+            user.setPassword(passwordEncoder.encode("password"));
 
             this.userService.update(user);
             new NotifierHelper(attributes).message("User updated successfully.").success();

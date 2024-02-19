@@ -1,6 +1,8 @@
 package com.resume.repository;
 
 import com.resume.entity.User;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -32,7 +34,17 @@ public class UserRepository {
     }
 
     public User getByUsername(String username) {
-        return null;
+        DetachedCriteria criteria = DetachedCriteria
+                .forEntityName(User.class.getName())
+                .add(Restrictions.eq("username", username));
+
+        List<User> users = (List<User>) this.hibernateTemplate.findByCriteria(criteria);
+
+        if (users.isEmpty()) {
+            return null;
+        }
+
+        return users.get(0);
     }
 
     @Transactional

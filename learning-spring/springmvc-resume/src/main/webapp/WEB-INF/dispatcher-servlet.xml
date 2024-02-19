@@ -59,6 +59,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.resume.entity.User</value>
+                <value>com.resume.entity.Role</value>
                 <value>com.resume.entity.UserEducation</value>
                 <value>com.resume.entity.UserExperience</value>
                 <value>com.resume.entity.UserAward</value>

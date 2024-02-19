@@ -1,7 +1,6 @@
 package com.resume.entity;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -26,7 +25,9 @@ public class User {
     @NotNull
     private LocalDate dob;
 
-    @Length(min = 3, max = 50)
+    @Length(min = 3, max = 20)
+    @ColumnTransformer(read = "username", write = "LOWER(?)")
+    @Pattern(regexp = "^[a-zA-Z_][a-zA-Z0-9_-]{3,20}$", message = "Username should be start with letter/underscore, no-space and length between 3 and 20.")
     private String username;
 
     @Email
@@ -37,13 +38,18 @@ public class User {
     private String mobile;
 
     @Length(max = 100)
+    @NotBlank
     private String password;
 
     @Length(min = 3, max = 255)
     private String address;
 
-    @ColumnDefault(value = "true")
-    private Boolean enabled;
+    private Boolean enabled = true;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Role> roles;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "skill_id")})
@@ -76,7 +82,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserAward> userAwards;
-
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -156,6 +161,14 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public List<Skill> getSkills() {
