@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/dashboard::layout(~{::section})">
+
+<body>
+<section>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Social Account</h1>
+            <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/cms/social-account}">
+                <i class="fas fa-list"></i> Social Account List
+            </a>
+        </div>
+
+        <th:block th:replace="/fragments/dashboard/notifier" />
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Social Account Edit</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/dashboard/cms/social-account/{id}/update(id=${socialAccount.id})}" th:object="${socialAccount}" method="POST">
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="name">Name</label>
+                            <input id="name" th:field="*{name}" class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" type="text" placeholder="Enter name" th:value="${socialAccount.name}" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="icon">Icon</label>
+                            <input id="icon" th:field="*{icon}" class="form-control" th:classappend="${#fields.hasErrors('icon') ? 'is-invalid' : ''}" type="text" placeholder="Enter icon" th:value="${socialAccount.icon}" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('icon')}" th:errors="*{icon}"></div>
+                        </div>
+                        <div class="col-md-4 gx-3 mb-3">
+                            <label class="mb-1" for="url">URL</label>
+                            <input id="url" th:field="*{url}" class="form-control" th:classappend="${#fields.hasErrors('url') ? 'is-invalid' : ''}" type="text" placeholder="Enter url" th:value="${socialAccount.url}" required>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="float-right">
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

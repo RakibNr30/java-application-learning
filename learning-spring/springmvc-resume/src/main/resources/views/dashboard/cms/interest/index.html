@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/dashboard::layout(~{::section})">
+
+<body>
+<section>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Interest</h1>
+            <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/cms/interest/create}">
+                <i class="fas fa-plus-square"></i> Add New Interest
+            </a>
+        </div>
+
+        <th:block th:replace="/fragments/dashboard/notifier" />
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Interest List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th class="action">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="interest, loop : ${interests}">
+                            <th scope="row" th:text="${loop.index + 1}"></th>
+                            <td th:text="${interest.name}"></td>
+                            <td th:text="${interest.createdAt}"></td>
+                            <td th:text="${interest.updatedAt}"></td>
+                            <td class="action">
+                                <a th:href="@{/dashboard/cms/interest/{id}(id=${interest.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                    <i class="fas fa-solid fa-eye"></i>
+                                </a>
+                                <a th:href="@{/dashboard/cms/interest/{id}/edit(id=${interest.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                     <i class="fas fa-solid fa-pen text-primary"></i>
+                                </a>
+                                <form th:action="@{/dashboard/cms/interest/{id}/destroy(id=${interest.id})}" method="POST" style="all: unset">
+                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                        <i class="fas fa-regular fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

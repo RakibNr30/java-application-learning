@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/dashboard::layout(~{::section})">
+
+<body>
+<section>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Social Account</h1>
+            <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/cms/social-account/create}">
+                <i class="fas fa-plus-square"></i> Add New Social Account
+            </a>
+        </div>
+
+        <th:block th:replace="/fragments/dashboard/notifier" />
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Social Account List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Icon</th>
+                            <th>URL</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th class="action">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="socialAccount, loop : ${socialAccounts}">
+                            <th scope="row" th:text="${loop.index + 1}"></th>
+                            <td th:text="${socialAccount.name}"></td>
+                            <td>
+                                <i th:classappend="${socialAccount.icon}"></i> <span th:text="${socialAccount.icon}"></span>
+                            </td>
+                            <td th:text="${socialAccount.url}"></td>
+                            <td th:text="${socialAccount.createdAt}"></td>
+                            <td th:text="${socialAccount.updatedAt}"></td>
+                            <td class="action">
+                                <a th:href="@{/dashboard/cms/social-account/{id}(id=${socialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                    <i class="fas fa-solid fa-eye"></i>
+                                </a>
+                                <a th:href="@{/dashboard/cms/social-account/{id}/edit(id=${socialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                     <i class="fas fa-solid fa-pen text-primary"></i>
+                                </a>
+                                <form th:action="@{/dashboard/cms/social-account/{id}/destroy(id=${socialAccount.id})}" method="POST" style="all: unset">
+                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                        <i class="fas fa-regular fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

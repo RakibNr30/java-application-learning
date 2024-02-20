@@ -1,6 +1,6 @@
 package com.resume.config;
 
-import com.resume.service.UserDetailsServiceImpl;
+import com.resume.service.ums.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -40,7 +40,8 @@ public class SecurityConfig {
         return security
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/dashboard/**").hasRole("ADMIN")
+                        .requestMatchers("/dashboard/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/dashboard/ums/**", "/dashboard/cms/**", "/dashboard/setting/**").hasRole("ADMIN")
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )

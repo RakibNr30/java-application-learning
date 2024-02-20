@@ -58,16 +58,16 @@
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.resume.entity.User</value>
-                <value>com.resume.entity.Role</value>
-                <value>com.resume.entity.UserEducation</value>
-                <value>com.resume.entity.UserExperience</value>
-                <value>com.resume.entity.UserAward</value>
-                <value>com.resume.entity.Skill</value>
-                <value>com.resume.entity.Language</value>
-                <value>com.resume.entity.Interest</value>
-                <value>com.resume.entity.SocialAccount</value>
-                <value>com.resume.entity.Contact</value>
+                <value>com.resume.entity.ums.User</value>
+                <value>com.resume.entity.ums.Role</value>
+                <value>com.resume.entity.ums.UserEducation</value>
+                <value>com.resume.entity.ums.UserExperience</value>
+                <value>com.resume.entity.ums.UserAward</value>
+                <value>com.resume.entity.cms.Skill</value>
+                <value>com.resume.entity.cms.Language</value>
+                <value>com.resume.entity.cms.Interest</value>
+                <value>com.resume.entity.cms.SocialAccount</value>
+                <value>com.resume.entity.cms.Contact</value>
             </list>
         </property>
     </bean>
