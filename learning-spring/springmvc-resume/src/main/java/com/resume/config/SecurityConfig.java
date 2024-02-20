@@ -39,15 +39,22 @@ public class SecurityConfig {
     SecurityFilterChain getSecurityFilterChain(HttpSecurity security) throws Exception {
         return security
                 .csrf(Customizer.withDefaults())
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/dashboard/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/dashboard/ums/**", "/dashboard/cms/**", "/dashboard/setting/**").hasRole("ADMIN")
+                        .requestMatchers("/dashboard/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/handle-login")
+                        .permitAll()
+                )
                 .logout(Customizer.withDefaults())
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/access-denied")
+                )
                 .build();
     }
 }

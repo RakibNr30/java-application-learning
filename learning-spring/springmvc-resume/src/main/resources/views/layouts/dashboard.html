@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(content)"
+>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="" sec:authentication="">
 
     <title th:text="${title}"></title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" th:href="@{/dashboard/vendor/fontawesome-free/css/all.min.css}"  type="text/css">
-    <link rel="stylesheet" th:href="@{/dashboard/css/dashboard.min.css}">
-    <link rel="stylesheet" th:href="@{/dashboard/vendor/datatables/dataTables.bootstrap4.min.css}">
-    <link rel="stylesheet" th:href="@{/dashboard/css/main.css}">
+    <link rel="stylesheet" th:href="@{/backend/vendor/fontawesome-free/css/all.min.css}"  type="text/css">
+    <link rel="stylesheet" th:href="@{/backend/css/dashboard.min.css}">
+    <link rel="stylesheet" th:href="@{/backend/vendor/datatables/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/backend/css/main.css}">
 </head>
 <body id="page-top">
 
@@ -38,16 +43,16 @@
 
 <th:block th:replace="/fragments/dashboard/logout_modal" />
 
-<script th:src="@{/dashboard/vendor/jquery/jquery.min.js}"></script>
-<script th:src="@{/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/backend/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/backend/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- custom scripts -->
-<script th:src="@{/dashboard/js/dashboard.min.js}"></script>
+<script th:src="@{/backend/js/dashboard.min.js}"></script>
 
-<script th:src="@{/dashboard/vendor/datatables/jquery.dataTables.min.js}"></script>
-<script th:src="@{/dashboard/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/backend/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/backend/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 <!-- custom scripts -->
-<script th:src="@{/dashboard/js/demo/datatables-demo.js}"></script>
-<script th:src="@{/dashboard/js/main.js}"></script>
+<script th:src="@{/backend/js/demo/datatables-demo.js}"></script>
+<script th:src="@{/backend/js/main.js}"></script>
 
 </body>
 </html>
