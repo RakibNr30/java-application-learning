@@ -1,6 +1,5 @@
 package com.resume.entity.cms;
 
-import com.resume.entity.ums.User;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -8,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,9 +23,6 @@ public class Interest {
     @Length(min = 2, max = 65535)
     @Column(length = 65535)
     private String details;
-
-    @ManyToMany(mappedBy = "interests", fetch = FetchType.EAGER)
-    private List<User> users;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -59,14 +54,6 @@ public class Interest {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public LocalDateTime getCreatedAt() {

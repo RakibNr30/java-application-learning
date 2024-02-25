@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:replace="/layouts/dashboard::layout(~{::section})">
+
+<body>
+<section>
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">User Language</h1>
+            <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/ums/user-language/create}">
+                <i class="fas fa-plus-square"></i> Add New Language
+            </a>
+        </div>
+
+        <th:block th:replace="/fragments/dashboard/notifier" />
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">User Language List</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>User</th>
+                            <th>Language</th>
+                            <th>Proficiency</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th class="action">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="userLanguage, loop : ${userLanguages}">
+                            <th scope="row" th:text="${loop.index + 1}"></th>
+                            <td th:text="${userLanguage.user.name}"></td>
+                            <td th:text="${userLanguage.language.name}"></td>
+                            <td th:text="${T(com.resume.constants.Proficiency).getLabelByValue(userLanguage.proficiency)}"></td>
+                            <td th:text="${userLanguage.createdAt}"></td>
+                            <td th:text="${userLanguage.updatedAt}"></td>
+                            <td class="action">
+                                <a th:href="@{/dashboard/ums/user-language/{id}(id=${userLanguage.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                    <i class="fas fa-solid fa-eye"></i>
+                                </a>
+                                <a th:href="@{/dashboard/ums/user-language/{id}/edit(id=${userLanguage.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                     <i class="fas fa-solid fa-pen text-primary"></i>
+                                </a>
+                                <form th:action="@{/dashboard/ums/user-language/{id}/destroy(id=${userLanguage.id})}" method="POST" style="all: unset">
+                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                        <i class="fas fa-regular fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

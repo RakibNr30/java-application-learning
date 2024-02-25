@@ -1,28 +1,31 @@
-package com.resume.entity.cms;
+package com.resume.entity.ums;
 
+import com.resume.entity.cms.SocialAccount;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
-@Table(name = "languages")
-public class Language {
+@Table(name = "user_social_accounts")
+public class UserSocialAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Length(max = 255)
     @NotBlank
-    private String name;
+    private String username;
 
-    @Length(min = 3, max = 65535)
-    @Column(length = 65535)
-    private String details;
+    @ManyToOne
+    @JoinColumn(name = "social_account_id")
+    private SocialAccount socialAccount;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -40,20 +43,28 @@ public class Language {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getDetails() {
-        return details;
+    public SocialAccount getSocialAccount() {
+        return socialAccount;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setSocialAccount(SocialAccount socialAccount) {
+        this.socialAccount = socialAccount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -70,13 +81,5 @@ public class Language {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Language language = (Language) o;
-        return Objects.equals(id, language.id);
     }
 }

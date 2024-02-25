@@ -1,9 +1,6 @@
 package com.resume.entity.ums;
 
-import com.resume.entity.cms.Interest;
-import com.resume.entity.cms.Language;
 import com.resume.entity.cms.Skill;
-import com.resume.entity.cms.SocialAccount;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Length;
@@ -59,21 +56,6 @@ public class User {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Skill> skills;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "interest_id")})
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Interest> interests;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "language_id")})
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Language> languages;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "social_account_id")})
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<SocialAccount> socialAccounts;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserEducation> userEducations;
@@ -85,6 +67,19 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserAward> userAwards;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    /*@JoinTable(name = "user_interests", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})*/
+    private List<UserInterest> userInterests;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserLanguage> userLanguages;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<UserSocialAccount> userSocialAccounts;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -182,30 +177,6 @@ public class User {
         this.skills = skills;
     }
 
-    public List<Interest> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(List<Interest> interests) {
-        this.interests = interests;
-    }
-
-    public List<Language> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<Language> languages) {
-        this.languages = languages;
-    }
-
-    public List<SocialAccount> getSocialAccounts() {
-        return socialAccounts;
-    }
-
-    public void setSocialAccounts(List<SocialAccount> socialAccounts) {
-        this.socialAccounts = socialAccounts;
-    }
-
     public List<UserEducation> getUserEducations() {
         return userEducations;
     }
@@ -228,6 +199,30 @@ public class User {
 
     public void setUserAwards(List<UserAward> userAwards) {
         this.userAwards = userAwards;
+    }
+
+    public List<UserInterest> getUserInterests() {
+        return userInterests;
+    }
+
+    public void setUserInterests(List<UserInterest> userInterests) {
+        this.userInterests = userInterests;
+    }
+
+    public List<UserLanguage> getUserLanguages() {
+        return userLanguages;
+    }
+
+    public void setUserLanguages(List<UserLanguage> userLanguages) {
+        this.userLanguages = userLanguages;
+    }
+
+    public List<UserSocialAccount> getUserSocialAccounts() {
+        return userSocialAccounts;
+    }
+
+    public void setUserSocialAccounts(List<UserSocialAccount> userSocialAccounts) {
+        this.userSocialAccounts = userSocialAccounts;
     }
 
     public LocalDateTime getCreatedAt() {
