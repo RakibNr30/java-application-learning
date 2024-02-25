@@ -2,6 +2,8 @@ package com.resume.service.ums;
 
 import com.resume.entity.ums.UserEducation;
 import com.resume.repository.ums.UserEducationRepository;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,10 @@ public class UserEducationService {
 
     public List<UserEducation> getAll() {
         return this.userEducationRepository.getAll();
+    }
+
+    public <T> List<UserEducation> getAllBy(String propertyName, T value) {
+        return this.userEducationRepository.getAllBy(propertyName, value);
     }
 
     public void save(UserEducation userEducation) {

@@ -1,7 +1,9 @@
 package com.resume.controller.dashboard.ums.profile;
 
 import com.resume.entity.ums.User;
+import com.resume.entity.ums.UserEducation;
 import com.resume.helpers.NotifierHelper;
+import com.resume.service.ums.UserEducationService;
 import com.resume.service.ums.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,15 +12,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/dashboard/ums/profile")
 public class UserProfileController {
 
     private final UserService userService;
 
+    private final UserEducationService userEducationService;
+
     @Autowired
-    public UserProfileController(UserService userService) {
+    public UserProfileController(UserService userService, UserEducationService userEducationService) {
         this.userService = userService;
+        this.userEducationService = userEducationService;
     }
 
     @ModelAttribute
@@ -35,7 +42,10 @@ public class UserProfileController {
             return "redirect:/dashboard/ums/profile";
         }
 
+        List<UserEducation> userEducations = this.userEducationService.getAllBy("user", user);
+
         model.addAttribute("user", user);
+        model.addAttribute("userEducations", userEducations);
 
         return "dashboard/ums/user/profile/index";
     }
