@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_languages")
+@Table(name = "user_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "language_id"}))
 public class UserLanguage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

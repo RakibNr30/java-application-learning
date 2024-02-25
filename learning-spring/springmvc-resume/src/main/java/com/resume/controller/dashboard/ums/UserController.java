@@ -54,7 +54,7 @@ public class UserController {
 
     @RequestMapping
     public String index(Model model) {
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.getAllByRoleName(com.resume.constants.Role.ROLE_USER.name());
         model.addAttribute("users", users);
 
         return "dashboard/ums/user/index";

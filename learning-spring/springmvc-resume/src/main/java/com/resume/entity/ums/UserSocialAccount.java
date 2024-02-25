@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_social_accounts")
+@Table(name = "user_social_accounts", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "social_account_id"}))
 public class UserSocialAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

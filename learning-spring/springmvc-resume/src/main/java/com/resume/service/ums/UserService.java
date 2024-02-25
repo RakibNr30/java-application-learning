@@ -22,12 +22,20 @@ public class UserService {
         return this.userRepository.getAll();
     }
 
+    public List<User> getAllByRoleName(String roleName) {
+        return this.userRepository.getAllByRoleName(roleName);
+    }
+
     public void save(User user) {
         this.userRepository.save(user);
     }
 
     public User get(long id) {
         return this.userRepository.get(id);
+    }
+
+    public User getByUsername(String username) {
+        return this.userRepository.getByUsername(username);
     }
 
     public void update(User user) {

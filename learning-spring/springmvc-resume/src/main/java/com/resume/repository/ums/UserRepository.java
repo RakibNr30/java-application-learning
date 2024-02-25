@@ -1,8 +1,10 @@
 package com.resume.repository.ums;
 
+import com.resume.entity.ums.Role;
 import com.resume.entity.ums.User;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.*;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +25,22 @@ public class UserRepository {
 
     public List<User> getAll() {
         return this.hibernateTemplate.loadAll(User.class);
+    }
+
+    public List<User> getAllByRoleName(String roleName) {
+
+        DetachedCriteria subCriteria = DetachedCriteria
+                .forEntityName(Role.class.getName())
+                .add(Restrictions.eq("name", roleName))
+                .setProjection(Projections.property("id"));
+
+        DetachedCriteria criteria = DetachedCriteria
+                .forEntityName(User.class.getName(), "u")
+                .createAlias("u.roles", "ur", JoinType.LEFT_OUTER_JOIN)
+                .add(Subqueries.propertyIn("ur.id", subCriteria))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        return (List<User>) this.hibernateTemplate.findByCriteria(criteria);
     }
 
     @Transactional
