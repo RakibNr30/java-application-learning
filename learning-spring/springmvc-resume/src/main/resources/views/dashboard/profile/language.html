@@ -45,7 +45,7 @@
                 <th:block th:replace="/fragments/dashboard/notifier" />
 
                 <div class="card shadow mb-4" id="language">
-                    <div class="card-header py-3">Language Details</div>
+                    <div class="card-header py-3">Languages</div>
                     <div class="card-body">
                         <th:block th:each="userLanguage, loop : ${authUser.userLanguages}">
                             <form th:action="@{/dashboard/profile/language/{id}/update(id=${userLanguage.id})}" method="POST">

@@ -45,7 +45,7 @@
                 <th:block th:replace="/fragments/dashboard/notifier" />
 
                 <div class="card shadow mb-4" id="education">
-                    <div class="card-header py-3">Education Details</div>
+                    <div class="card-header py-3">Educations</div>
                     <div class="card-body">
                         <th:block th:each="userEducation, loop : ${authUser.userEducations}">
                             <form th:action="@{/dashboard/profile/education/{id}/update(id=${userEducation.id})}" method="POST">
