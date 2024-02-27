@@ -1,4 +1,4 @@
-package com.resume.controller.dashboard.ums.profile;
+package com.resume.controller.dashboard.profile;
 
 import com.resume.dtos.UserAccountDto;
 import com.resume.entity.cms.Interest;
@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/dashboard/ums/profile")
+@RequestMapping("/dashboard/profile")
 public class UserProfileController {
 
     private final UserService userService;
@@ -78,6 +78,7 @@ public class UserProfileController {
         this.authUser = this.userService.getByUsername(auth.getName());
 
         model.addAttribute("title", "My Profile");
+        model.addAttribute("authUser", this.authUser);
     }
 
     /* Account */
@@ -85,12 +86,12 @@ public class UserProfileController {
     public String index(Model model, RedirectAttributes attributes) {
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Account not found.").error();
-            return "redirect:/dashboard/ums/profile";
+            return "redirect:/dashboard/profile";
         }
 
         model.addAttribute("user", this.authUser);
 
-        return "dashboard/ums/user/profile/index";
+        return "dashboard/profile/index";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -98,12 +99,12 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userBasicDto", userAccountDto).bind(result);
-            return "redirect:/dashboard/ums/profile";
+            return "redirect:/dashboard/profile";
         }
 
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Account not found.").error();
-            return "redirect:/dashboard/ums/profile";
+            return "redirect:/dashboard/profile";
         }
 
         try {
@@ -122,7 +123,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Account can not be updated.").error();
         }
 
-        return "redirect:/dashboard/ums/profile";
+        return "redirect:/dashboard/profile";
     }
 
     /* Education */
@@ -131,15 +132,12 @@ public class UserProfileController {
 
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Profile not found.").error();
-            return "redirect:/dashboard/ums/profile/education";
+            return "redirect:/dashboard/profile/education";
         }
 
-        List<UserEducation> userEducations = this.userEducationService.getAllBy("user", this.authUser);
-
         model.addAttribute("user", this.authUser);
-        model.addAttribute("userEducations", userEducations);
 
-        return "dashboard/ums/user/profile/education";
+        return "dashboard/profile/education";
     }
 
     @RequestMapping(value = "/education/store", method = RequestMethod.POST)
@@ -147,7 +145,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userEducation", userEducation).bind(result);
-            return "redirect:/dashboard/ums/profile/education";
+            return "redirect:/dashboard/profile/education";
         }
 
         if (this.authUser == null) {
@@ -164,7 +162,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Education can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/education";
+        return "redirect:/dashboard/profile/education";
     }
 
     @RequestMapping(value = "/education/{id}/update", method = RequestMethod.POST)
@@ -172,7 +170,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userEducation", userEducation).bind(result);
-            return "redirect:/dashboard/ums/profile/education";
+            return "redirect:/dashboard/profile/education";
         }
 
         if (this.authUser == null) {
@@ -191,7 +189,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Education can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/education";
+        return "redirect:/dashboard/profile/education";
     }
 
     @RequestMapping(value = "/education/{id}/destroy", method = RequestMethod.POST)
@@ -211,7 +209,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Education can not ber deleted.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/education";
+        return "redirect:/dashboard/profile/education";
     }
 
     /* Experience */
@@ -220,15 +218,12 @@ public class UserProfileController {
 
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Account not found.").error();
-            return "redirect:/dashboard/ums/profile/experience";
+            return "redirect:/dashboard/profile/experience";
         }
 
-        List<UserExperience> userExperiences = this.userExperienceService.getAllBy("user", this.authUser);
-
         model.addAttribute("user", this.authUser);
-        model.addAttribute("userExperiences", userExperiences);
 
-        return "dashboard/ums/user/profile/experience";
+        return "dashboard/profile/experience";
     }
 
     @RequestMapping(value = "/experience/store", method = RequestMethod.POST)
@@ -236,7 +231,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userExperience", userExperience).bind(result);
-            return "redirect:/dashboard/ums/profile/experience";
+            return "redirect:/dashboard/profile/experience";
         }
 
         if (this.authUser == null) {
@@ -253,7 +248,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Experience can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/experience";
+        return "redirect:/dashboard/profile/experience";
     }
 
     @RequestMapping(value = "/experience/{id}/update", method = RequestMethod.POST)
@@ -261,7 +256,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userExperience", userExperience).bind(result);
-            return "redirect:/dashboard/ums/profile/experience";
+            return "redirect:/dashboard/profile/experience";
         }
 
         if (this.authUser == null) {
@@ -280,7 +275,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Experience can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/experience";
+        return "redirect:/dashboard/profile/experience";
     }
 
     @RequestMapping(value = "/experience/{id}/destroy", method = RequestMethod.POST)
@@ -300,7 +295,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Experience can not ber deleted.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/experience";
+        return "redirect:/dashboard/profile/experience";
     }
 
     /* Award */
@@ -309,15 +304,12 @@ public class UserProfileController {
 
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Account not found.").error();
-            return "redirect:/dashboard/ums/profile/award";
+            return "redirect:/dashboard/profile/award";
         }
 
-        List<UserAward> userAwards = this.userAwardService.getAllBy("user", this.authUser);
-
         model.addAttribute("user", this.authUser);
-        model.addAttribute("userAwards", userAwards);
 
-        return "dashboard/ums/user/profile/award";
+        return "dashboard/profile/award";
     }
 
     @RequestMapping(value = "/award/store", method = RequestMethod.POST)
@@ -325,7 +317,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userAward", userAward).bind(result);
-            return "redirect:/dashboard/ums/profile/award";
+            return "redirect:/dashboard/profile/award";
         }
 
         if (this.authUser == null) {
@@ -342,7 +334,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Award can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/award";
+        return "redirect:/dashboard/profile/award";
     }
 
     @RequestMapping(value = "/award/{id}/update", method = RequestMethod.POST)
@@ -350,7 +342,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userAward", userAward).bind(result);
-            return "redirect:/dashboard/ums/profile/award";
+            return "redirect:/dashboard/profile/award";
         }
 
         if (this.authUser == null) {
@@ -369,7 +361,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Award can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/award";
+        return "redirect:/dashboard/profile/award";
     }
 
     @RequestMapping(value = "/award/{id}/destroy", method = RequestMethod.POST)
@@ -389,7 +381,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Award can not ber deleted.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/award";
+        return "redirect:/dashboard/profile/award";
     }
 
     /* Interest */
@@ -398,17 +390,15 @@ public class UserProfileController {
 
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Account not found.").error();
-            return "redirect:/dashboard/ums/profile/interest";
+            return "redirect:/dashboard/profile/interest";
         }
 
         List<Interest> interests = this.interestService.getAll();
-        List<UserInterest> userInterests = this.userInterestService.getAllBy("user", this.authUser);
 
         model.addAttribute("user", this.authUser);
         model.addAttribute("interests", interests);
-        model.addAttribute("userInterests", userInterests);
 
-        return "dashboard/ums/user/profile/interest";
+        return "dashboard/profile/interest";
     }
 
     @RequestMapping(value = "/interest/store", method = RequestMethod.POST)
@@ -416,7 +406,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userInterest", userInterest).bind(result);
-            return "redirect:/dashboard/ums/profile/interest";
+            return "redirect:/dashboard/profile/interest";
         }
 
         if (this.authUser == null) {
@@ -440,7 +430,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Interest can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/interest";
+        return "redirect:/dashboard/profile/interest";
     }
 
     @RequestMapping(value = "/interest/{id}/update", method = RequestMethod.POST)
@@ -448,7 +438,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userInterest", userInterest).bind(result);
-            return "redirect:/dashboard/ums/profile/interest";
+            return "redirect:/dashboard/profile/interest";
         }
 
         if (this.authUser == null) {
@@ -474,7 +464,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Interest can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/interest";
+        return "redirect:/dashboard/profile/interest";
     }
 
     @RequestMapping(value = "/interest/{id}/destroy", method = RequestMethod.POST)
@@ -494,7 +484,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Interest can not ber deleted.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/interest";
+        return "redirect:/dashboard/profile/interest";
     }
 
     /* Social */
@@ -503,17 +493,15 @@ public class UserProfileController {
 
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Account not found.").error();
-            return "redirect:/dashboard/ums/profile/social";
+            return "redirect:/dashboard/profile/social";
         }
 
-        List<UserSocialAccount> userSocialAccounts = this.userSocialAccountService.getAllBy("user", this.authUser);
         List<SocialAccount> socialAccounts = this.socialAccountService.getAll();
 
         model.addAttribute("user", this.authUser);
         model.addAttribute("socialAccounts", socialAccounts);
-        model.addAttribute("userSocialAccounts", userSocialAccounts);
 
-        return "dashboard/ums/user/profile/social";
+        return "dashboard/profile/social";
     }
 
     @RequestMapping(value = "/social/store", method = RequestMethod.POST)
@@ -521,7 +509,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userSocialAccount", userSocialAccount).bind(result);
-            return "redirect:/dashboard/ums/profile/social";
+            return "redirect:/dashboard/profile/social";
         }
 
         if (this.authUser == null) {
@@ -545,7 +533,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Social account can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/social";
+        return "redirect:/dashboard/profile/social";
     }
 
     @RequestMapping(value = "/social/{id}/update", method = RequestMethod.POST)
@@ -553,7 +541,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userSocialAccount", userSocialAccount).bind(result);
-            return "redirect:/dashboard/ums/profile/social";
+            return "redirect:/dashboard/profile/social";
         }
 
         if (this.authUser == null) {
@@ -579,7 +567,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Social account can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/social";
+        return "redirect:/dashboard/profile/social";
     }
 
     @RequestMapping(value = "/social/{id}/destroy", method = RequestMethod.POST)
@@ -599,7 +587,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Social account can not ber deleted.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/social";
+        return "redirect:/dashboard/profile/social";
     }
 
     /* Language */
@@ -608,17 +596,15 @@ public class UserProfileController {
 
         if (this.authUser == null) {
             new NotifierHelper(attributes).message("Account not found.").error();
-            return "redirect:/dashboard/ums/profile/language";
+            return "redirect:/dashboard/profile/language";
         }
 
-        List<UserLanguage> userLanguages = this.userLanguageService.getAllBy("user", this.authUser);
         List<Language> languages = this.languageService.getAll();
 
         model.addAttribute("user", this.authUser);
         model.addAttribute("languages", languages);
-        model.addAttribute("userLanguages", userLanguages);
 
-        return "dashboard/ums/user/profile/language";
+        return "dashboard/profile/language";
     }
 
     @RequestMapping(value = "/language/store", method = RequestMethod.POST)
@@ -626,7 +612,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userLanguage", userLanguage).bind(result);
-            return "redirect:/dashboard/ums/profile/language";
+            return "redirect:/dashboard/profile/language";
         }
 
         if (this.authUser == null) {
@@ -650,7 +636,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Language can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/language";
+        return "redirect:/dashboard/profile/language";
     }
 
     @RequestMapping(value = "/language/{id}/update", method = RequestMethod.POST)
@@ -658,7 +644,7 @@ public class UserProfileController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("userLanguage", userLanguage).bind(result);
-            return "redirect:/dashboard/ums/profile/language";
+            return "redirect:/dashboard/profile/language";
         }
 
         Language language = this.languageService.get(languageId);
@@ -684,7 +670,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Language can not be added.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/language";
+        return "redirect:/dashboard/profile/language";
     }
 
     @RequestMapping(value = "/language/{id}/destroy", method = RequestMethod.POST)
@@ -704,6 +690,6 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Language can not ber deleted.").error();
         }
 
-        return "redirect:/dashboard/ums/profile/language";
+        return "redirect:/dashboard/profile/language";
     }
 }

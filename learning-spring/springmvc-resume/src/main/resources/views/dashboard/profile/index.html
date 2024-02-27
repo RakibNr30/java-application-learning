@@ -20,13 +20,13 @@
 
     <div class="container-fluid">
         <nav class="nav nav-borders">
-            <a class="nav-link active ml-0" th:href="@{/dashboard/ums/profile}">Account</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/education}">Education</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/experience}">Experience</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/award}">Award</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/interest}">Interest</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/social}">Social</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/language}">Language</a>
+            <a class="nav-link active ml-0" th:href="@{/dashboard/profile}">Account</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/education}">Education</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/experience}">Experience</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/award}">Award</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/interest}">Interest</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/social}">Social</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/language}">Language</a>
         </nav>
         <hr class="mt-0 mb-4">
 
@@ -47,7 +47,7 @@
                 <div class="card shadow mb-4" id="account">
                     <div class="card-header py-3">Account Details</div>
                     <div class="card-body">
-                        <form th:action="@{/dashboard/ums/profile/update}" th:object="${user}" method="POST">
+                        <form th:action="@{/dashboard/profile/update}" th:object="${user}" method="POST">
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-4 gx-3 mb-3">
                                     <label class="mb-1" for="name">Name</label>

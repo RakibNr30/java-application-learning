@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById(formId);
         const btn = document.getElementById(btnId);
         const isHidden = form.classList.toggle("d-none");
-        btn.innerHTML = isHidden ? "<i class=\"fa fa-plus\"></i> Open" : "<i class=\"fa fa-times\"></i> Close";
+        btn.innerHTML = isHidden ? "<i class=\"fa fa-plus\"></i> Add" : "<i class=\"fa fa-times\"></i> Close";
         btn.classList.toggle("btn-primary", isHidden);
         btn.classList.toggle("btn-danger", !isHidden);
     }

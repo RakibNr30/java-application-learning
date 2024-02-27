@@ -20,13 +20,13 @@
 
     <div class="container-fluid">
         <nav class="nav nav-borders">
-            <a class="nav-link ml-0" th:href="@{/dashboard/ums/profile}">Account</a>
-            <a class="nav-link active" th:href="@{/dashboard/ums/profile/education}">Education</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/experience}">Experience</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/award}">Award</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/interest}">Interest</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/social}">Social</a>
-            <a class="nav-link" th:href="@{/dashboard/ums/profile/language}">Language</a>
+            <a class="nav-link ml-0" th:href="@{/dashboard/profile}">Account</a>
+            <a class="nav-link active" th:href="@{/dashboard/profile/education}">Education</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/experience}">Experience</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/award}">Award</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/interest}">Interest</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/social}">Social</a>
+            <a class="nav-link" th:href="@{/dashboard/profile/language}">Language</a>
         </nav>
         <hr class="mt-0 mb-4">
 
@@ -47,8 +47,8 @@
                 <div class="card shadow mb-4" id="education">
                     <div class="card-header py-3">Education Details</div>
                     <div class="card-body">
-                        <th:block th:each="userEducation, loop : ${userEducations}">
-                            <form th:action="@{/dashboard/ums/profile/education/{id}/update(id=${userEducation.id})}" method="POST">
+                        <th:block th:each="userEducation, loop : ${authUser.userEducations}">
+                            <form th:action="@{/dashboard/profile/education/{id}/update(id=${userEducation.id})}" method="POST">
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6 gx-3 mb-3">
                                         <label class="mb-1" th:for="${'institute' + loop.index}">Institute</label>
@@ -79,14 +79,14 @@
                                 </div>
                             </form>
 
-                            <form th:id="${'education-destroy' + loop.index}" th:action="@{/dashboard/ums/profile/education/{id}/destroy(id=${userEducation.id})}" method="POST"></form>
+                            <form th:id="${'education-destroy' + loop.index}" th:action="@{/dashboard/profile/education/{id}/destroy(id=${userEducation.id})}" method="POST"></form>
                         </th:block>
 
                         <div class="d-block text-center">
                             <button id="add-btn" class="btn btn-success"><i class="fa fa-plus"></i> Add</button>
                         </div>
 
-                        <form id="add-form" class="d-none" th:action="@{/dashboard/ums/profile/education/store}" method="POST">
+                        <form id="add-form" class="d-none" th:action="@{/dashboard/profile/education/store}" method="POST">
                             <hr>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6 gx-3 mb-3">
