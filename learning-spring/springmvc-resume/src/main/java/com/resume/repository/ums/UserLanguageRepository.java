@@ -1,6 +1,8 @@
 package com.resume.repository.ums;
 
 import com.resume.entity.ums.UserLanguage;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,14 @@ public class UserLanguageRepository {
 
     public List<UserLanguage> getAll() {
         return this.hibernateTemplate.loadAll(UserLanguage.class);
+    }
+
+    public <T> List<UserLanguage> getAllBy(String propertyName, T value) {
+        DetachedCriteria criteria = DetachedCriteria
+                .forEntityName(UserLanguage.class.getName())
+                .add(Restrictions.eq(propertyName, value));
+
+        return (List<UserLanguage>) this.hibernateTemplate.findByCriteria(criteria);
     }
 
     @Transactional

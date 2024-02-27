@@ -22,6 +22,10 @@ public class UserAwardService {
         return this.userAwardRepository.getAll();
     }
 
+    public <T> List<UserAward> getAllBy(String propertyName, T value) {
+        return this.userAwardRepository.getAllBy(propertyName, value);
+    }
+
     public void save(UserAward userAward) {
         this.userAwardRepository.save(userAward);
     }

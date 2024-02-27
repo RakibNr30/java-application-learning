@@ -74,16 +74,13 @@
                         <i class="bx bx-moon change-theme" title="Theme" id="theme-changer"></i>
                     </section>
 
-                    <section class="section social">
+                    <section class="section social" th:if="${user.userSocialAccounts.size() > 0}">
                         <div class="section-title-container">
                             <h2 class="section-title">Social</h2>
                         </div>
                         <div class="social__container bg-grid">
-                            <a href="#" target="_blank" class="social__link">
-                                <i class="social__icon bx bxl-linkedin-square"></i> RakibNr30
-                            </a>
-                            <a href="#" target="_blank" class="social__link">
-                                <i class="social__icon bx bxl-github"></i> RakibNr30
+                            <a th:href="${#strings.replace(userSocialAccount.socialAccount.url, '[username]', userSocialAccount.username)}" target="_blank" class="social__link" th:each="userSocialAccount : ${user.userSocialAccounts}">
+                                <i th:class="'social__icon ' + ${userSocialAccount.socialAccount.icon}"></i> <span th:text="${userSocialAccount.socialAccount.name}"></span>
                             </a>
                         </div>
                     </section>
@@ -126,44 +123,29 @@
                         </section>
                     </th:block>
 
-                    <section class="section languages" id="languages">
+                    <section class="section languages" id="languages" th:if="${user.userLanguages.size() > 0}">
                         <div class="section-title-container">
                             <h2 class="section-title">Languages</h2>
                         </div>
 
                         <div class="languages__container">
                             <ul class="languages__content global-grid">
-                                <li class="languages__name">
-                                    <span class="languages__circle"></span> English
-                                </li>
-                                <li class="languages__name">
-                                    <span class="languages__circle"></span> Bengali
+                                <li class="languages__name" th:each="userLanguage : ${user.userLanguages}">
+                                    <span class="languages__circle"></span> <span th:text="${userLanguage.language.name}"></span>
                                 </li>
                             </ul>
                         </div>
                     </section>
 
-                    <section class="section interests" id="interests">
+                    <section class="section interests" id="interests" th:if="${user.userInterests.size() > 0}">
                         <div class="section-title-container">
                             <h2 class="section-title">Interests</h2>
                         </div>
 
                         <div class="interests__container global-grid">
-                            <div class="interests__content">
+                            <div class="interests__content" th:each="userInterest : ${user.userInterests}">
                                 <i class="interests__icon bx bx-check-square"></i>
-                                <span class="interests__name">AI</span>
-                            </div>
-                            <div class="interests__content">
-                                <i class="interests__icon bx bx-check-square"></i>
-                                <span class="interests__name">NLP</span>
-                            </div>
-                            <div class="interests__content">
-                                <i class="interests__icon bx bx-check-square"></i>
-                                <span class="interests__name">ML</span>
-                            </div>
-                            <div class="interests__content">
-                                <i class="interests__icon bx bx-check-square"></i>
-                                <span class="interests__name">WEB</span>
+                                <span class="interests__name" th:text="${userInterest.interest.name}"></span>
                             </div>
                         </div>
                     </section>

@@ -2,7 +2,7 @@ package com.resume.dtos;
 
 import java.time.LocalDate;
 
-public class UserBasicDto {
+public class UserAccountDto {
     private Long id;
 
     private String name;

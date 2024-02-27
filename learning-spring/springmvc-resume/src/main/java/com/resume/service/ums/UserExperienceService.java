@@ -22,6 +22,10 @@ public class UserExperienceService {
         return this.userExperienceRepository.getAll();
     }
 
+    public <T> List<UserExperience> getAllBy(String propertyName, T value) {
+        return this.userExperienceRepository.getAllBy(propertyName, value);
+    }
+
     public void save(UserExperience userExperience) {
         this.userExperienceRepository.save(userExperience);
     }

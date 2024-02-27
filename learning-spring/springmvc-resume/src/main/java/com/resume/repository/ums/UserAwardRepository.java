@@ -1,6 +1,8 @@
 package com.resume.repository.ums;
 
 import com.resume.entity.ums.UserAward;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,14 @@ public class UserAwardRepository {
 
     public List<UserAward> getAll() {
         return this.hibernateTemplate.loadAll(UserAward.class);
+    }
+
+    public <T> List<UserAward> getAllBy(String propertyName, T value) {
+        DetachedCriteria criteria = DetachedCriteria
+                .forEntityName(UserAward.class.getName())
+                .add(Restrictions.eq(propertyName, value));
+
+        return (List<UserAward>) this.hibernateTemplate.findByCriteria(criteria);
     }
 
     @Transactional

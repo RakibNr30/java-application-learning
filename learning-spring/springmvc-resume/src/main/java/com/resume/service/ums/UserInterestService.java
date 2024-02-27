@@ -22,6 +22,10 @@ public class UserInterestService {
         return this.userInterestRepository.getAll();
     }
 
+    public <T> List<UserInterest> getAllBy(String propertyName, T value) {
+        return this.userInterestRepository.getAllBy(propertyName, value);
+    }
+
     public void save(UserInterest userInterest) {
         this.userInterestRepository.save(userInterest);
     }

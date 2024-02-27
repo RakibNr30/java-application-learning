@@ -22,6 +22,10 @@ public class UserLanguageService {
         return this.userLanguageRepository.getAll();
     }
 
+    public <T> List<UserLanguage> getAllBy(String propertyName, T value) {
+        return this.userLanguageRepository.getAllBy(propertyName, value);
+    }
+
     public void save(UserLanguage userLanguage) {
         this.userLanguageRepository.save(userLanguage);
     }

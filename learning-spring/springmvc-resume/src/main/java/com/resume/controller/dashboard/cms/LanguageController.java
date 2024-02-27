@@ -69,7 +69,7 @@ public class LanguageController {
             return "redirect:/dashboard/cms/language/create";
         }
 
-        return "redirect:/dashboard/cms/language/";
+        return "redirect:/dashboard/cms/language";
     }
 
     @RequestMapping("/{id}")
@@ -78,7 +78,7 @@ public class LanguageController {
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
-            return "redirect:/dashboard/cms/language/";
+            return "redirect:/dashboard/cms/language";
         }
 
         model.addAttribute("language", language);
@@ -93,7 +93,7 @@ public class LanguageController {
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
-            return "redirect:/dashboard/cms/language/";
+            return "redirect:/dashboard/cms/language";
         }
 
         model.addAttribute("language", language);
@@ -106,14 +106,14 @@ public class LanguageController {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("language", language).bind(result);
-            return "redirect:/dashboard/cms/language/" + id + "/edit";
+            return "redirect:/dashboard/cms/language" + id + "/edit";
         }
 
         Language updatableLanguage = this.languageService.get(id);
 
         if (updatableLanguage == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
-            return "redirect:/dashboard/cms/language/";
+            return "redirect:/dashboard/cms/language";
         }
 
         try {
@@ -124,7 +124,7 @@ public class LanguageController {
             new NotifierHelper(attributes).message("Language can not be updated.").error();
         }
 
-        return "redirect:/dashboard/cms/language/" + id + "/edit";
+        return "redirect:/dashboard/cms/language" + id + "/edit";
     }
 
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
@@ -144,6 +144,6 @@ public class LanguageController {
             new NotifierHelper(attributes).message("Language can not be deleted.").error();
         }
 
-        return "redirect:/dashboard/cms/language/";
+        return "redirect:/dashboard/cms/language";
     }
 }

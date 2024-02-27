@@ -18,6 +18,10 @@ public class UserSocialAccountService {
         this.userSocialAccountRepository = userSocialAccountRepository;
     }
 
+    public <T> List<UserSocialAccount> getAllBy(String propertyName, T value) {
+        return this.userSocialAccountRepository.getAllBy(propertyName, value);
+    }
+
     public List<UserSocialAccount> getAll() {
         return this.userSocialAccountRepository.getAll();
     }
