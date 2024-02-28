@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:fragment="layout(content)"
+      th:fragment="layout(content, title, menuLevel1, menuLevel2)"
 >
 
 <head>
@@ -24,7 +24,7 @@
 <body id="page-top">
 
 <div id="wrapper">
-    <th:block th:replace="/fragments/dashboard/sidebar" />
+    <th:block th:replace="/fragments/dashboard/sidebar::menu(${menuLevel1}, ${menuLevel2})" />
 
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
@@ -41,7 +41,7 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<th:block th:replace="/fragments/dashboard/logout_modal" />
+<th:block th:replace="/fragments/dashboard/logout-modal" />
 
 <script th:src="@{/backend/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/backend/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
