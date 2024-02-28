@@ -124,7 +124,7 @@ public class LanguageController {
             new NotifierHelper(attributes).message("Language can not be updated.").error();
         }
 
-        return "redirect:/dashboard/cms/language" + id + "/edit";
+        return "redirect:/dashboard/cms/language/" + id + "/edit";
     }
 
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)

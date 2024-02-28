@@ -1,4 +1,4 @@
-package com.resume.configs;
+package com.resume.configurations;
 
 import com.resume.services.ums.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
