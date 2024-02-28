@@ -18,20 +18,20 @@ public class UserSocialAccountService {
         this.userSocialAccountRepository = userSocialAccountRepository;
     }
 
-    public <T> List<UserSocialAccount> getAllBy(String propertyName, T value) {
-        return this.userSocialAccountRepository.getAllBy(propertyName, value);
+    public <T> List<UserSocialAccount> findAllBy(String propertyName, T value) {
+        return this.userSocialAccountRepository.findAllBy(propertyName, value);
     }
 
-    public List<UserSocialAccount> getAll() {
-        return this.userSocialAccountRepository.getAll();
+    public List<UserSocialAccount> findAll() {
+        return this.userSocialAccountRepository.findAll();
     }
 
     public void save(UserSocialAccount userSocialAccount) {
         this.userSocialAccountRepository.save(userSocialAccount);
     }
 
-    public UserSocialAccount get(long id) {
-        return this.userSocialAccountRepository.get(id);
+    public UserSocialAccount findById(long id) {
+        return this.userSocialAccountRepository.findById(id);
     }
 
     public void update(UserSocialAccount userSocialAccount) {

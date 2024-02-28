@@ -18,16 +18,16 @@ public class ContactService {
         this.contactRepository = contactRepository;
     }
 
-    public List<Contact> getAll() {
-        return this.contactRepository.getAll();
+    public List<Contact> findAll() {
+        return this.contactRepository.findAll();
     }
 
     public void save(Contact contact) {
         this.contactRepository.save(contact);
     }
 
-    public Contact get(long id) {
-        return this.contactRepository.get(id);
+    public Contact findById(long id) {
+        return this.contactRepository.findById(id);
     }
 
     @Transactional
@@ -45,7 +45,7 @@ public class ContactService {
     }
 
     public Contact getOrSave(long id) {
-        Contact contact = this.contactRepository.get(id);
+        Contact contact = this.contactRepository.findById(id);
 
         if (contact == null) {
             contact = new Contact();

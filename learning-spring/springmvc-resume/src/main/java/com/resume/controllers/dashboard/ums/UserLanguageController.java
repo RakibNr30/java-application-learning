@@ -47,7 +47,7 @@ public class UserLanguageController {
 
     @RequestMapping
     public String index(Model model) {
-        List<UserLanguage> userLanguages = this.userLanguageService.getAll();
+        List<UserLanguage> userLanguages = this.userLanguageService.findAll();
         model.addAttribute("userLanguages", userLanguages);
 
         return "dashboard/ums/user-language/index";
@@ -55,8 +55,8 @@ public class UserLanguageController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        List<User> users = this.userService.getAll();
-        List<Language> languages = this.languageService.getAll();
+        List<User> users = this.userService.findAll();
+        List<Language> languages = this.languageService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("languages", languages);
@@ -72,13 +72,13 @@ public class UserLanguageController {
             return "redirect:/dashboard/ums/user-language/create";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        Language language = this.languageService.get(languageId);
+        Language language = this.languageService.findById(languageId);
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
@@ -101,7 +101,7 @@ public class UserLanguageController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserLanguage userLanguage = this.userLanguageService.get(id);
+        UserLanguage userLanguage = this.userLanguageService.findById(id);
 
         if (userLanguage == null) {
             new NotifierHelper(attributes).message("User language not found.").error();
@@ -116,15 +116,15 @@ public class UserLanguageController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        UserLanguage userLanguage = this.userLanguageService.get(id);
+        UserLanguage userLanguage = this.userLanguageService.findById(id);
 
         if (userLanguage == null) {
             new NotifierHelper(attributes).message("User language not found.").error();
             return "redirect:/dashboard/ums/user-language";
         }
 
-        List<User> users = this.userService.getAll();
-        List<Language> languages = this.languageService.getAll();
+        List<User> users = this.userService.findAll();
+        List<Language> languages = this.languageService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("languages", languages);
@@ -142,20 +142,20 @@ public class UserLanguageController {
             return "redirect:/dashboard/ums/user-language/" + id + "/edit";
         }
 
-        UserLanguage updatableUserLanguage = this.userLanguageService.get(id);
+        UserLanguage updatableUserLanguage = this.userLanguageService.findById(id);
 
         if (updatableUserLanguage == null) {
             new NotifierHelper(attributes).message("User language not found.").error();
             return "redirect:/dashboard-language/user";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        Language language = this.languageService.get(languageId);
+        Language language = this.languageService.findById(languageId);
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
@@ -177,7 +177,7 @@ public class UserLanguageController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserLanguage userLanguage = this.userLanguageService.get(id);
+        UserLanguage userLanguage = this.userLanguageService.findById(id);
 
         if (userLanguage == null) {
             new NotifierHelper(attributes).message("User language not found.").error();

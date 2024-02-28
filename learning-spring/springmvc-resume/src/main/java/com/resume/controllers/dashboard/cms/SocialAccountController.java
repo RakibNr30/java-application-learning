@@ -40,7 +40,7 @@ public class SocialAccountController {
 
     @RequestMapping
     public String index(Model model) {
-        List<SocialAccount> socialAccounts = this.socialAccountService.getAll();
+        List<SocialAccount> socialAccounts = this.socialAccountService.findAll();
         model.addAttribute("socialAccounts", socialAccounts);
 
         return "dashboard/cms/social-account/index";
@@ -74,7 +74,7 @@ public class SocialAccountController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        SocialAccount socialAccount = this.socialAccountService.get(id);
+        SocialAccount socialAccount = this.socialAccountService.findById(id);
 
         if (socialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -89,7 +89,7 @@ public class SocialAccountController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        SocialAccount socialAccount = this.socialAccountService.get(id);
+        SocialAccount socialAccount = this.socialAccountService.findById(id);
 
         if (socialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -109,7 +109,7 @@ public class SocialAccountController {
             return "redirect:/dashboard/cms/social-account/" + id + "/edit";
         }
 
-        SocialAccount updatableSocialAccount = this.socialAccountService.get(id);
+        SocialAccount updatableSocialAccount = this.socialAccountService.findById(id);
 
         if (updatableSocialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -130,7 +130,7 @@ public class SocialAccountController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        SocialAccount socialAccount = this.socialAccountService.get(id);
+        SocialAccount socialAccount = this.socialAccountService.findById(id);
 
         if (socialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();

@@ -40,7 +40,7 @@ public class LanguageController {
 
     @RequestMapping
     public String index(Model model) {
-        List<Language> languages = this.languageService.getAll();
+        List<Language> languages = this.languageService.findAll();
         model.addAttribute("languages", languages);
 
         return "dashboard/cms/language/index";
@@ -74,7 +74,7 @@ public class LanguageController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        Language language = this.languageService.get(id);
+        Language language = this.languageService.findById(id);
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
@@ -89,7 +89,7 @@ public class LanguageController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        Language language = this.languageService.get(id);
+        Language language = this.languageService.findById(id);
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
@@ -109,7 +109,7 @@ public class LanguageController {
             return "redirect:/dashboard/cms/language" + id + "/edit";
         }
 
-        Language updatableLanguage = this.languageService.get(id);
+        Language updatableLanguage = this.languageService.findById(id);
 
         if (updatableLanguage == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
@@ -130,7 +130,7 @@ public class LanguageController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        Language language = this.languageService.get(id);
+        Language language = this.languageService.findById(id);
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();

@@ -20,6 +20,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller("dashboardUserController")
@@ -60,7 +61,7 @@ public class UserController {
 
     @RequestMapping
     public String index(Model model) {
-        List<User> users = this.userService.getAllByRoleName(com.resume.constants.Role.ROLE_USER.name());
+        List<User> users = this.userService.findAllByRoleName(com.resume.constants.Role.ROLE_USER.name());
         model.addAttribute("users", users);
 
         return "dashboard/ums/user/index";
@@ -68,8 +69,8 @@ public class UserController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        List<Skill> skills = this.skillService.getAll();
-        List<Role> roles = this.roleService.getAll();
+        List<Skill> skills = this.skillService.findAll();
+        List<Role> roles = this.roleService.findAll();
 
         model.addAttribute("skills", skills);
         model.addAttribute("roles", roles);
@@ -101,7 +102,7 @@ public class UserController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        User user = this.userService.get(id);
+        User user = this.userService.findById(id);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -120,7 +121,7 @@ public class UserController {
 
         assert user != null;
         if (user.isEmpty()) {
-            user = this.userService.get(id);
+            user = this.userService.findById(id);
         }
 
         if (user == null) {
@@ -128,8 +129,8 @@ public class UserController {
             return "redirect:/dashboard/ums/user";
         }
 
-        List<Skill> skills = this.skillService.getAll();
-        List<Role> roles = this.roleService.getAll();
+        List<Skill> skills = this.skillService.findAll();
+        List<Role> roles = this.roleService.findAll();
 
         model.addAttribute("user", user);
         model.addAttribute("skills", skills);
@@ -146,7 +147,7 @@ public class UserController {
             return "redirect:/dashboard/ums/user/" + id + "/edit";
         }
 
-        User existingUser = this.userService.get(id);
+        User existingUser = this.userService.findById(id);
 
         if (existingUser == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -169,7 +170,7 @@ public class UserController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        User user = this.userService.get(id);
+        User user = this.userService.findById(id);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();

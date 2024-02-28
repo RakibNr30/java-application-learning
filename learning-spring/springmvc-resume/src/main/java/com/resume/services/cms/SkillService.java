@@ -18,16 +18,16 @@ public class SkillService {
         this.skillRepository = skillRepository;
     }
 
-    public List<Skill> getAll() {
-        return this.skillRepository.getAll();
+    public List<Skill> findAll() {
+        return this.skillRepository.findAll();
     }
 
     public void save(Skill skill) {
         this.skillRepository.save(skill);
     }
 
-    public Skill get(long id) {
-        return this.skillRepository.get(id);
+    public Skill findById(long id) {
+        return this.skillRepository.findById(id);
     }
 
     public void update(Skill skill) {

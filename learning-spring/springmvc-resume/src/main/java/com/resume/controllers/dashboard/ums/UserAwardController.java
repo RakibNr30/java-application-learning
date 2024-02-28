@@ -42,7 +42,7 @@ public class UserAwardController {
 
     @RequestMapping
     public String index(Model model) {
-        List<UserAward> userAwards = this.userAwardService.getAll();
+        List<UserAward> userAwards = this.userAwardService.findAll();
         model.addAttribute("userAwards", userAwards);
 
         return "dashboard/ums/user-award/index";
@@ -50,7 +50,7 @@ public class UserAwardController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.findAll();
 
         model.addAttribute("users", users);
         return "dashboard/ums/user-award/create";
@@ -64,7 +64,7 @@ public class UserAwardController {
             return "redirect:/dashboard/ums/user-award/create";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -86,7 +86,7 @@ public class UserAwardController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserAward userAward = this.userAwardService.get(id);
+        UserAward userAward = this.userAwardService.findById(id);
 
         if (userAward == null) {
             new NotifierHelper(attributes).message("User award not found.").error();
@@ -101,14 +101,14 @@ public class UserAwardController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        UserAward userAward = this.userAwardService.get(id);
+        UserAward userAward = this.userAwardService.findById(id);
 
         if (userAward == null) {
             new NotifierHelper(attributes).message("User award not found.").error();
             return "redirect:/dashboard/ums/user-award";
         }
 
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("userAward", userAward);
@@ -124,14 +124,14 @@ public class UserAwardController {
             return "redirect:/dashboard/ums/user-award/" + id + "/edit";
         }
 
-        UserAward updatableUserAward = this.userAwardService.get(id);
+        UserAward updatableUserAward = this.userAwardService.findById(id);
 
         if (updatableUserAward == null) {
             new NotifierHelper(attributes).message("User award not found.").error();
             return "redirect:/dashboard-award/user";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -152,7 +152,7 @@ public class UserAwardController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserAward userAward = this.userAwardService.get(id);
+        UserAward userAward = this.userAwardService.findById(id);
 
         if (userAward == null) {
             new NotifierHelper(attributes).message("User award not found.").error();

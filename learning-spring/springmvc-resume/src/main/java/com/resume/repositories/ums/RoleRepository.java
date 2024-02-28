@@ -1,43 +1,18 @@
 package com.resume.repositories.ums;
 
 import com.resume.entities.ums.Role;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-public class RoleRepository {
+public interface RoleRepository {
 
-    private final HibernateTemplate hibernateTemplate;
+    List<Role> findAll();
 
-    @Autowired
-    public RoleRepository(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
-    }
+    void save(Role role);
 
-    public List<Role> getAll() {
-        return this.hibernateTemplate.loadAll(Role.class);
-    }
+    Role findById(long id);
 
-    @Transactional
-    public void save(Role role) {
-        this.hibernateTemplate.save(role);
-    }
+    void update(Role role);
 
-    public Role get(long id) {
-        return this.hibernateTemplate.get(Role.class, id);
-    }
-
-    @Transactional
-    public void update(Role role) {
-        this.hibernateTemplate.update(role);
-    }
-
-    @Transactional
-    public void delete(Role role) {
-        this.hibernateTemplate.delete(role);
-    }
+    void delete(Role role);
 }

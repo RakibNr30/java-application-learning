@@ -18,16 +18,16 @@ public class SocialAccountService {
         this.socialAccountRepository = socialAccountRepository;
     }
 
-    public List<SocialAccount> getAll() {
-        return this.socialAccountRepository.getAll();
+    public List<SocialAccount> findAll() {
+        return this.socialAccountRepository.findAll();
     }
 
     public void save(SocialAccount socialAccount) {
         this.socialAccountRepository.save(socialAccount);
     }
 
-    public SocialAccount get(long id) {
-        return this.socialAccountRepository.get(id);
+    public SocialAccount findById(long id) {
+        return this.socialAccountRepository.findById(id);
     }
 
     public void update(SocialAccount socialAccount) {

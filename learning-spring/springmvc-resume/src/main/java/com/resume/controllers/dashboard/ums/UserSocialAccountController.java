@@ -47,7 +47,7 @@ public class UserSocialAccountController {
 
     @RequestMapping
     public String index(Model model) {
-        List<UserSocialAccount> userSocialAccounts = this.userSocialAccountService.getAll();
+        List<UserSocialAccount> userSocialAccounts = this.userSocialAccountService.findAll();
         model.addAttribute("userSocialAccounts", userSocialAccounts);
 
         return "dashboard/ums/user-social-account/index";
@@ -55,8 +55,8 @@ public class UserSocialAccountController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        List<User> users = this.userService.getAll();
-        List<SocialAccount> socialAccounts = this.socialAccountService.getAll();
+        List<User> users = this.userService.findAll();
+        List<SocialAccount> socialAccounts = this.socialAccountService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("socialAccounts", socialAccounts);
@@ -72,13 +72,13 @@ public class UserSocialAccountController {
             return "redirect:/dashboard/ums/user-social-account/create";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        SocialAccount socialAccount = this.socialAccountService.get(socialAccountId);
+        SocialAccount socialAccount = this.socialAccountService.findById(socialAccountId);
 
         if (socialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -101,7 +101,7 @@ public class UserSocialAccountController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserSocialAccount userSocialAccount = this.userSocialAccountService.get(id);
+        UserSocialAccount userSocialAccount = this.userSocialAccountService.findById(id);
 
         if (userSocialAccount == null) {
             new NotifierHelper(attributes).message("User social account not found.").error();
@@ -116,15 +116,15 @@ public class UserSocialAccountController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        UserSocialAccount userSocialAccount = this.userSocialAccountService.get(id);
+        UserSocialAccount userSocialAccount = this.userSocialAccountService.findById(id);
 
         if (userSocialAccount == null) {
             new NotifierHelper(attributes).message("User social account not found.").error();
             return "redirect:/dashboard/ums/user-social-account";
         }
 
-        List<User> users = this.userService.getAll();
-        List<SocialAccount> socialAccounts = this.socialAccountService.getAll();
+        List<User> users = this.userService.findAll();
+        List<SocialAccount> socialAccounts = this.socialAccountService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("socialAccounts", socialAccounts);
@@ -142,20 +142,20 @@ public class UserSocialAccountController {
             return "redirect:/dashboard/ums/user-social-account/" + id + "/edit";
         }
 
-        UserSocialAccount updatableUserSocialAccount = this.userSocialAccountService.get(id);
+        UserSocialAccount updatableUserSocialAccount = this.userSocialAccountService.findById(id);
 
         if (updatableUserSocialAccount == null) {
             new NotifierHelper(attributes).message("User social account not found.").error();
             return "redirect:/dashboard-social-account/user";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        SocialAccount socialAccount = this.socialAccountService.get(socialAccountId);
+        SocialAccount socialAccount = this.socialAccountService.findById(socialAccountId);
 
         if (socialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -177,7 +177,7 @@ public class UserSocialAccountController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserSocialAccount userSocialAccount = this.userSocialAccountService.get(id);
+        UserSocialAccount userSocialAccount = this.userSocialAccountService.findById(id);
 
         if (userSocialAccount == null) {
             new NotifierHelper(attributes).message("User social account not found.").error();

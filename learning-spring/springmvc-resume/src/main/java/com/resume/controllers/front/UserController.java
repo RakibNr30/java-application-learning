@@ -29,7 +29,7 @@ public class UserController {
 
     @RequestMapping
     public String index(Model model) {
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.findAll();
         model.addAttribute("users", users);
 
         return "front/user/index";
@@ -37,7 +37,7 @@ public class UserController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        User user = this.userService.get(id);
+        User user = this.userService.findById(id);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();

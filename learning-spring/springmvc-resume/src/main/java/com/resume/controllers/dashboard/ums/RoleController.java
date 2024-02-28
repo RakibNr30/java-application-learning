@@ -40,7 +40,7 @@ public class RoleController {
 
     @RequestMapping
     public String index(Model model) {
-        List<Role> roles = this.roleService.getAll();
+        List<Role> roles = this.roleService.findAll();
         model.addAttribute("roles", roles);
 
         return "dashboard/ums/role/index";
@@ -74,7 +74,7 @@ public class RoleController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        Role role = this.roleService.get(id);
+        Role role = this.roleService.findById(id);
 
         if (role == null) {
             new NotifierHelper(attributes).message("Role not found.").error();
@@ -89,7 +89,7 @@ public class RoleController {
     //@RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        Role role = this.roleService.get(id);
+        Role role = this.roleService.findById(id);
 
         if (role == null) {
             new NotifierHelper(attributes).message("Role not found.").error();
@@ -109,7 +109,7 @@ public class RoleController {
             return "redirect:/dashboard/ums/role/" + id + "/edit";
         }
 
-        Role updatableRole = this.roleService.get(id);
+        Role updatableRole = this.roleService.findById(id);
 
         if (updatableRole == null) {
             new NotifierHelper(attributes).message("Role not found.").error();
@@ -130,7 +130,7 @@ public class RoleController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        Role role = this.roleService.get(id);
+        Role role = this.roleService.findById(id);
 
         if (role == null) {
             new NotifierHelper(attributes).message("Role not found.").error();

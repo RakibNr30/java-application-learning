@@ -47,7 +47,7 @@ public class UserInterestController {
 
     @RequestMapping
     public String index(Model model) {
-        List<UserInterest> userInterests = this.userInterestService.getAll();
+        List<UserInterest> userInterests = this.userInterestService.findAll();
         model.addAttribute("userInterests", userInterests);
 
         return "dashboard/ums/user-interest/index";
@@ -55,8 +55,8 @@ public class UserInterestController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        List<User> users = this.userService.getAll();
-        List<Interest> interests = this.interestService.getAll();
+        List<User> users = this.userService.findAll();
+        List<Interest> interests = this.interestService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("interests", interests);
@@ -72,13 +72,13 @@ public class UserInterestController {
             return "redirect:/dashboard/ums/user-interest/create";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        Interest interest = this.interestService.get(interestId);
+        Interest interest = this.interestService.findById(interestId);
 
         if (interest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -101,7 +101,7 @@ public class UserInterestController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserInterest userInterest = this.userInterestService.get(id);
+        UserInterest userInterest = this.userInterestService.findById(id);
 
         if (userInterest == null) {
             new NotifierHelper(attributes).message("User interest not found.").error();
@@ -116,15 +116,15 @@ public class UserInterestController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        UserInterest userInterest = this.userInterestService.get(id);
+        UserInterest userInterest = this.userInterestService.findById(id);
 
         if (userInterest == null) {
             new NotifierHelper(attributes).message("User interest not found.").error();
             return "redirect:/dashboard/ums/user-interest";
         }
 
-        List<User> users = this.userService.getAll();
-        List<Interest> interests = this.interestService.getAll();
+        List<User> users = this.userService.findAll();
+        List<Interest> interests = this.interestService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("interests", interests);
@@ -142,20 +142,20 @@ public class UserInterestController {
             return "redirect:/dashboard/ums/user-interest/" + id + "/edit";
         }
 
-        UserInterest updatableUserInterest = this.userInterestService.get(id);
+        UserInterest updatableUserInterest = this.userInterestService.findById(id);
 
         if (updatableUserInterest == null) {
             new NotifierHelper(attributes).message("User interest not found.").error();
             return "redirect:/dashboard-interest/user";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        Interest interest = this.interestService.get(interestId);
+        Interest interest = this.interestService.findById(interestId);
 
         if (interest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -177,7 +177,7 @@ public class UserInterestController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserInterest userInterest = this.userInterestService.get(id);
+        UserInterest userInterest = this.userInterestService.findById(id);
 
         if (userInterest == null) {
             new NotifierHelper(attributes).message("User interest not found.").error();

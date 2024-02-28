@@ -42,7 +42,7 @@ public class UserExperienceController {
 
     @RequestMapping
     public String index(Model model) {
-        List<UserExperience> userExperiences = this.userExperienceService.getAll();
+        List<UserExperience> userExperiences = this.userExperienceService.findAll();
         model.addAttribute("userExperiences", userExperiences);
 
         return "dashboard/ums/user-experience/index";
@@ -50,7 +50,7 @@ public class UserExperienceController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.findAll();
 
         model.addAttribute("users", users);
         return "dashboard/ums/user-experience/create";
@@ -64,7 +64,7 @@ public class UserExperienceController {
             return "redirect:/dashboard/ums/user-experience/create";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -86,7 +86,7 @@ public class UserExperienceController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserExperience userExperience = this.userExperienceService.get(id);
+        UserExperience userExperience = this.userExperienceService.findById(id);
 
         if (userExperience == null) {
             new NotifierHelper(attributes).message("User experience not found.").error();
@@ -100,14 +100,14 @@ public class UserExperienceController {
 
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserExperience userExperience = this.userExperienceService.get(id);
+        UserExperience userExperience = this.userExperienceService.findById(id);
 
         if (userExperience == null) {
             new NotifierHelper(attributes).message("User experience not found.").error();
             return "redirect:/dashboard/ums/user-experience";
         }
 
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("userExperience", userExperience);
@@ -123,14 +123,14 @@ public class UserExperienceController {
             return "redirect:/dashboard/ums/user-experience/" + id + "/edit";
         }
 
-        UserExperience updatableUserExperience = this.userExperienceService.get(id);
+        UserExperience updatableUserExperience = this.userExperienceService.findById(id);
 
         if (updatableUserExperience == null) {
             new NotifierHelper(attributes).message("User experience not found.").error();
             return "redirect:/dashboard-experience/user";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -151,7 +151,7 @@ public class UserExperienceController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserExperience userExperience = this.userExperienceService.get(id);
+        UserExperience userExperience = this.userExperienceService.findById(id);
 
         if (userExperience == null) {
             new NotifierHelper(attributes).message("User experience not found.").error();

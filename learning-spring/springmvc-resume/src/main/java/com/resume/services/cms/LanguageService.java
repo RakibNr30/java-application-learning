@@ -18,16 +18,16 @@ public class LanguageService {
         this.languageRepository = languageRepository;
     }
 
-    public List<Language> getAll() {
-        return this.languageRepository.getAll();
+    public List<Language> findAll() {
+        return this.languageRepository.findAll();
     }
 
     public void save(Language language) {
         this.languageRepository.save(language);
     }
 
-    public Language get(long id) {
-        return this.languageRepository.get(id);
+    public Language findById(long id) {
+        return this.languageRepository.findById(id);
     }
 
     public void update(Language language) {

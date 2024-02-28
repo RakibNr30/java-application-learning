@@ -1,53 +1,20 @@
 package com.resume.repositories.ums;
 
 import com.resume.entities.ums.UserInterest;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-public class UserInterestRepository {
+public interface UserInterestRepository {
 
-    private final HibernateTemplate hibernateTemplate;
+    List<UserInterest> findAll();
 
-    @Autowired
-    public UserInterestRepository(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
-    }
+    <T> List<UserInterest> findAllBy(String propertyName, T value);
 
-    public List<UserInterest> getAll() {
-        return this.hibernateTemplate.loadAll(UserInterest.class);
-    }
+    void save(UserInterest userInterest);
 
-    public <T> List<UserInterest> getAllBy(String propertyName, T value) {
-        DetachedCriteria criteria = DetachedCriteria
-                .forEntityName(UserInterest.class.getName())
-                .add(Restrictions.eq(propertyName, value));
+    UserInterest findById(long id);
 
-        return (List<UserInterest>) this.hibernateTemplate.findByCriteria(criteria);
-    }
+    void update(UserInterest userInterest);
 
-    @Transactional
-    public void save(UserInterest userInterest) {
-        this.hibernateTemplate.save(userInterest);
-    }
-
-    public UserInterest get(long id) {
-        return this.hibernateTemplate.get(UserInterest.class, id);
-    }
-
-    @Transactional
-    public void update(UserInterest userInterest) {
-        this.hibernateTemplate.update(userInterest);
-    }
-
-    @Transactional
-    public void delete(UserInterest userInterest) {
-        this.hibernateTemplate.delete(userInterest);
-    }
+    void delete(UserInterest userInterest);
 }

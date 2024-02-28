@@ -1,43 +1,18 @@
 package com.resume.repositories.cms;
 
 import com.resume.entities.cms.SocialAccount;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-public class SocialAccountRepository {
+public interface SocialAccountRepository {
 
-    private final HibernateTemplate hibernateTemplate;
+    List<SocialAccount> findAll();
 
-    @Autowired
-    public SocialAccountRepository(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
-    }
+    void save(SocialAccount socialAccount);
 
-    public List<SocialAccount> getAll() {
-        return this.hibernateTemplate.loadAll(SocialAccount.class);
-    }
+    SocialAccount findById(long id);
 
-    @Transactional
-    public void save(SocialAccount socialAccount) {
-        this.hibernateTemplate.save(socialAccount);
-    }
+    void update(SocialAccount socialAccount);
 
-    public SocialAccount get(long id) {
-        return this.hibernateTemplate.get(SocialAccount.class, id);
-    }
-
-    @Transactional
-    public void update(SocialAccount socialAccount) {
-        this.hibernateTemplate.update(socialAccount);
-    }
-
-    @Transactional
-    public void delete(SocialAccount socialAccount) {
-        this.hibernateTemplate.delete(socialAccount);
-    }
+    void delete(SocialAccount socialAccount);
 }

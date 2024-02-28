@@ -42,7 +42,7 @@ public class UserEducationController {
 
     @RequestMapping
     public String index(Model model) {
-        List<UserEducation> userEducations = this.userEducationService.getAll();
+        List<UserEducation> userEducations = this.userEducationService.findAll();
         model.addAttribute("userEducations", userEducations);
 
         return "dashboard/ums/user-education/index";
@@ -50,7 +50,7 @@ public class UserEducationController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.findAll();
 
         model.addAttribute("users", users);
         return "dashboard/ums/user-education/create";
@@ -64,7 +64,7 @@ public class UserEducationController {
             return "redirect:/dashboard/ums/user-education/create";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -86,7 +86,7 @@ public class UserEducationController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserEducation userEducation = this.userEducationService.get(id);
+        UserEducation userEducation = this.userEducationService.findById(id);
 
         if (userEducation == null) {
             new NotifierHelper(attributes).message("User education not found.").error();
@@ -100,14 +100,14 @@ public class UserEducationController {
 
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        UserEducation userEducation = this.userEducationService.get(id);
+        UserEducation userEducation = this.userEducationService.findById(id);
 
         if (userEducation == null) {
             new NotifierHelper(attributes).message("User education not found.").error();
             return "redirect:/dashboard/ums/user-education";
         }
 
-        List<User> users = this.userService.getAll();
+        List<User> users = this.userService.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("userEducation", userEducation);
@@ -123,14 +123,14 @@ public class UserEducationController {
             return "redirect:/dashboard/ums/user-education/" + id + "/edit";
         }
 
-        UserEducation updatableUserEducation = this.userEducationService.get(id);
+        UserEducation updatableUserEducation = this.userEducationService.findById(id);
 
         if (updatableUserEducation == null) {
             new NotifierHelper(attributes).message("User education not found.").error();
             return "redirect:/dashboard-education/user";
         }
 
-        User user = this.userService.get(userId);
+        User user = this.userService.findById(userId);
 
         if (user == null) {
             new NotifierHelper(attributes).message("User not found.").error();
@@ -151,7 +151,7 @@ public class UserEducationController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserEducation userEducation = this.userEducationService.get(id);
+        UserEducation userEducation = this.userEducationService.findById(id);
 
         if (userEducation == null) {
             new NotifierHelper(attributes).message("User education not found.").error();

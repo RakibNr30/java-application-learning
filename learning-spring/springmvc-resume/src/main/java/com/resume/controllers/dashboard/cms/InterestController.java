@@ -40,7 +40,7 @@ public class InterestController {
 
     @RequestMapping
     public String index(Model model) {
-        List<Interest> interests = this.interestService.getAll();
+        List<Interest> interests = this.interestService.findAll();
         model.addAttribute("interests", interests);
 
         return "dashboard/cms/interest/index";
@@ -74,7 +74,7 @@ public class InterestController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        Interest interest = this.interestService.get(id);
+        Interest interest = this.interestService.findById(id);
 
         if (interest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -89,7 +89,7 @@ public class InterestController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        Interest interest = this.interestService.get(id);
+        Interest interest = this.interestService.findById(id);
 
         if (interest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -109,7 +109,7 @@ public class InterestController {
             return "redirect:/dashboard/cms/interest/" + id + "/edit";
         }
 
-        Interest updatableInterest = this.interestService.get(id);
+        Interest updatableInterest = this.interestService.findById(id);
 
         if (updatableInterest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -130,7 +130,7 @@ public class InterestController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        Interest interest = this.interestService.get(id);
+        Interest interest = this.interestService.findById(id);
 
         if (interest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();

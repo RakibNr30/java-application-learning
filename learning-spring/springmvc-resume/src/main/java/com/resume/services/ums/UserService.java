@@ -18,24 +18,24 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAll() {
-        return this.userRepository.getAll();
+    public List<User> findAll() {
+        return this.userRepository.findAll();
     }
 
-    public List<User> getAllByRoleName(String roleName) {
-        return this.userRepository.getAllByRoleName(roleName);
+    public List<User> findAllByRoleName(String roleName) {
+        return this.userRepository.findAllByRoleName(roleName);
     }
 
     public void save(User user) {
         this.userRepository.save(user);
     }
 
-    public User get(long id) {
-        return this.userRepository.get(id);
+    public User findById(long id) {
+        return this.userRepository.findById(id);
     }
 
-    public User getByUsername(String username) {
-        return this.userRepository.getByUsername(username);
+    public User findByUsername(String username) {
+        return this.userRepository.findByUsername(username);
     }
 
     public void update(User user) {

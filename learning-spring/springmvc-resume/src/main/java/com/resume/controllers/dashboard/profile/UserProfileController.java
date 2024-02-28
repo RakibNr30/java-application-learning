@@ -75,7 +75,7 @@ public class UserProfileController {
 
     @ModelAttribute
     public void common(Model model, Authentication auth) {
-        this.authUser = this.userService.getByUsername(auth.getName());
+        this.authUser = this.userService.findByUsername(auth.getName());
 
         model.addAttribute("title", "My Profile");
         model.addAttribute("authUser", this.authUser);
@@ -195,7 +195,7 @@ public class UserProfileController {
     @RequestMapping(value = "/education/{id}/destroy", method = RequestMethod.POST)
     public String destroyEducation(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserEducation userEducation = this.userEducationService.get(id);
+        UserEducation userEducation = this.userEducationService.findById(id);
 
         if (userEducation == null) {
             new NotifierHelper(attributes).message("Education not found.").error();
@@ -281,7 +281,7 @@ public class UserProfileController {
     @RequestMapping(value = "/experience/{id}/destroy", method = RequestMethod.POST)
     public String destroyExperience(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserExperience userExperience = this.userExperienceService.get(id);
+        UserExperience userExperience = this.userExperienceService.findById(id);
 
         if (userExperience == null) {
             new NotifierHelper(attributes).message("Experience not found.").error();
@@ -367,7 +367,7 @@ public class UserProfileController {
     @RequestMapping(value = "/award/{id}/destroy", method = RequestMethod.POST)
     public String destroyAward(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserAward userAward = this.userAwardService.get(id);
+        UserAward userAward = this.userAwardService.findById(id);
 
         if (userAward == null) {
             new NotifierHelper(attributes).message("Award not found.").error();
@@ -393,7 +393,7 @@ public class UserProfileController {
             return "redirect:/dashboard/profile/interest";
         }
 
-        List<Interest> interests = this.interestService.getAll();
+        List<Interest> interests = this.interestService.findAll();
 
         model.addAttribute("user", this.authUser);
         model.addAttribute("interests", interests);
@@ -413,7 +413,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Account not found.").error();
         }
 
-        Interest interest = this.interestService.get(interestId);
+        Interest interest = this.interestService.findById(interestId);
 
         if (interest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -445,7 +445,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        Interest interest = this.interestService.get(interestId);
+        Interest interest = this.interestService.findById(interestId);
 
         if (interest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -470,7 +470,7 @@ public class UserProfileController {
     @RequestMapping(value = "/interest/{id}/destroy", method = RequestMethod.POST)
     public String destroyInterest(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserInterest userInterest = this.userInterestService.get(id);
+        UserInterest userInterest = this.userInterestService.findById(id);
 
         if (userInterest == null) {
             new NotifierHelper(attributes).message("Interest not found.").error();
@@ -496,7 +496,7 @@ public class UserProfileController {
             return "redirect:/dashboard/profile/social";
         }
 
-        List<SocialAccount> socialAccounts = this.socialAccountService.getAll();
+        List<SocialAccount> socialAccounts = this.socialAccountService.findAll();
 
         model.addAttribute("user", this.authUser);
         model.addAttribute("socialAccounts", socialAccounts);
@@ -516,7 +516,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Account not found.").error();
         }
 
-        SocialAccount socialAccount = this.socialAccountService.get(socialAccountId);
+        SocialAccount socialAccount = this.socialAccountService.findById(socialAccountId);
 
         if (socialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -548,7 +548,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("User not found.").error();
         }
 
-        SocialAccount socialAccount = this.socialAccountService.get(socialAccountId);
+        SocialAccount socialAccount = this.socialAccountService.findById(socialAccountId);
 
         if (socialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -573,7 +573,7 @@ public class UserProfileController {
     @RequestMapping(value = "/social/{id}/destroy", method = RequestMethod.POST)
     public String destroySocialAccount(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserSocialAccount userSocialAccount = this.userSocialAccountService.get(id);
+        UserSocialAccount userSocialAccount = this.userSocialAccountService.findById(id);
 
         if (userSocialAccount == null) {
             new NotifierHelper(attributes).message("Social account not found.").error();
@@ -599,7 +599,7 @@ public class UserProfileController {
             return "redirect:/dashboard/profile/language";
         }
 
-        List<Language> languages = this.languageService.getAll();
+        List<Language> languages = this.languageService.findAll();
 
         model.addAttribute("user", this.authUser);
         model.addAttribute("languages", languages);
@@ -619,7 +619,7 @@ public class UserProfileController {
             new NotifierHelper(attributes).message("Account not found.").error();
         }
 
-        Language language = this.languageService.get(languageId);
+        Language language = this.languageService.findById(languageId);
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
@@ -647,7 +647,7 @@ public class UserProfileController {
             return "redirect:/dashboard/profile/language";
         }
 
-        Language language = this.languageService.get(languageId);
+        Language language = this.languageService.findById(languageId);
 
         if (language == null) {
             new NotifierHelper(attributes).message("Language not found.").error();
@@ -676,7 +676,7 @@ public class UserProfileController {
     @RequestMapping(value = "/language/{id}/destroy", method = RequestMethod.POST)
     public String destroyLanguage(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        UserLanguage userLanguage = this.userLanguageService.get(id);
+        UserLanguage userLanguage = this.userLanguageService.findById(id);
 
         if (userLanguage == null) {
             new NotifierHelper(attributes).message("Language not found.").error();

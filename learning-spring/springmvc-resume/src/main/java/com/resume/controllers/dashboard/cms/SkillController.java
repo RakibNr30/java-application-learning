@@ -40,7 +40,7 @@ public class SkillController {
 
     @RequestMapping
     public String index(Model model) {
-        List<Skill> skills = this.skillService.getAll();
+        List<Skill> skills = this.skillService.findAll();
         model.addAttribute("skills", skills);
 
         return "dashboard/cms/skill/index";
@@ -74,7 +74,7 @@ public class SkillController {
 
     @RequestMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
-        Skill skill = this.skillService.get(id);
+        Skill skill = this.skillService.findById(id);
 
         if (skill == null) {
             new NotifierHelper(attributes).message("Skill not found.").error();
@@ -89,7 +89,7 @@ public class SkillController {
     @RequestMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
 
-        Skill skill = this.skillService.get(id);
+        Skill skill = this.skillService.findById(id);
 
         if (skill == null) {
             new NotifierHelper(attributes).message("Skill not found.").error();
@@ -109,7 +109,7 @@ public class SkillController {
             return "redirect:/dashboard/cms/skill/" + id + "/edit";
         }
 
-        Skill updatableSkill = this.skillService.get(id);
+        Skill updatableSkill = this.skillService.findById(id);
 
         if (updatableSkill == null) {
             new NotifierHelper(attributes).message("Skill not found.").error();
@@ -130,7 +130,7 @@ public class SkillController {
     @RequestMapping(value = "/{id}/destroy", method = RequestMethod.POST)
     public String destroy(@PathVariable("id") Long id, RedirectAttributes attributes) {
 
-        Skill skill = this.skillService.get(id);
+        Skill skill = this.skillService.findById(id);
 
         if (skill == null) {
             new NotifierHelper(attributes).message("Skill not found.").error();

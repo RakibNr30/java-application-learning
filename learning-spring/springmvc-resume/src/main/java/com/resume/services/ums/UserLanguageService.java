@@ -18,20 +18,20 @@ public class UserLanguageService {
         this.userLanguageRepository = userLanguageRepository;
     }
 
-    public List<UserLanguage> getAll() {
-        return this.userLanguageRepository.getAll();
+    public List<UserLanguage> findAll() {
+        return this.userLanguageRepository.findAll();
     }
 
-    public <T> List<UserLanguage> getAllBy(String propertyName, T value) {
-        return this.userLanguageRepository.getAllBy(propertyName, value);
+    public <T> List<UserLanguage> findAllBy(String propertyName, T value) {
+        return this.userLanguageRepository.findAllBy(propertyName, value);
     }
 
     public void save(UserLanguage userLanguage) {
         this.userLanguageRepository.save(userLanguage);
     }
 
-    public UserLanguage get(long id) {
-        return this.userLanguageRepository.get(id);
+    public UserLanguage findById(long id) {
+        return this.userLanguageRepository.findById(id);
     }
 
     public void update(UserLanguage userLanguage) {

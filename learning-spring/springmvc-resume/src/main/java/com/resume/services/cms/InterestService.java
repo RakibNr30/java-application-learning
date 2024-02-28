@@ -18,16 +18,16 @@ public class InterestService {
         this.interestRepository = interestRepository;
     }
 
-    public List<Interest> getAll() {
-        return this.interestRepository.getAll();
+    public List<Interest> findAll() {
+        return this.interestRepository.findAll();
     }
 
     public void save(Interest interest) {
         this.interestRepository.save(interest);
     }
 
-    public Interest get(long id) {
-        return this.interestRepository.get(id);
+    public Interest findById(long id) {
+        return this.interestRepository.findById(id);
     }
 
     public void update(Interest interest) {

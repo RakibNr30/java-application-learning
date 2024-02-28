@@ -18,20 +18,20 @@ public class UserInterestService {
         this.userInterestRepository = userInterestRepository;
     }
 
-    public List<UserInterest> getAll() {
-        return this.userInterestRepository.getAll();
+    public List<UserInterest> findAll() {
+        return this.userInterestRepository.findAll();
     }
 
-    public <T> List<UserInterest> getAllBy(String propertyName, T value) {
-        return this.userInterestRepository.getAllBy(propertyName, value);
+    public <T> List<UserInterest> findAllBy(String propertyName, T value) {
+        return this.userInterestRepository.findAllBy(propertyName, value);
     }
 
     public void save(UserInterest userInterest) {
         this.userInterestRepository.save(userInterest);
     }
 
-    public UserInterest get(long id) {
-        return this.userInterestRepository.get(id);
+    public UserInterest findById(long id) {
+        return this.userInterestRepository.findById(id);
     }
 
     public void update(UserInterest userInterest) {

@@ -18,20 +18,20 @@ public class UserEducationService {
         this.userEducationRepository = userEducationRepository;
     }
 
-    public List<UserEducation> getAll() {
-        return this.userEducationRepository.getAll();
+    public List<UserEducation> findAll() {
+        return this.userEducationRepository.findAll();
     }
 
-    public <T> List<UserEducation> getAllBy(String propertyName, T value) {
-        return this.userEducationRepository.getAllBy(propertyName, value);
+    public <T> List<UserEducation> findAllBy(String propertyName, T value) {
+        return this.userEducationRepository.findAllBy(propertyName, value);
     }
 
     public void save(UserEducation userEducation) {
         this.userEducationRepository.save(userEducation);
     }
 
-    public UserEducation get(long id) {
-        return this.userEducationRepository.get(id);
+    public UserEducation findById(long id) {
+        return this.userEducationRepository.findById(id);
     }
 
     public void update(UserEducation userEducation) {

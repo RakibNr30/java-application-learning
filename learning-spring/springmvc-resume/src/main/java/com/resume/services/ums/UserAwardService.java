@@ -18,20 +18,20 @@ public class UserAwardService {
         this.userAwardRepository = userAwardRepository;
     }
 
-    public List<UserAward> getAll() {
-        return this.userAwardRepository.getAll();
+    public List<UserAward> findAll() {
+        return this.userAwardRepository.findAll();
     }
 
-    public <T> List<UserAward> getAllBy(String propertyName, T value) {
-        return this.userAwardRepository.getAllBy(propertyName, value);
+    public <T> List<UserAward> findAllBy(String propertyName, T value) {
+        return this.userAwardRepository.findAllBy(propertyName, value);
     }
 
     public void save(UserAward userAward) {
         this.userAwardRepository.save(userAward);
     }
 
-    public UserAward get(long id) {
-        return this.userAwardRepository.get(id);
+    public UserAward findById(long id) {
+        return this.userAwardRepository.findById(id);
     }
 
     public void update(UserAward userAward) {

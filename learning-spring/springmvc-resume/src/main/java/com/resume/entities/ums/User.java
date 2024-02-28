@@ -24,7 +24,7 @@ public class User {
     @Length(min = 3, max = 255)
     private String name;
 
-    @NotNull
+    @NotNull(message = "Date of birth field is required.")
     private LocalDate dob;
 
     @Length(min = 3, max = 20)
@@ -36,7 +36,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @Length(min = 11, max = 11, message = "Length must be 11 characters")
+    @Pattern(regexp = "^[+]?[0-9]{8,}$", message = "Please enter a minimum 8 digit valid numeric mobile number. It should contain only digits and may start with a '+'.")
     private String mobile;
 
     @Length(max = 100)
