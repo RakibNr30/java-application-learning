@@ -1,12 +1,16 @@
 package com.resume.entities.cms;
 
+import com.resume.entities.ums.UserSocialAccount;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +31,11 @@ public class SocialAccount {
     @Length(max = 255)
     @NotBlank
     private String url;
+
+    @OneToMany(mappedBy = "socialAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @OrderBy(value = "createdAt")
+    private List<UserSocialAccount> userSocialAccounts;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -66,6 +75,14 @@ public class SocialAccount {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<UserSocialAccount> getUserSocialAccounts() {
+        return userSocialAccounts;
+    }
+
+    public void setUserSocialAccounts(List<UserSocialAccount> userSocialAccounts) {
+        this.userSocialAccounts = userSocialAccounts;
     }
 
     public LocalDateTime getCreatedAt() {

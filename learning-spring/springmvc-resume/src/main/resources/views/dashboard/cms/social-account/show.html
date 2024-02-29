@@ -56,19 +56,15 @@
                     <div class="col-md-12 gx-3 mb-3">
                         <label class="mb-1">Assigned To</label>
                         <div>
-                            <th:block th:if="${socialAccount.users.size() > 0}">
-                                <span th:each="user, loop : ${socialAccount.users}">
-                                    <span th:text="${user.name}"></span> <span th:if="${not loop.last}">, </span>
+                            <th:block th:if="${socialAccount.userSocialAccounts.size() > 0}">
+                                <span th:each="userSocialAccount, loop : ${socialAccount.userSocialAccounts}">
+                                    <span th:text="${userSocialAccount.user.name}"></span> <span th:if="${not loop.last}">, </span>
                                 </span>
                             </th:block>
-                            <th:block th:unless="${socialAccount.users.size() > 0}">
+                            <th:block th:unless="${socialAccount.userSocialAccounts.size() > 0}">
                                 Not Assigned Yet
                             </th:block>
                         </div>
-                    </div>
-                    <div class="col-md-12 gx-3 mb-3">
-                        <label class="mb-1">Details</label>
-                        <span class="d-block" th:text="${socialAccount.details}"></span>
                     </div>
                 </div>
             </div>

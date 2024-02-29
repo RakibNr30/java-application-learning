@@ -49,6 +49,11 @@
                             <input id="dob" th:name="dob" class="form-control" th:classappend="${#fields.hasErrors('dob') ? 'is-invalid' : ''}" type="date" placeholder="Enter dob" th:value="${user.dob}" required>
                             <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></div>
                         </div>
+                        <div class="col-md-12 gx-3 mb-3">
+                            <label class="mb-1" for="details">About</label>
+                            <textarea id="about" th:field="*{about}" class="form-control" th:classappend="${#fields.hasErrors('about') ? 'is-invalid' : ''}" placeholder="Enter about" rows="8" required></textarea>
+                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></div>
+                        </div>
                         <div class="col-md-4 gx-3 mb-3">
                             <label class="mb-1" for="email">E-mail</label>
                             <input id="email" th:field="*{email}" class="form-control" th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}" type="email" placeholder="Enter email" required>

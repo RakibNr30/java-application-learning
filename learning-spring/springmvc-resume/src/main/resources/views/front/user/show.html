@@ -151,14 +151,11 @@
                     </section>
                 </div>
                 <div class="resume__right">
-                    <section class="section about" id="about">
+                    <section class="section about" id="about" th:if="${!#strings.isEmpty(user.about)}">
                         <div class="section-title-container">
                             <h2 class="section-title">About Me</h2>
                         </div>
-                        <p class="about__description">I have little professional experience in designing and developing diﬀerent web-
-                            based applications. I am willing to learn so I want to work on a platform where I can en-
-                            hance my technical as well as soft skills and where I can get a chance to work on diﬀerent
-                            technologies, and where I can gain experience.</p>
+                        <p class="about__description" th:text="${user.about}"></p>
                     </section>
 
                     <th:block th:if="${user.userExperiences.size() > 0}">

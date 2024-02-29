@@ -7,6 +7,8 @@ public class UserAccountDto {
 
     private String name;
 
+    private String about;
+
     private String username;
 
     private LocalDate dob;
@@ -31,6 +33,14 @@ public class UserAccountDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public String getUsername() {
@@ -71,5 +81,19 @@ public class UserAccountDto {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAccountDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", about='" + about + '\'' +
+                ", username='" + username + '\'' +
+                ", dob=" + dob +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

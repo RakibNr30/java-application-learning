@@ -109,6 +109,7 @@ public class UserProfileController {
 
         try {
             this.authUser.setName(userAccountDto.getName());
+            this.authUser.setAbout(userAccountDto.getAbout());
             this.authUser.setUsername(userAccountDto.getUsername());
             this.authUser.setDob(userAccountDto.getDob());
             this.authUser.setEmail(userAccountDto.getEmail());

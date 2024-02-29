@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DashboardController {
 
     @ModelAttribute
-    public void commonData(Model model) {
+    public void common(Model model) {
         model.addAttribute("title", "Dashboard");
     }
 

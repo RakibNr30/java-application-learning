@@ -24,6 +24,10 @@ public class User {
     @Length(min = 3, max = 255)
     private String name;
 
+    @Length(min = 3, max = 65535)
+    @Column(length = 65535)
+    private String about;
+
     @NotNull(message = "Date of birth field is required.")
     private LocalDate dob;
 
@@ -112,6 +116,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public LocalDate getDob() {

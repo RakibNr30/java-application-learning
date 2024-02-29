@@ -45,12 +45,12 @@
                     <div class="col-md-12 gx-3 mb-3">
                         <label class="mb-1">Assigned To</label>
                         <div>
-                            <th:block th:if="${interest.users.size() > 0}">
-                                <span th:each="user, loop : ${interest.users}">
-                                    <span th:text="${user.name}"></span> <span th:if="${not loop.last}">, </span>
+                            <th:block th:if="${interest.userInterests.size() > 0}">
+                                <span th:each="userInterest, loop : ${interest.userInterests}">
+                                    <span th:text="${userInterest.user.name}"></span> <span th:if="${not loop.last}">, </span>
                                 </span>
                             </th:block>
-                            <th:block th:unless="${interest.users.size() > 0}">
+                            <th:block th:unless="${interest.userInterests.size() > 0}">
                                 Not Assigned Yet
                             </th:block>
                         </div>

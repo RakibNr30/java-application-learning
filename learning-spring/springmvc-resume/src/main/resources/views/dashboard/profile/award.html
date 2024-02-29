@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      th:replace="/layouts/dashboard::layout(content = ~{::section}, title = 'Profile - Language', menuLevel1 = 'Award', menuLevel2 = '')">
+      th:replace="/layouts/dashboard::layout(content = ~{::section}, title = 'Profile - Award', menuLevel1 = 'profile', menuLevel2 = '')">
 <body>
 <section>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -19,15 +19,9 @@
     </header>
 
     <div class="container-fluid">
-        <nav class="nav nav-borders">
-            <a class="nav-link ml-0" th:href="@{/dashboard/profile}">Account</a>
-            <a class="nav-link" th:href="@{/dashboard/profile/education}">Education</a>
-            <a class="nav-link" th:href="@{/dashboard/profile/experience}">Experience</a>
-            <a class="nav-link active" th:href="@{/dashboard/profile/award}">Award</a>
-            <a class="nav-link" th:href="@{/dashboard/profile/interest}">Interest</a>
-            <a class="nav-link" th:href="@{/dashboard/profile/social}">Social</a>
-            <a class="nav-link" th:href="@{/dashboard/profile/language}">Language</a>
-        </nav>
+
+        <th:block th:replace="/fragments/dashboard/profile-nav::active(item = 'profile-award')"></th:block>
+
         <hr class="mt-0 mb-4">
 
         <div class="row">
