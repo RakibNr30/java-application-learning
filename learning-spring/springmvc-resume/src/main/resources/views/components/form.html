@@ -14,6 +14,15 @@
     <div class="invalid-feedback d-block" th:if="${#fields.hasErrors(name)}" th:each="error : ${#fields.errors(name)}" th:text="${error.toString()}"></div>
 </th:block>
 
+<th:block th:fragment="selectField(label, name, value, items, required)">
+    <label class="mb-1" th:for="${name}" th:text="${label}"></label>
+    <select th:id="${name}" th:name="${name}" class="form-control" th:classappend="${#fields.hasErrors(name) ? 'is-invalid' : ''}" th:aria-label="Select ${label}" required>
+        <option value="" th:text="${'Select ' + label}" selected></option>
+        <option th:each="item : ${items}" th:value="${item.value}" th:text="${item.label}"></option>
+    </select>
+    <div class="invalid-feedback d-block" th:if="${#fields.hasErrors(name)}" th:each="error : ${#fields.errors(name)}" th:text="${error.toString()}"></div>
+</th:block>
+
 <th:block th:fragment="buttons(reset, submit)">
     <div class="float-right">
         <button type="reset" class="btn btn-danger" th:text="${reset}"></button>

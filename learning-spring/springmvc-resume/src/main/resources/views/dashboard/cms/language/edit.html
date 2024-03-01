@@ -35,20 +35,13 @@
                 <form th:action="@{/dashboard/cms/language/{id}/update(id=${language.id})}" th:object="${language}" method="POST">
                     <div class="row gx-3 mb-3">
                         <div class="col-md-12 gx-3 mb-3">
-                            <label class="mb-1" for="name">Name</label>
-                            <input id="name" th:field="*{name}" class="form-control" th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" type="text" placeholder="Enter name" th:value="${language.name}" required>
-                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                            <th:block th:replace="/components/form::inputField(type = 'text', label = 'Name', name = 'name', value=${language.name}, required = true)"></th:block>
                         </div>
                         <div class="col-md-12 gx-3 mb-3">
-                            <label class="mb-1" for="details">Details</label>
-                            <textarea id="details" th:field="*{details}" class="form-control" th:classappend="${#fields.hasErrors('details') ? 'is-invalid' : ''}" placeholder="Enter details" rows="8" th:value="${language.details}" required></textarea>
-                            <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('details')}" th:errors="*{details}"></div>
+                            <th:block th:replace="/components/form::textareaField(label = 'Details', name = 'details', value=${language.details}, required = true)"></th:block>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="float-right">
-                            <button type="reset" class="btn btn-danger">Reset</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="col-12">
+                            <th:block th:replace="/components/form::buttons(reset = 'Reset', submit = 'Save Changes')"></th:block>
                         </div>
                     </div>
                 </form>
