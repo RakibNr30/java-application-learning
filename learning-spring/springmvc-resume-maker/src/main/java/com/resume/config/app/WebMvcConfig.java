@@ -40,7 +40,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
         classLoaderTemplateResolver.setPrefix(environment.getProperty("spring.mvc.view.prefix", "/templates/"));
         classLoaderTemplateResolver.setSuffix(environment.getProperty("spring.mvc.view.suffix", ".html"));
-        classLoaderTemplateResolver.setCacheable(Boolean.parseBoolean(environment.getProperty("spring.mvc.view.cachable", "false")));
+        classLoaderTemplateResolver.setCacheable(Boolean.parseBoolean(environment.getProperty("spring.mvc.view.cacheable", "false")));
 
         return classLoaderTemplateResolver;
     }
