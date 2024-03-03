@@ -29,7 +29,7 @@ public class UserController {
 
     @RequestMapping
     public String index(Model model) {
-        List<User> users = this.userService.findAll();
+        List<User> users = this.userService.findAllByRoleName("ROLE_USER");
         model.addAttribute("users", users);
 
         return "front/user/index";

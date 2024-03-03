@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      th:replace="/layouts/dashboard::layout(content = ~{::section}, title = 'User List', menuLevel1 = 'ums', menuLevel2 = 'user')">
+      th:replace="/layouts/dashboard::layout(content = ~{::section}, title = 'User Skill List', menuLevel1 = 'ums', menuLevel2 = 'user-skill')">
 <body>
 <section>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -10,12 +10,12 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-                            User
+                            User Skill
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
-                        <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/ums/user/create}">
-                            <i class="fas fa-plus-square"></i> Add New User
+                        <a class="btn btn-sm btn-light text-primary" th:href="@{/dashboard/ums/user-skill/create}">
+                            <i class="fas fa-plus-square"></i> Add New Skill
                         </a>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">User List</h6>
+                <h6 class="m-0 font-weight-bold text-primary">User Skill List</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -37,34 +37,30 @@
                         <thead>
                         <tr>
                             <th>SN</th>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>DOB</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
+                            <th>User</th>
+                            <th>Skill</th>
+                            <th>Proficiency</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th class="action">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user, loop : ${users}">
+                        <tr th:each="userSkill, loop : ${userSkills}">
                             <th scope="row" th:text="${loop.index + 1}"></th>
-                            <td th:text="${user.name}"></td>
-                            <td th:text="${user.username}"></td>
-                            <td th:text="${user.dob}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.mobile}"></td>
-                            <td th:text="${user.createdAt}"></td>
-                            <td th:text="${user.updatedAt}"></td>
+                            <td th:text="${userSkill.user.name}"></td>
+                            <td th:text="${userSkill.skill.name}"></td>
+                            <td th:text="${T(com.resume.constant.Proficiency).getLabelByValue(userSkill.proficiency)}"></td>
+                            <td th:text="${userSkill.createdAt}"></td>
+                            <td th:text="${userSkill.updatedAt}"></td>
                             <td class="action">
-                                <a th:href="@{/dashboard/ums/user/{id}(id=${user.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                <a th:href="@{/dashboard/ums/user-skill/{id}(id=${userSkill.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
                                     <i class="fas fa-solid fa-eye"></i>
                                 </a>
-                                <a th:href="@{/dashboard/ums/user/{id}/edit(id=${user.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                <a th:href="@{/dashboard/ums/user-skill/{id}/edit(id=${userSkill.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
                                      <i class="fas fa-solid fa-pen text-primary"></i>
                                 </a>
-                                <form th:action="@{/dashboard/ums/user/{id}/destroy(id=${user.id})}" method="POST" style="all: unset">
+                                <form th:action="@{/dashboard/ums/user-skill/{id}/destroy(id=${userSkill.id})}" method="POST" style="all: unset">
                                     <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
                                         <i class="fas fa-regular fa-trash text-danger"></i>
                                     </button>

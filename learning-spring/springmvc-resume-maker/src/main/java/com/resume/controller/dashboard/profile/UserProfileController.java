@@ -3,12 +3,14 @@ package com.resume.controller.dashboard.profile;
 import com.resume.dto.UserAccountDto;
 import com.resume.entity.cms.Interest;
 import com.resume.entity.cms.Language;
+import com.resume.entity.cms.Skill;
 import com.resume.entity.cms.SocialAccount;
 import com.resume.entity.ums.*;
 import com.resume.helper.NotifierHelper;
 import com.resume.helper.ValidationHelper;
 import com.resume.service.cms.InterestService;
 import com.resume.service.cms.LanguageService;
+import com.resume.service.cms.SkillService;
 import com.resume.service.cms.SocialAccountService;
 import com.resume.service.ums.*;
 import jakarta.validation.Valid;
@@ -34,11 +36,15 @@ public class UserProfileController {
 
     private final UserAwardService userAwardService;
 
+    private final UserSkillService userSkillService;
+
     private final UserInterestService userInterestService;
 
     private final UserSocialAccountService userSocialAccountService;
 
     private final UserLanguageService userLanguageService;
+
+    private final SkillService skillService;
 
     private final InterestService interestService;
 
@@ -54,9 +60,11 @@ public class UserProfileController {
             UserEducationService userEducationService,
             UserExperienceService userExperienceService,
             UserAwardService userAwardService,
+            UserSkillService userSkillService,
             UserInterestService userInterestService,
             UserSocialAccountService userSocialAccountService,
             UserLanguageService userLanguageService,
+            SkillService skillService,
             InterestService interestService,
             SocialAccountService socialAccountService,
             LanguageService languageService)
@@ -65,9 +73,11 @@ public class UserProfileController {
         this.userEducationService = userEducationService;
         this.userExperienceService = userExperienceService;
         this.userAwardService = userAwardService;
+        this.userSkillService = userSkillService;
         this.userInterestService = userInterestService;
         this.userSocialAccountService = userSocialAccountService;
         this.userLanguageService = userLanguageService;
+        this.skillService = skillService;
         this.interestService = interestService;
         this.socialAccountService = socialAccountService;
         this.languageService = languageService;
@@ -692,5 +702,108 @@ public class UserProfileController {
         }
 
         return "redirect:/dashboard/profile/language";
+    }
+
+    /* Skill */
+    @RequestMapping("/skill")
+    public String skill(Model model, RedirectAttributes attributes) {
+
+        if (this.authUser == null) {
+            new NotifierHelper(attributes).message("Account not found.").error();
+            return "redirect:/dashboard/profile/skill";
+        }
+
+        List<Skill> skills = this.skillService.findAll();
+
+        model.addAttribute("user", this.authUser);
+        model.addAttribute("skills", skills);
+
+        return "dashboard/profile/skill";
+    }
+
+    @RequestMapping(value = "/skill/store", method = RequestMethod.POST)
+    public String storeSkill(@Valid @ModelAttribute UserSkill userSkill, BindingResult result, @RequestParam("skill_id") Long skillId, RedirectAttributes attributes) {
+
+        if (result.hasErrors()) {
+            new ValidationHelper(attributes).model("userSkill", userSkill).bind(result);
+            return "redirect:/dashboard/profile/skill";
+        }
+
+        if (this.authUser == null) {
+            new NotifierHelper(attributes).message("Account not found.").error();
+        }
+
+        Skill skill = this.skillService.findById(skillId);
+
+        if (skill == null) {
+            new NotifierHelper(attributes).message("Skill not found.").error();
+        }
+
+        try {
+            userSkill.setUser(this.authUser);
+            userSkill.setSkill(skill);
+            this.userSkillService.save(userSkill);
+            new NotifierHelper(attributes).message("Skill added successfully.").success();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+
+            new NotifierHelper(attributes).message("Skill can not be added.").error();
+        }
+
+        return "redirect:/dashboard/profile/skill";
+    }
+
+    @RequestMapping(value = "/skill/{id}/update", method = RequestMethod.POST)
+    public String updateSkill(@PathVariable("id") Long id, @Valid @ModelAttribute UserSkill userSkill, BindingResult result, @RequestParam("skill_id") Long skillId, RedirectAttributes attributes) {
+
+        if (result.hasErrors()) {
+            new ValidationHelper(attributes).model("userSkill", userSkill).bind(result);
+            return "redirect:/dashboard/profile/skill";
+        }
+
+        Skill skill = this.skillService.findById(skillId);
+
+        if (skill == null) {
+            new NotifierHelper(attributes).message("Skill not found.").error();
+        }
+
+        if (this.authUser == null) {
+            new NotifierHelper(attributes).message("User not found.").error();
+        }
+
+        try {
+            userSkill.setId(id);
+            userSkill.setUser(this.authUser);
+            userSkill.setSkill(skill);
+            this.userSkillService.update(userSkill);
+
+            new NotifierHelper(attributes).message("Skill updated successfully.").success();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+
+            new NotifierHelper(attributes).message("Skill can not be added.").error();
+        }
+
+        return "redirect:/dashboard/profile/skill";
+    }
+
+    @RequestMapping(value = "/skill/{id}/destroy", method = RequestMethod.POST)
+    public String destroySkill(@PathVariable("id") Long id, RedirectAttributes attributes) {
+
+        UserSkill userSkill = this.userSkillService.findById(id);
+
+        if (userSkill == null) {
+            new NotifierHelper(attributes).message("Skill not found.").error();
+        }
+
+        try {
+            this.userSkillService.delete(userSkill);
+            new NotifierHelper(attributes).message("Skill deleted successfully.").success();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            new NotifierHelper(attributes).message("Skill can not ber deleted.").error();
+        }
+
+        return "redirect:/dashboard/profile/skill";
     }
 }

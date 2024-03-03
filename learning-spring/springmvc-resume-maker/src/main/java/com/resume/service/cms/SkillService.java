@@ -3,6 +3,8 @@ package com.resume.service.cms;
 import com.resume.entity.cms.Skill;
 import com.resume.repository.cms.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,10 @@ public class SkillService {
 
     public List<Skill> findAll() {
         return this.skillRepository.findAll();
+    }
+
+    public Page<Skill> findPaginate(Pageable pageable) {
+        return this.skillRepository.findAll(pageable);
     }
 
     public Skill save(Skill skill) {

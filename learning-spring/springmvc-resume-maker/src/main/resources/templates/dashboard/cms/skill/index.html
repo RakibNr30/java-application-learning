@@ -38,7 +38,6 @@
                         <tr>
                             <th>SN</th>
                             <th>Name</th>
-                            <th>Proficiency</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th class="action">Action</th>
@@ -48,7 +47,6 @@
                         <tr th:each="skill, loop : ${skills}">
                             <th scope="row" th:text="${loop.index + 1}"></th>
                             <td th:text="${skill.name}"></td>
-                            <td th:text="${T(com.resume.constant.Proficiency).getLabelByValue(skill.proficiency)}"></td>
                             <td th:text="${skill.createdAt}"></td>
                             <td th:text="${skill.updatedAt}"></td>
                             <td class="action">

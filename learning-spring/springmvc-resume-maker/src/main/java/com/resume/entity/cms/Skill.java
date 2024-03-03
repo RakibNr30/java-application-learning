@@ -1,8 +1,9 @@
 package com.resume.entity.cms;
 
-import com.resume.entity.ums.User;
-import jakarta.validation.constraints.NotNull;
+import com.resume.entity.ums.UserSkill;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
@@ -18,14 +19,17 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Length(min = 2, max = 255)
+    @Length(max = 255)
     private String name;
 
-    @NotNull
-    private int proficiency;
+    @Length(min = 3, max = 65535)
+    @Column(length = 65535)
+    private String details;
 
-    @ManyToMany(mappedBy = "skills", fetch = FetchType.EAGER)
-    private List<User> users;
+    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    @OrderBy(value = "proficiency, createdAt")
+    private List<UserSkill> userSkills;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -51,20 +55,20 @@ public class Skill {
         this.name = name;
     }
 
-    public int getProficiency() {
-        return proficiency;
+    public String getDetails() {
+        return details;
     }
 
-    public void setProficiency(int proficiency) {
-        this.proficiency = proficiency;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserSkill> getUserSkills() {
+        return userSkills;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserSkills(List<UserSkill> userSkills) {
+        this.userSkills = userSkills;
     }
 
     public LocalDateTime getCreatedAt() {

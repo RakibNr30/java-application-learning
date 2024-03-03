@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      th:replace="/layouts/dashboard::layout(content = ~{::section}, title = 'Role View', menuLevel1 = 'ums', menuLevel2 = 'user')">
+      th:replace="/layouts/dashboard::layout(content = ~{::section}, title = 'User View', menuLevel1 = 'ums', menuLevel2 = 'user')">
 <body>
 <section>
     <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
@@ -43,10 +43,6 @@
                         <label class="mb-1">Date of Birth</label>
                         <span class="d-block" th:text="${user.dob}"></span>
                     </div>
-                    <div class="col-md-12 gx-3 mb-3">
-                        <label class="mb-1">About</label>
-                        <span class="d-block" th:text="${user.about}"></span>
-                    </div>
                     <div class="col-md-3 gx-3 mb-3">
                         <label class="mb-1">E-mail</label>
                         <span class="d-block" th:text="${user.email}"></span>
@@ -67,13 +63,33 @@
                         <label class="mb-1">Updated At</label>
                         <span class="d-block" th:text="${user.updatedAt}"></span>
                     </div>
-                    <div class="col-md-3 gx-3 mb-3">
-                        <label class="mb-1">Skills</label>
-                        <span th:each="skill, loop : ${user.skills}" class="d-block" th:text="${loop.index + 1} + '. ' + ${skill.name}"></span>
+                    <div class="col-md-12 gx-3 mb-3">
+                        <label class="mb-1">About</label>
+                        <span class="d-block" th:text="${user.about}"></span>
                     </div>
-                    <div class="col-md-9 gx-3 mb-3">
+                    <div class="col-md-12 gx-3 mb-3">
                         <label class="mb-1">Roles</label>
                         <span th:each="role, loop : ${user.roles}" class="d-block" th:text="${loop.index + 1} + '. ' + ${role.name}"></span>
+                    </div>
+                    <div class="col-md-3 gx-3 mb-3">
+                        <label class="mb-1">Skills</label>
+                        <span th:if="${user.userSkills.size() > 0}" th:each="userSkill, loop : ${user.userSkills}" class="d-block" th:text="${loop.index + 1} + '. ' + ${userSkill.skill.name}"></span>
+                        <span th:unless="${user.userSkills.size() > 0}">Not Yet</span>
+                    </div>
+                    <div class="col-md-3 gx-3 mb-3">
+                        <label class="mb-1">Interests</label>
+                        <span th:if="${user.userInterests.size() > 0}" th:each="userInterest, loop : ${user.userInterests}" class="d-block" th:text="${loop.index + 1} + '. ' + ${userInterest.interest.name}"></span>
+                        <span th:unless="${user.userInterests.size() > 0}">Not Yet</span>
+                    </div>
+                    <div class="col-md-3 gx-3 mb-3">
+                        <label class="mb-1">Socials</label>
+                        <span th:if="${user.userSocialAccounts.size() > 0}" th:each="userSocialAccount, loop : ${user.userSocialAccounts}" class="d-block" th:text="${loop.index + 1} + '. ' + ${userSocialAccount.socialAccount.name}"></span>
+                        <span th:unless="${user.userSocialAccounts.size() > 0}">Not Yet</span>
+                    </div>
+                    <div class="col-md-3 gx-3 mb-3">
+                        <label class="mb-1">Languages</label>
+                        <span th:if="${user.userLanguages.size() > 0}" th:each="userLanguage, loop : ${user.userLanguages}" class="d-block" th:text="${loop.index + 1} + '. ' + ${userLanguage.language.name}"></span>
+                        <span th:unless="${user.userLanguages.size() > 0}">Not Yet</span>
                     </div>
                 </div>
 

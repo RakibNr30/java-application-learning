@@ -1,6 +1,5 @@
 package com.resume.entity.ums;
 
-import com.resume.entity.cms.Skill;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Length;
@@ -57,11 +56,10 @@ public class User {
     @Size(min = 1)
     private List<Role> roles;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "skill_id")})
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @OrderBy(value = "createdAt")
-    private List<Skill> skills;
+    private List<UserSkill> userSkills;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -190,12 +188,12 @@ public class User {
         this.roles = roles;
     }
 
-    public List<Skill> getSkills() {
-        return skills;
+    public List<UserSkill> getUserSkills() {
+        return userSkills;
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
+    public void setUserSkills(List<UserSkill> userSkills) {
+        this.userSkills = userSkills;
     }
 
     public List<UserEducation> getUserEducations() {

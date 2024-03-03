@@ -85,7 +85,7 @@
                         </div>
                     </section>
 
-                    <th:block th:if="${user.skills.size() > 0}">
+                    <th:block th:if="${user.userSkills.size() > 0}">
                         <section class="section skills" id="skills">
                             <div class="section-title-container">
                                 <h2 class="section-title">Skills</h2>
@@ -93,7 +93,7 @@
 
                             <div class="skills__content">
                                 <ul class="skills__data mt-0 mb-0">
-                                    <li class="skills__name" th:each="skill : ${user.skills}" th:text="${skill.name}"></li>
+                                    <li class="skills__name" th:each="userSkill : ${user.userSkills}" th:text="${userSkill.skill.name}"></li>
                                 </ul>
                             </div>
                         </section>
