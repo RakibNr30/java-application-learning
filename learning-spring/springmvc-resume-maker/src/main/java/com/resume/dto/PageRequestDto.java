@@ -7,18 +7,19 @@ import org.springframework.data.domain.Sort;
 public class PageRequestDto {
     private int page = 0;
 
-    private int perPage = 10;
+    private int size = 10;
 
     private String direction = "asc";
 
-    private String sortBy = "id";
+    private String sort = "id";
 
     public Pageable getPageable() {
         int pageNumber = Math.max(this.page - 1, 0);
-        int pageSize = Math.max(this.perPage, 1);
+        int pageSize = Math.max(this.size, 1);
         Sort.Direction sortDirection = Sort.Direction.fromString(this.direction.equalsIgnoreCase("desc") ? this.direction : "asc");
+        String sortField = this.sort;
 
-        return PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, this.sortBy));
+        return PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortField));
     }
 
     public int getPage() {
@@ -29,12 +30,12 @@ public class PageRequestDto {
         this.page = page;
     }
 
-    public int getPerPage() {
-        return perPage;
+    public int getSize() {
+        return size;
     }
 
-    public void setPerPage(int perPage) {
-        this.perPage = perPage;
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public String getDirection() {
@@ -45,11 +46,11 @@ public class PageRequestDto {
         this.direction = direction;
     }
 
-    public String getSortBy() {
-        return sortBy;
+    public String getSort() {
+        return sort;
     }
 
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }

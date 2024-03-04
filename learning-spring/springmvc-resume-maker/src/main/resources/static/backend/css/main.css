@@ -27,13 +27,21 @@ table.dataTable > thead .sorting_desc_disabled:after {
     font-family: "Font Awesome 5 Free", serif;
     content: "\f063";
 }
-table .action {
+table.dataTable .action {
     text-align: center;
     white-space: nowrap;
+    width: 100px;
 }
-table .action .btn {
+table.dataTable .action .btn {
     padding: 0.275rem 0.5rem;
     border: 1px solid var(--secondary);
+}
+table.dataTable .serial-head,
+table.dataTable .serial {
+    width: 35px;
+}
+table.dataTable .serial {
+    text-align: center;
 }
 label {
     font-weight: bold !important;

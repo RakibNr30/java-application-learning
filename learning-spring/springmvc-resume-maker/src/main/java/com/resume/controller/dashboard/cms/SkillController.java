@@ -36,9 +36,8 @@ public class SkillController {
     }
 
     @RequestMapping
-    public String index(Model model, PageRequestDto dto) {
-        Page<Skill> skills = this.skillService.findPaginate(dto.getPageable());
-
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<Skill> skills = this.skillService.findPaginate(pageRequestDto.getPageable());
         model.addAttribute("skills", skills);
 
         return "dashboard/cms/skill/index";
