@@ -1,8 +1,12 @@
 package com.resume.service.cms;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.Interest;
+import com.resume.helper.JpaSpecificationHelper;
 import com.resume.repository.cms.InterestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +23,11 @@ public class InterestService {
 
     public List<Interest> findAll() {
         return this.interestRepository.findAll();
+    }
+
+    public Page<Interest> findPaginated(PageRequestDto pageRequestDto) {
+        Specification<Interest> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        return this.interestRepository.findAll(specification, pageRequestDto.getPageable());
     }
 
     public Interest save(Interest interest) {

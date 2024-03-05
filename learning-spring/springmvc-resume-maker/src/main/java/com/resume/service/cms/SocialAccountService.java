@@ -1,8 +1,12 @@
 package com.resume.service.cms;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.SocialAccount;
+import com.resume.helper.JpaSpecificationHelper;
 import com.resume.repository.cms.SocialAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +23,11 @@ public class SocialAccountService {
 
     public List<SocialAccount> findAll() {
         return this.socialAccountRepository.findAll();
+    }
+
+    public Page<SocialAccount> findPaginated(PageRequestDto pageRequestDto) {
+        Specification<SocialAccount> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        return this.socialAccountRepository.findAll(specification, pageRequestDto.getPageable());
     }
 
     public SocialAccount save(SocialAccount socialAccount) {

@@ -1,8 +1,12 @@
 package com.resume.service.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.ums.UserLanguage;
+import com.resume.helper.JpaSpecificationHelper;
 import com.resume.repository.ums.UserLanguageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +28,11 @@ public class UserLanguageService {
     public <T> List<UserLanguage> findAllBy(String propertyName, T value) {
         return null;
         //return this.userLanguageRepository.findAllBy(propertyName, value);
+    }
+
+    public Page<UserLanguage> findPaginated(PageRequestDto pageRequestDto) {
+        Specification<UserLanguage> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        return this.userLanguageRepository.findAll(specification, pageRequestDto.getPageable());
     }
 
     public UserLanguage save(UserLanguage userLanguage) {

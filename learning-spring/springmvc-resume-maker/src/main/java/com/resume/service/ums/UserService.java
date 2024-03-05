@@ -1,8 +1,12 @@
 package com.resume.service.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.ums.User;
+import com.resume.helper.JpaSpecificationHelper;
 import com.resume.repository.ums.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +27,11 @@ public class UserService {
 
     public List<User> findAllByRoleName(String roleName) {
         return this.userRepository.findAllByRoleName(roleName);
+    }
+
+    public Page<User> findPaginated(PageRequestDto pageRequestDto) {
+        Specification<User> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        return this.userRepository.findAll(specification, pageRequestDto.getPageable());
     }
 
     public User save(User user) {

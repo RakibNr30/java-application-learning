@@ -1,8 +1,12 @@
 package com.resume.service.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.ums.UserSkill;
+import com.resume.helper.JpaSpecificationHelper;
 import com.resume.repository.ums.UserSkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +28,11 @@ public class UserSkillService {
     public <T> List<UserSkill> findAllBy(String propertyName, T value) {
         return null;
         //return this.userSkillRepository.findAllBy(propertyName, value);
+    }
+
+    public Page<UserSkill> findPaginated(PageRequestDto pageRequestDto) {
+        Specification<UserSkill> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        return this.userSkillRepository.findAll(specification, pageRequestDto.getPageable());
     }
 
     public UserSkill save(UserSkill userSkill) {

@@ -37,7 +37,7 @@ public class SkillController {
 
     @RequestMapping
     public String index(Model model, PageRequestDto pageRequestDto) {
-        Page<Skill> skills = this.skillService.findPaginate(pageRequestDto.getPageable());
+        Page<Skill> skills = this.skillService.findPaginated(pageRequestDto);
         model.addAttribute("skills", skills);
 
         return "dashboard/cms/skill/index";

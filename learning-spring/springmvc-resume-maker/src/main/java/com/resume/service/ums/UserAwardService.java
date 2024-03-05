@@ -1,8 +1,12 @@
 package com.resume.service.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.ums.UserAward;
+import com.resume.helper.JpaSpecificationHelper;
 import com.resume.repository.ums.UserAwardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +28,11 @@ public class UserAwardService {
     public <T> List<UserAward> findAllBy(String propertyName, T value) {
         return null;
         //return this.userAwardRepository.findAllBy(propertyName, value);
+    }
+
+    public Page<UserAward> findPaginated(PageRequestDto pageRequestDto) {
+        Specification<UserAward> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        return this.userAwardRepository.findAll(specification, pageRequestDto.getPageable());
     }
 
     public UserAward save(UserAward userAward) {
