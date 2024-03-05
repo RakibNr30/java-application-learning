@@ -1,11 +1,13 @@
 package com.resume.controller.dashboard.cms;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.Interest;
 import com.resume.helper.NotifierHelper;
 import com.resume.helper.ValidationHelper;
 import com.resume.service.cms.InterestService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +41,8 @@ public class InterestController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<Interest> interests = this.interestService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<Interest> interests = this.interestService.findPaginated(pageRequestDto);
         model.addAttribute("interests", interests);
 
         return "dashboard/cms/interest/index";

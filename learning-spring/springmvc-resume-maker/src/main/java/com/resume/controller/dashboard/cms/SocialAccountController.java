@@ -1,11 +1,13 @@
 package com.resume.controller.dashboard.cms;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.SocialAccount;
 import com.resume.helper.NotifierHelper;
 import com.resume.helper.ValidationHelper;
 import com.resume.service.cms.SocialAccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +41,8 @@ public class SocialAccountController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<SocialAccount> socialAccounts = this.socialAccountService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<SocialAccount> socialAccounts = this.socialAccountService.findPaginated(pageRequestDto);
         model.addAttribute("socialAccounts", socialAccounts);
 
         return "dashboard/cms/social-account/index";

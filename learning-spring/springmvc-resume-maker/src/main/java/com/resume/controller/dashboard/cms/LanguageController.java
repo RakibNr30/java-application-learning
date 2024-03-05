@@ -1,11 +1,13 @@
 package com.resume.controller.dashboard.cms;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.Language;
 import com.resume.helper.NotifierHelper;
 import com.resume.helper.ValidationHelper;
 import com.resume.service.cms.LanguageService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +41,8 @@ public class LanguageController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<Language> languages = this.languageService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<Language> languages = this.languageService.findPaginated(pageRequestDto);
         model.addAttribute("languages", languages);
 
         return "dashboard/cms/language/index";

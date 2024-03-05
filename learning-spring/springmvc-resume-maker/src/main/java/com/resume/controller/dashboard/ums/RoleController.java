@@ -1,11 +1,13 @@
 package com.resume.controller.dashboard.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.ums.Role;
 import com.resume.helper.NotifierHelper;
 import com.resume.helper.ValidationHelper;
 import com.resume.service.ums.RoleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +41,8 @@ public class RoleController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<Role> roles = this.roleService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<Role> roles = this.roleService.findPaginated(pageRequestDto);
         model.addAttribute("roles", roles);
 
         return "dashboard/ums/role/index";

@@ -1,5 +1,6 @@
 package com.resume.controller.dashboard.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.Skill;
 import com.resume.entity.ums.User;
 import com.resume.entity.ums.UserSkill;
@@ -10,6 +11,7 @@ import com.resume.service.ums.UserSkillService;
 import com.resume.service.ums.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,8 +48,8 @@ public class UserSkillController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<UserSkill> userSkills = this.userSkillService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<UserSkill> userSkills = this.userSkillService.findPaginated(pageRequestDto);
         model.addAttribute("userSkills", userSkills);
 
         return "dashboard/ums/user-skill/index";

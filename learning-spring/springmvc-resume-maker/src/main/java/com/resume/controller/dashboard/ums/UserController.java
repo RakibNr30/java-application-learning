@@ -2,6 +2,7 @@ package com.resume.controller.dashboard.ums;
 
 import com.resume.converter.RolePropertyEditor;
 import com.resume.converter.SkillPropertyEditor;
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.ums.Role;
 import com.resume.entity.cms.Skill;
 import com.resume.entity.ums.User;
@@ -12,6 +13,7 @@ import com.resume.service.ums.UserService;
 import com.resume.helper.NotifierHelper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,8 +56,9 @@ public class UserController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<User> users = this.userService.findAllByRoleName(com.resume.constant.Role.ROLE_USER.name());
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        //List<User> users = this.userService.findAllByRoleName(com.resume.constant.Role.ROLE_USER.name());
+        Page<User> users = this.userService.findPaginatedByRoleName(com.resume.constant.Role.ROLE_USER.name(), pageRequestDto);
         model.addAttribute("users", users);
 
         return "dashboard/ums/user/index";

@@ -1,5 +1,6 @@
 package com.resume.controller.dashboard.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.ums.User;
 import com.resume.entity.ums.UserEducation;
 import com.resume.helper.NotifierHelper;
@@ -8,6 +9,7 @@ import com.resume.service.ums.UserEducationService;
 import com.resume.service.ums.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,8 +43,8 @@ public class UserEducationController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<UserEducation> userEducations = this.userEducationService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<UserEducation> userEducations = this.userEducationService.findPaginated(pageRequestDto);
         model.addAttribute("userEducations", userEducations);
 
         return "dashboard/ums/user-education/index";

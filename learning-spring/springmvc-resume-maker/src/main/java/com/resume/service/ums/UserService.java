@@ -25,11 +25,16 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
+    public Page<User> findPaginated(PageRequestDto pageRequestDto) {
+        Specification<User> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        return this.userRepository.findAll(specification, pageRequestDto.getPageable());
+    }
+
     public List<User> findAllByRoleName(String roleName) {
         return this.userRepository.findAllByRoleName(roleName);
     }
 
-    public Page<User> findPaginated(PageRequestDto pageRequestDto) {
+    public Page<User> findPaginatedByRoleName(String roleName, PageRequestDto pageRequestDto) {
         Specification<User> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
         return this.userRepository.findAll(specification, pageRequestDto.getPageable());
     }

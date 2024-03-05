@@ -1,5 +1,6 @@
 package com.resume.controller.dashboard.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.Interest;
 import com.resume.entity.ums.User;
 import com.resume.entity.ums.UserInterest;
@@ -10,6 +11,7 @@ import com.resume.service.ums.UserInterestService;
 import com.resume.service.ums.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,8 +48,8 @@ public class UserInterestController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<UserInterest> userInterests = this.userInterestService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<UserInterest> userInterests = this.userInterestService.findPaginated(pageRequestDto);
         model.addAttribute("userInterests", userInterests);
 
         return "dashboard/ums/user-interest/index";

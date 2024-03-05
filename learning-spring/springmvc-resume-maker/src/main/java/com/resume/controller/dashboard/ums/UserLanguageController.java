@@ -1,5 +1,6 @@
 package com.resume.controller.dashboard.ums;
 
+import com.resume.dto.PageRequestDto;
 import com.resume.entity.cms.Language;
 import com.resume.entity.ums.User;
 import com.resume.entity.ums.UserLanguage;
@@ -10,6 +11,7 @@ import com.resume.service.ums.UserLanguageService;
 import com.resume.service.ums.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,8 +48,8 @@ public class UserLanguageController {
     }
 
     @RequestMapping
-    public String index(Model model) {
-        List<UserLanguage> userLanguages = this.userLanguageService.findAll();
+    public String index(Model model, PageRequestDto pageRequestDto) {
+        Page<UserLanguage> userLanguages = this.userLanguageService.findPaginated(pageRequestDto);
         model.addAttribute("userLanguages", userLanguages);
 
         return "dashboard/ums/user-language/index";
