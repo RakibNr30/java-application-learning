@@ -35,7 +35,10 @@ public class UserService {
     }
 
     public Page<User> findPaginatedByRoleName(String roleName, PageRequestDto pageRequestDto) {
-        Specification<User> specification = JpaSpecificationHelper.searchQuery(pageRequestDto.getSearch());
+        Specification<User> specification = JpaSpecificationHelper
+                .<User>searchQuery(pageRequestDto.getSearch())
+                .and(JpaSpecificationHelper.hasRole("ROLE_USER"));
+
         return this.userRepository.findAll(specification, pageRequestDto.getPageable());
     }
 

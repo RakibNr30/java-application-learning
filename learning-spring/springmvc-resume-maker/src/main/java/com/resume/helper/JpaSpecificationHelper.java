@@ -4,6 +4,7 @@ import com.resume.entity.cms.Interest;
 import com.resume.entity.cms.Language;
 import com.resume.entity.cms.Skill;
 import com.resume.entity.cms.SocialAccount;
+import com.resume.entity.ums.Role;
 import com.resume.entity.ums.User;
 import jakarta.persistence.criteria.*;
 import jakarta.persistence.metamodel.SingularAttribute;
@@ -13,6 +14,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class JpaSpecificationHelper {
+
+    public static Specification<User> hasRole(String roleName) {
+        return (root, query, criteriaBuilder) -> {
+            query.distinct(true);
+            Join<User, Role> userRoleJoin = root.join("roles");
+            return criteriaBuilder.equal(userRoleJoin.get("name"), roleName);
+        };
+    }
+
     public static <E> Specification<E> searchQuery(String keyword) {
         return (root, query, criteriaBuilder) -> {
             Set<Predicate> likePredicates = new HashSet<>();
@@ -21,20 +31,8 @@ public class JpaSpecificationHelper {
                 if (attribute.getJavaType().equals(String.class)) {
                     likePredicates.add(getLikePredicate(criteriaBuilder, root, attribute, keyword));
                 }
-                if (attribute.getJavaType().equals(User.class)) {
-                    likePredicates.add(getUserLikePredicate(criteriaBuilder, root, attribute, keyword));
-                }
-                if (attribute.getJavaType().equals(Interest.class)) {
-                    likePredicates.add(getInterestLikePredicate(criteriaBuilder, root, attribute, keyword));
-                }
-                if (attribute.getJavaType().equals(Language.class)) {
-                    likePredicates.add(getLanguageLikePredicate(criteriaBuilder, root, attribute, keyword));
-                }
-                if (attribute.getJavaType().equals(Skill.class)) {
-                    likePredicates.add(getSkillLikePredicate(criteriaBuilder, root, attribute, keyword));
-                }
-                if (attribute.getJavaType().equals(SocialAccount.class)) {
-                    likePredicates.add(getSocialAccountLikePredicate(criteriaBuilder, root, attribute, keyword));
+                else if (isNamedEntityAttribute(attribute)) {
+                    likePredicates.add(getNamedEntityPredicate(criteriaBuilder, root, attribute, keyword));
                 }
             }
 
@@ -48,33 +46,15 @@ public class JpaSpecificationHelper {
         return criteriaBuilder.like(criteriaBuilder.lower(attributePath), "%" + keyword.trim().toLowerCase() + "%");
     }
 
-    private static <E> Predicate getUserLikePredicate(CriteriaBuilder criteriaBuilder, Root<E> root, SingularAttribute<?, ?> attribute, String keyword) {
+    private static <E> Predicate getNamedEntityPredicate(CriteriaBuilder criteriaBuilder, Root<E> root, SingularAttribute<?, ?> attribute, String keyword) {
         Path<String> attributePath = root.get(attribute.getName()).get("name");
 
         return criteriaBuilder.like(criteriaBuilder.lower(attributePath), "%" + keyword.trim().toLowerCase() + "%");
     }
 
-    private static <E> Predicate getInterestLikePredicate(CriteriaBuilder criteriaBuilder, Root<E> root, SingularAttribute<?, ?> attribute, String keyword) {
-        Path<String> attributePath = root.get(attribute.getName()).get("name");
-
-        return criteriaBuilder.like(criteriaBuilder.lower(attributePath), "%" + keyword.trim().toLowerCase() + "%");
-    }
-
-    private static <E> Predicate getLanguageLikePredicate(CriteriaBuilder criteriaBuilder, Root<E> root, SingularAttribute<?, ?> attribute, String keyword) {
-        Path<String> attributePath = root.get(attribute.getName()).get("name");
-
-        return criteriaBuilder.like(criteriaBuilder.lower(attributePath), "%" + keyword.trim().toLowerCase() + "%");
-    }
-
-    private static <E> Predicate getSkillLikePredicate(CriteriaBuilder criteriaBuilder, Root<E> root, SingularAttribute<?, ?> attribute, String keyword) {
-        Path<String> attributePath = root.get(attribute.getName()).get("name");
-
-        return criteriaBuilder.like(criteriaBuilder.lower(attributePath), "%" + keyword.trim().toLowerCase() + "%");
-    }
-
-    private static <E> Predicate getSocialAccountLikePredicate(CriteriaBuilder criteriaBuilder, Root<E> root, SingularAttribute<?, ?> attribute, String keyword) {
-        Path<String> attributePath = root.get(attribute.getName()).get("name");
-
-        return criteriaBuilder.like(criteriaBuilder.lower(attributePath), "%" + keyword.trim().toLowerCase() + "%");
+    private static boolean isNamedEntityAttribute(SingularAttribute<?, ?> attribute) {
+        return Set
+                .of(User.class, Interest.class, Language.class, Skill.class, SocialAccount.class)
+                .contains(attribute.getJavaType());
     }
 }
