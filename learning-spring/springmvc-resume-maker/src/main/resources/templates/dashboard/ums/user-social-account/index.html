@@ -33,42 +33,50 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>SN</th>
-                            <th>User</th>
-                            <th>Social Account</th>
-                            <th>Username</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th class="action">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="userSocialAccount, loop : ${userSocialAccounts}">
-                            <th scope="row" th:text="${loop.index + 1}"></th>
-                            <td th:text="${userSocialAccount.user.name}"></td>
-                            <td th:text="${userSocialAccount.socialAccount.name}"></td>
-                            <td th:text="${userSocialAccount.username}"></td>
-                            <td th:text="${userSocialAccount.createdAt}"></td>
-                            <td th:text="${userSocialAccount.updatedAt}"></td>
-                            <td class="action">
-                                <a th:href="@{/dashboard/ums/user-social-account/{id}(id=${userSocialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
-                                    <i class="fas fa-solid fa-eye"></i>
-                                </a>
-                                <a th:href="@{/dashboard/ums/user-social-account/{id}/edit(id=${userSocialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
-                                     <i class="fas fa-solid fa-pen text-primary"></i>
-                                </a>
-                                <form th:action="@{/dashboard/ums/user-social-account/{id}/destroy(id=${userSocialAccount.id})}" method="POST" style="all: unset">
-                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
-                                        <i class="fas fa-regular fa-trash text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <th:block th:replace="/fragments/dashboard/table::header(${userSocialAccounts})"></th:block>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable no-footer" style="width: 100%;">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="serial-head sorting sorting_asc">SN</th>
+                                        <th class="sorting">User</th>
+                                        <th class="sorting">Account</th>
+                                        <th class="sorting">Username</th>
+                                        <th class="sorting">Created At</th>
+                                        <th class="sorting">Updated At</th>
+                                        <th class="action sorting">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="userSocialAccount, loop : ${userSocialAccounts}" th:classappend="${loop.odd ? 'odd' : 'even'}">
+                                        <th scope="row" class="serial" th:text="${loop.index + 1}"></th>
+                                        <td th:text="${userSocialAccount.user.name}"></td>
+                                        <td th:text="${userSocialAccount.socialAccount.name}"></td>
+                                        <td th:text="${userSocialAccount.username}"></td>
+                                        <td th:text="${userSocialAccount.createdAt}"></td>
+                                        <td th:text="${userSocialAccount.updatedAt}"></td>
+                                        <td class="action">
+                                            <a th:href="@{/dashboard/ums/user-social-account/{id}(id=${userSocialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                                <i class="fas fa-solid fa-eye"></i>
+                                            </a>
+                                            <a th:href="@{/dashboard/ums/user-social-account/{id}/edit(id=${userSocialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                                <i class="fas fa-solid fa-pen text-primary"></i>
+                                            </a>
+                                            <form th:action="@{/dashboard/ums/user-social-account/{id}/destroy(id=${userSocialAccount.id})}" method="POST" style="all: unset">
+                                                <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                                    <i class="fas fa-regular fa-trash text-danger"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <th:block th:replace="/fragments/dashboard/table::pagination(${userSocialAccounts}, '/dashboard/ums/user-social-account')"></th:block>
+                    </div>
                 </div>
             </div>
         </div>

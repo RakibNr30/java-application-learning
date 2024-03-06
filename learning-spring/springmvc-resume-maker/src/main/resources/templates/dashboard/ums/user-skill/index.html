@@ -33,42 +33,50 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>SN</th>
-                            <th>User</th>
-                            <th>Skill</th>
-                            <th>Proficiency</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th class="action">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="userSkill, loop : ${userSkills}">
-                            <th scope="row" th:text="${loop.index + 1}"></th>
-                            <td th:text="${userSkill.user.name}"></td>
-                            <td th:text="${userSkill.skill.name}"></td>
-                            <td th:text="${T(com.resume.constant.Proficiency).getLabelByValue(userSkill.proficiency)}"></td>
-                            <td th:text="${userSkill.createdAt}"></td>
-                            <td th:text="${userSkill.updatedAt}"></td>
-                            <td class="action">
-                                <a th:href="@{/dashboard/ums/user-skill/{id}(id=${userSkill.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
-                                    <i class="fas fa-solid fa-eye"></i>
-                                </a>
-                                <a th:href="@{/dashboard/ums/user-skill/{id}/edit(id=${userSkill.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
-                                     <i class="fas fa-solid fa-pen text-primary"></i>
-                                </a>
-                                <form th:action="@{/dashboard/ums/user-skill/{id}/destroy(id=${userSkill.id})}" method="POST" style="all: unset">
-                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
-                                        <i class="fas fa-regular fa-trash text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <th:block th:replace="/fragments/dashboard/table::header(${userSkills})"></th:block>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable no-footer" style="width: 100%;">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="serial-head sorting sorting_asc">SN</th>
+                                        <th class="sorting">User</th>
+                                        <th class="sorting">Skill</th>
+                                        <th class="sorting">Proficiency</th>
+                                        <th class="sorting">Created At</th>
+                                        <th class="sorting">Updated At</th>
+                                        <th class="action sorting">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="userSkill, loop : ${userSkills}" th:classappend="${loop.odd ? 'odd' : 'even'}">
+                                        <th scope="row" class="serial" th:text="${loop.index + 1}"></th>
+                                        <td th:text="${userSkill.user.name}"></td>
+                                        <td th:text="${userSkill.skill.name}"></td>
+                                        <td th:text="${T(com.resume.constant.Proficiency).getLabelByValue(userSkill.proficiency)}"></td>
+                                        <td th:text="${userSkill.createdAt}"></td>
+                                        <td th:text="${userSkill.updatedAt}"></td>
+                                        <td class="action">
+                                            <a th:href="@{/dashboard/ums/user-skill/{id}(id=${userSkill.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                                <i class="fas fa-solid fa-eye"></i>
+                                            </a>
+                                            <a th:href="@{/dashboard/ums/user-skill/{id}/edit(id=${userSkill.id})}" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                                <i class="fas fa-solid fa-pen text-primary"></i>
+                                            </a>
+                                            <form th:action="@{/dashboard/ums/user-skill/{id}/destroy(id=${userSkill.id})}" method="POST" style="all: unset">
+                                                <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                                    <i class="fas fa-regular fa-trash text-danger"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <th:block th:replace="/fragments/dashboard/table::pagination(${userSkills}, '/dashboard/ums/user-skill')"></th:block>
+                    </div>
                 </div>
             </div>
         </div>

@@ -33,44 +33,52 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>SN</th>
-                            <th>Name</th>
-                            <th>Icon</th>
-                            <th>URL</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th class="action">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="socialAccount, loop : ${socialAccounts}">
-                            <th scope="row" th:text="${loop.index + 1}"></th>
-                            <td th:text="${socialAccount.name}"></td>
-                            <td>
-                                <i th:classappend="${socialAccount.icon}"></i> <span th:text="${socialAccount.icon}"></span>
-                            </td>
-                            <td th:text="${socialAccount.url}"></td>
-                            <td th:text="${socialAccount.createdAt}"></td>
-                            <td th:text="${socialAccount.updatedAt}"></td>
-                            <td class="action">
-                                <a th:href="@{/dashboard/cms/social-account/{id}(id=${socialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
-                                    <i class="fas fa-solid fa-eye"></i>
-                                </a>
-                                <a th:href="@{/dashboard/cms/social-account/{id}/edit(id=${socialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
-                                     <i class="fas fa-solid fa-pen text-primary"></i>
-                                </a>
-                                <form th:action="@{/dashboard/cms/social-account/{id}/destroy(id=${socialAccount.id})}" method="POST" style="all: unset">
-                                    <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
-                                        <i class="fas fa-regular fa-trash text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <th:block th:replace="/fragments/dashboard/table::header(${socialAccounts})"></th:block>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable no-footer" style="width: 100%;">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="serial-head sorting sorting_asc">SN</th>
+                                        <th class="sorting">Name</th>
+                                        <th class="sorting">Icon</th>
+                                        <th class="sorting">URL</th>
+                                        <th class="sorting">Created At</th>
+                                        <th class="sorting">Updated At</th>
+                                        <th class="action sorting">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="socialAccount, loop : ${socialAccounts}" th:classappend="${loop.odd ? 'odd' : 'even'}">
+                                        <th scope="row" class="serial" th:text="${loop.index + 1}"></th>
+                                        <td th:text="${socialAccount.name}"></td>
+                                        <td>
+                                            <i th:classappend="${socialAccount.icon}"></i> <span th:text="${socialAccount.icon}"></span>
+                                        </td>
+                                        <td th:text="${socialAccount.url}"></td>
+                                        <td th:text="${socialAccount.createdAt}"></td>
+                                        <td th:text="${socialAccount.updatedAt}"></td>
+                                        <td class="action">
+                                            <a th:href="@{/dashboard/cms/socialAccount/{id}(id=${socialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                                <i class="fas fa-solid fa-eye"></i>
+                                            </a>
+                                            <a th:href="@{/dashboard/cms/socialAccount/{id}/edit(id=${socialAccount.id})}" class="btn btn-datatable btn-icon btn-transparent-dark me-2">
+                                                <i class="fas fa-solid fa-pen text-primary"></i>
+                                            </a>
+                                            <form th:action="@{/dashboard/cms/socialAccount/{id}/destroy(id=${socialAccount.id})}" method="POST" style="all: unset">
+                                                <button type="submit" class="btn btn-datatable btn-icon btn-transparent-dark">
+                                                    <i class="fas fa-regular fa-trash text-danger"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <th:block th:replace="/fragments/dashboard/table::pagination(${socialAccounts}, '/dashboard/cms/socialAccount')"></th:block>
+                    </div>
                 </div>
             </div>
         </div>
