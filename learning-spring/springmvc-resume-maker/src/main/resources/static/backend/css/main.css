@@ -99,3 +99,7 @@ label {
     margin-left: 1rem;
     margin-right: 1rem;
 }
+/* file */
+.img-account-profile {
+    cursor: pointer;
+}

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -805,5 +806,29 @@ public class UserProfileController {
         }
 
         return "redirect:/dashboard/profile/skill";
+    }
+
+    /* upload profile photo */
+    @RequestMapping(value = "/store-profile-photo", method = RequestMethod.POST)
+    public String storeProfilePhoto(@RequestParam("photo") MultipartFile photo, RedirectAttributes attributes) {
+
+        System.out.println(photo);
+
+        if (this.authUser == null) {
+            new NotifierHelper(attributes).message("Account not found.").error();
+            return "redirect:/dashboard/profile";
+        }
+
+        try {
+
+            this.userService.update(this.authUser);
+            new NotifierHelper(attributes).message("Profile photo uploaded successfully.").success();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+
+            new NotifierHelper(attributes).message("Profile photo can not be uploaded.").error();
+        }
+
+        return "redirect:/dashboard/profile";
     }
 }
