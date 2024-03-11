@@ -1,8 +1,7 @@
 package com.resume.repository.setting;
 
-import com.resume.entity.setting.AppSetting;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.resume.document.setting.AppSetting;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface AppSettingRepository extends JpaRepository<AppSetting, Long> {
-
+public interface AppSettingRepository extends MongoRepository<AppSetting, Long> {
 }

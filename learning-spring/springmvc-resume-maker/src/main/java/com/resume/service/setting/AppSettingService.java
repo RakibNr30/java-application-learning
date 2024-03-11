@@ -1,6 +1,6 @@
 package com.resume.service.setting;
 
-import com.resume.entity.setting.AppSetting;
+import com.resume.document.setting.AppSetting;
 import com.resume.repository.setting.AppSettingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

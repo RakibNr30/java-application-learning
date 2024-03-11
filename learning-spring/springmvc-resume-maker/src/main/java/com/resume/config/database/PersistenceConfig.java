@@ -60,7 +60,7 @@ public class PersistenceConfig {
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
-        emf.setPackagesToScan("com.resume.entity.ums", "com.resume.entity.cms");
+        emf.setPackagesToScan("com.resume.entity");
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         emf.setJpaProperties(this.getHibernateProperties());
         emf.setPersistenceUnitName("postgresqldb");

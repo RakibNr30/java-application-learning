@@ -1,16 +1,16 @@
-package com.resume.entity.setting;
+package com.resume.document.setting;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter @Setter
-@Entity(name = "app_settings")
+@Document(collection = "app_settings")
 public class AppSetting {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank

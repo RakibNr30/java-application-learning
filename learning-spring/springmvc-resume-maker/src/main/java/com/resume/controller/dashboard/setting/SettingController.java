@@ -1,6 +1,6 @@
 package com.resume.controller.dashboard.setting;
 
-import com.resume.entity.setting.AppSetting;
+import com.resume.document.setting.AppSetting;
 import com.resume.helper.NotifierHelper;
 import com.resume.helper.ValidationHelper;
 import com.resume.service.setting.AppSettingService;
