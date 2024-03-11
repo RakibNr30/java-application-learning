@@ -2,6 +2,7 @@ package com.resume.config.database;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -11,7 +12,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -19,14 +20,18 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.resume.repository")
+@EnableJpaRepositories(
+        basePackages = {"com.resume.repository.setting"},
+        entityManagerFactoryRef = "settingEntityManagerFactory",
+        transactionManagerRef = "settingTransactionManager"
+)
 @PropertySource("classpath:application.properties")
-public class JpaConfig {
+public class SettingPersistenceConfig {
 
-    private final Environment environment;
+    public final Environment environment;
 
     @Autowired
-    public JpaConfig(Environment environment) {
+    public SettingPersistenceConfig(Environment environment) {
         this.environment = environment;
     }
 
@@ -41,30 +46,30 @@ public class JpaConfig {
     }
 
     @Bean
-    DataSource dataSource() {
+    DataSource settingDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("spring.datasource.postgresql.driver", ""));
-        dataSource.setUrl(environment.getProperty("spring.datasource.postgresql.url", ""));
-        dataSource.setUsername(environment.getProperty("spring.datasource.postgresql.username", ""));
-        dataSource.setPassword(environment.getProperty("spring.datasource.postgresql.password", ""));
+        dataSource.setDriverClassName(environment.getProperty("spring.datasource.postgresql2.driver", ""));
+        dataSource.setUrl(environment.getProperty("spring.datasource.postgresql2.url", ""));
+        dataSource.setUsername(environment.getProperty("spring.datasource.postgresql2.username", ""));
+        dataSource.setPassword(environment.getProperty("spring.datasource.postgresql2.password", ""));
 
         return dataSource;
     }
 
     @Bean
-    LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+    LocalContainerEntityManagerFactoryBean settingEntityManagerFactory(@Qualifier("settingDataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
-        emf.setPackagesToScan("com.resume.entity");
+        emf.setPackagesToScan("com.resume.entity.setting");
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         emf.setJpaProperties(this.getHibernateProperties());
-        emf.setPersistenceUnitName("postgresqldb");
+        emf.setPersistenceUnitName("postgresqldb2");
 
         return emf;
     }
 
     @Bean
-    PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+    TransactionManager settingTransactionManager(@Qualifier("settingEntityManagerFactory") EntityManagerFactory emf) {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
         jpaTransactionManager.setEntityManagerFactory(emf);
 

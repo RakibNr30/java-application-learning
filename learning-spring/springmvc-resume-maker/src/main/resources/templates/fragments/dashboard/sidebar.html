@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon <!--rotate-n-15-->">
             <i class="fas fa-user"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">RESUME</div>
+        <div class="sidebar-brand-text mx-3" th:text="${globalAppSetting.appName == '' ? 'RESUME' : globalAppSetting.appName}"></div>
     </a>
 
     <!-- Divider -->
@@ -65,8 +65,8 @@
         </a>
         <div id="collapseSettings" class="sub-nav-item collapse" th:classappend="${menuLevel1 == 'setting' ? 'show' : ''}" aria-labelledby="headingSettings" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" th:href="@{#/dashboard/setting/app}">App Settings</a>
-                <a class="collapse-item" th:href="@{#/dashboard/setting/config}">Config Settings</a>
+                <a class="collapse-item" th:classappend="${menuLevel2 == 'app-setting'      ? 'active' : ''}" th:href="@{/dashboard/setting/app-setting}">App Settings</a>
+                <a class="collapse-item" th:classappend="${menuLevel2 == 'config-setting'   ? 'active' : ''}" th:href="@{#/dashboard/setting/config-setting}">Config Settings</a>
             </div>
         </div>
     </li>
