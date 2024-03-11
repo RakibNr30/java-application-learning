@@ -1,12 +1,15 @@
 package com.resume.entity.ums;
 
 import com.resume.entity.cms.Interest;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter @Setter
 @Entity
 @Table(name = "user_interests", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "interest_id"}))
 public class UserInterest {
@@ -29,46 +32,6 @@ public class UserInterest {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Interest getInterest() {
-        return interest;
-    }
-
-    public void setInterest(Interest interest) {
-        this.interest = interest;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public boolean isEmpty() {
         return this.id == 0;

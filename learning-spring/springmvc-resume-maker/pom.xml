@@ -9,6 +9,13 @@
 
   <properties>
     <spring.version>6.1.0</spring.version>
+    <postgresql.version>42.7.2</postgresql.version>
+    <hibernate-core.version>6.4.1.Final</hibernate-core.version>
+    <spring-data-jpa.version>3.2.1</spring-data-jpa.version>
+    <jakarta-servlet.version>6.0.0</jakarta-servlet.version>
+    <jakarta-persistance.version>3.1.0</jakarta-persistance.version>
+    <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+    <lombok.version>1.18.30</lombok.version>
     <thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
   </properties>
 
@@ -22,13 +29,13 @@
     <dependency>
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
-      <version>3.1.0</version>
+      <version>${jakarta-persistance.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>6.4.1.Final</version>
+      <version>${hibernate-core.version}</version>
     </dependency>
 
     <dependency>
@@ -40,19 +47,19 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>3.2.1</version>
+      <version>${spring-data-jpa.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.7.2</version>
+      <version>${postgresql.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>8.0.1.Final</version>
+      <version>${hibernate-validator.version}</version>
     </dependency>
 
     <dependency>
@@ -74,12 +81,19 @@
     </dependency>
 
     <dependency>
-      <!-- jakarta servlet needed when extends AbstractSecurityWebApplicationInitializer - Delegating Filter Proxy -->
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.0.0</version>
+      <version>${jakarta-servlet.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
 
     <dependency>
       <groupId>org.thymeleaf</groupId>

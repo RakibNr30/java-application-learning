@@ -1,6 +1,8 @@
 package com.resume.entity.cms;
 
 import com.resume.entity.ums.UserSkill;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Getter @Setter
 @Entity
 @Table(name = "skills")
 public class Skill {
@@ -38,54 +41,6 @@ public class Skill {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public List<UserSkill> getUserSkills() {
-        return userSkills;
-    }
-
-    public void setUserSkills(List<UserSkill> userSkills) {
-        this.userSkills = userSkills;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     @Override
     public boolean equals(Object o) {

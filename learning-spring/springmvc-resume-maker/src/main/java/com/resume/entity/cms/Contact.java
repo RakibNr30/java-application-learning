@@ -1,6 +1,8 @@
 package com.resume.entity.cms;
 
 import jakarta.validation.constraints.Email;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -8,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter @Setter
 @Entity
 @Table(name = "contacts")
 public class Contact {
@@ -35,62 +38,6 @@ public class Contact {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public boolean isEmpty() {
         return this.id == 0;

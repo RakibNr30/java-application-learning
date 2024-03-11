@@ -2,12 +2,15 @@ package com.resume.entity.ums;
 
 import com.resume.entity.cms.Language;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter @Setter
 @Entity
 @Table(name = "user_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "language_id"}))
 public class UserLanguage {
@@ -33,54 +36,6 @@ public class UserLanguage {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getProficiency() {
-        return proficiency;
-    }
-
-    public void setProficiency(int proficiency) {
-        this.proficiency = proficiency;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public boolean isEmpty() {
         return this.id == 0;

@@ -1,5 +1,7 @@
 package com.resume.entity.ums;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
@@ -7,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter @Setter
 @Entity
 @Table(name = "user_awards")
 public class UserAward {
@@ -35,62 +38,6 @@ public class UserAward {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getInstitute() {
-        return institute;
-    }
-
-    public void setInstitute(String institute) {
-        this.institute = institute;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public boolean isEmpty() {
         return this.id == 0;
