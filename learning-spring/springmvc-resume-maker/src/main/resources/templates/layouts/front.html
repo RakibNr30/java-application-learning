@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${title} + ' | ' + ${globalAppSetting.appTitle == '' ? 'Resume Maker' : globalAppSetting.appTitle}"></title>
+    <title th:text="${title} + ' | ' + ${globalAppSetting.appTitle == null ? 'Resume Maker' : globalAppSetting.appTitle}"></title>
 
     <link rel="stylesheet" th:href="@{/front/css/bootstrap-5.0.2.min.css}">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">

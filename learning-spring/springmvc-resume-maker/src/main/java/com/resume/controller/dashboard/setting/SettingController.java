@@ -1,6 +1,6 @@
 package com.resume.controller.dashboard.setting;
 
-import com.resume.document.setting.AppSetting;
+import com.resume.document.AppSetting;
 import com.resume.helper.NotifierHelper;
 import com.resume.helper.ValidationHelper;
 import com.resume.service.setting.AppSettingService;
@@ -26,7 +26,7 @@ public class SettingController {
 
     @ModelAttribute
     public AppSetting getAppSetting() {
-        return this.appSettingService.findOrSave(1L);
+        return this.appSettingService.findOrSave(new AppSetting());
     }
 
     @RequestMapping("/app-setting")
@@ -35,7 +35,7 @@ public class SettingController {
     }
 
     @RequestMapping(value = "/app-setting/update", method = RequestMethod.POST)
-    public String storeAppSetting(@Valid @ModelAttribute AppSetting appSetting, BindingResult result, RedirectAttributes attributes) {
+    public String updateAppSetting(@Valid @ModelAttribute AppSetting appSetting, BindingResult result, RedirectAttributes attributes) {
 
         if (result.hasErrors()) {
             new ValidationHelper(attributes).model("appSetting", appSetting).bind(result);
@@ -43,7 +43,7 @@ public class SettingController {
         }
 
         try {
-            this.appSettingService.saveOrUpdate(appSetting);
+            this.appSettingService.update(appSetting);
             new NotifierHelper(attributes).message("App setting updated successfully.").success();
         } catch (Exception e) {
             System.err.println(e.getMessage());
