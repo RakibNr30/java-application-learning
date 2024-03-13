@@ -2,6 +2,7 @@ package com.resume.controller.front;
 
 import com.resume.entity.cms.Contact;
 import com.resume.helper.ValidationHelper;
+import com.resume.route.Web;
 import com.resume.service.cms.ContactService;
 import com.resume.helper.NotifierHelper;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/contact")
+@RequestMapping(path = Web.CONTACT)
 public class ContactController {
 
     private final ContactService contactService;
