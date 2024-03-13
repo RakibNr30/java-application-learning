@@ -17,17 +17,20 @@ public final class Web {
     /*
     * DASHBOARD START
     */
-    public static final String DASHBOARD_PREFIX = "/dashboard";
-    public static final String DASHBOARD = DASHBOARD_PREFIX;
-    public static final String PROFILE_PREFIX = DASHBOARD_PREFIX + "/profile";
-    public static final String PROFILE_ACCOUNT = PROFILE_PREFIX;
-    public static final String PROFILE_EDUCATION = PROFILE_PREFIX + "/education";
-    public static final String PROFILE_EXPERIENCE = PROFILE_PREFIX + "/experience";
-    public static final String PROFILE_AWARD = PROFILE_PREFIX + "/award";
-    public static final String PROFILE_SKILL = PROFILE_PREFIX + "/skill";
-    public static final String PROFILE_INTEREST = PROFILE_PREFIX + "/interest";
-    public static final String PROFILE_SOCIAL = PROFILE_PREFIX + "/social";
-    public static final String PROFILE_LANGUAGE = PROFILE_PREFIX + "/language";
+    public static final String DASHBOARD_PREFIX                     = "/dashboard";
+    public static final String DASHBOARD                            = DASHBOARD_PREFIX;
+    public static final String PROFILE_PREFIX                       = DASHBOARD_PREFIX + "/profile";
+    public static final String PROFILE_ACCOUNT                      = PROFILE_PREFIX;
+    public static final String PROFILE_EDUCATION                    = PROFILE_PREFIX + "/education";
+    public static final String PROFILE_EXPERIENCE                   = PROFILE_PREFIX + "/experience";
+    public static final String PROFILE_AWARD                        = PROFILE_PREFIX + "/award";
+    public static final String PROFILE_SKILL                        = PROFILE_PREFIX + "/skill";
+    public static final String PROFILE_INTEREST                     = PROFILE_PREFIX + "/interest";
+    public static final String PROFILE_SOCIAL                       = PROFILE_PREFIX + "/social";
+    public static final String PROFILE_LANGUAGE                     = PROFILE_PREFIX + "/language";
+
+    /* incomplete */
+
     /*
      * DASHBOARD END
      */
