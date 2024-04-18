@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter @Setter
 @Entity
-@Table(name = "user_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "language_id"}))
+@Table(name = "users_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "language_id"}))
 public class UserLanguage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: classpath:db/migrations/ums.yaml
-      relativeToChangelogFile: false
-  - include:
-      file: classpath:db/migrations/cms.yaml
-      relativeToChangelogFile: false
