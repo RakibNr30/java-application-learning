@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: classpath:db/migrations/ums/2024_04_18_000001_create_users_table.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: classpath:db/migrations/ums/2024_04_18_000002_create_roles_table.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: classpath:db/migrations/ums/2024_04_18_000003_create_users_roles_table.yaml
+      relativeToChangelogFile: false

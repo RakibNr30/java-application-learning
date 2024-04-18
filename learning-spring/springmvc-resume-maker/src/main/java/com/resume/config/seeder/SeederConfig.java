@@ -5,8 +5,10 @@ import com.resume.seeder.UserDataSeeder;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 @Configuration
+@DependsOn("liquibaseUpdater")
 public class SeederConfig {
 
     private final RoleDataSeeder roleDataSeeder;

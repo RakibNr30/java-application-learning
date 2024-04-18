@@ -38,7 +38,7 @@ public class PersistenceConfig {
         properties.setProperty("show_sql", environment.getProperty("spring.jpa.postgresql.show-sql", ""));
         properties.setProperty("format_sql", environment.getProperty("spring.jpa.postgresql.format-sql", ""));
         properties.setProperty("hibernate.dialect", environment.getProperty("spring.jpa.postgresql.properties.hibernate.dialect", ""));
-        properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("spring.jpa.postgresql.hibernate.ddl-auto"));
+        properties.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("spring.jpa.postgresql.hibernate.ddl-auto", ""));
 
         return properties;
     }
