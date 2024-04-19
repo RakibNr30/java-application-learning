@@ -36,6 +36,10 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP WITHOUT TIME ZONE
+        - addAutoIncrement:
+            columnName: id
+            generationType: IDENTITY
+            tableName: user_experiences
         - addForeignKeyConstraint:
             constraintName: fk_user_experiences_user_id
             baseColumnNames: user_id

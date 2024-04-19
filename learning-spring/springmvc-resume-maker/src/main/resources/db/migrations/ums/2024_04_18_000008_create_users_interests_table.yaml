@@ -29,6 +29,10 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP WITHOUT TIME ZONE
+        - addAutoIncrement:
+            columnName: id
+            generationType: IDENTITY
+            tableName: users_interests
         - addUniqueConstraint:
             columnNames: user_id, interest_id
             constraintName: uk_users_interests_user_id_interest_id

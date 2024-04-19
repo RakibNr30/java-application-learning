@@ -34,6 +34,10 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP WITHOUT TIME ZONE
+        - addAutoIncrement:
+            columnName: id
+            generationType: IDENTITY
+            tableName: users_social_accounts
         - addUniqueConstraint:
             columnNames: user_id, social_account_id
             constraintName: uk_users_social_accounts_user_id_social_account_id
