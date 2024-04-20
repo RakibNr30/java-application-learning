@@ -1,0 +1,6 @@
+# config for run update cmd
+changeLogFile=src/main/resources/db/migrations/changelog-master.yaml
+driver=org.postgresql.Driver
+url=jdbc:postgresql://127.0.0.1:5432/springmvc-resume-maker
+username=postgres
+password=postgres
