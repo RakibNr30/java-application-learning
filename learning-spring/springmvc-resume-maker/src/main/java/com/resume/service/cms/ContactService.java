@@ -44,6 +44,12 @@ public class ContactService {
     public Contact findOrSave(Long id) {
         Contact contact = this.contactRepository.findById(id).orElse(null);
 
+        System.out.println();
+        System.out.println();
+        System.out.println(contact);
+        System.out.println();
+        System.out.println();
+
         if (contact == null) {
             contact = new Contact();
             contact.setId(id);

@@ -1,6 +1,8 @@
-<div th:if="${not #strings.isEmpty(notifierStatus)}">
-    <div class="alert alert-dismissible fade show" role="alert" th:classappend="${'alert-' + notifierBg}">
-        <strong th:text="${notifierTitle}">!</strong> <span th:text="${notifierMessage}"></span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<th:block th:if="${ not #strings.isEmpty(notifierStatus) }">
+    <div class="card text-white mb-2 mt-2" th:classappend="${notifierBg}">
+        <div class="card-body">
+            <span class="font-weight-bold" th:text="${notifierTitle}"></span>
+            <div class="text-white" th:text="${notifierMessage}"></div>
+        </div>
     </div>
-</div>
+</th:block>

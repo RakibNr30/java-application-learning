@@ -1,10 +1,10 @@
 package com.resume.config.app;
 
+import com.resume.config.properties.TemplateProperties;
+import com.resume.config.properties.WebProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -20,13 +20,14 @@ import java.util.Set;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.resume")
-@PropertySource("classpath:application.properties")
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final Environment environment;
+    private final WebProperties webProperties;
+    private final TemplateProperties templateProperties;
 
-    public WebMvcConfig(Environment environment) {
-        this.environment = environment;
+    public WebMvcConfig(WebProperties webProperties, TemplateProperties templateProperties) {
+        this.webProperties = webProperties;
+        this.templateProperties = templateProperties;
     }
 
     private Set<IDialect> getAdditionalDialects() {
@@ -38,9 +39,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private ClassLoaderTemplateResolver getClassLoaderTemplateResolver() {
         ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
-        classLoaderTemplateResolver.setPrefix(environment.getProperty("spring.mvc.view.prefix", "/templates/"));
-        classLoaderTemplateResolver.setSuffix(environment.getProperty("spring.mvc.view.suffix", ".html"));
-        classLoaderTemplateResolver.setCacheable(Boolean.parseBoolean(environment.getProperty("spring.mvc.view.cacheable", "false")));
+        classLoaderTemplateResolver.setPrefix(templateProperties.getThymeleafPrefix());
+        classLoaderTemplateResolver.setSuffix(templateProperties.getThymeleafSuffix());
+        classLoaderTemplateResolver.setCacheable(templateProperties.getIsThymeleafCacheable());
 
         return classLoaderTemplateResolver;
     }
@@ -64,7 +65,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler(environment.getProperty("spring.mvc.static-path-pattern", "/**"))
-                .addResourceLocations(environment.getProperty("spring.mvc.static-path-location", "classpath:static/"));
+                .addResourceHandler(webProperties.getStaticPathPattern())
+                .addResourceLocations(webProperties.getStaticPathLocation());
     }
 }

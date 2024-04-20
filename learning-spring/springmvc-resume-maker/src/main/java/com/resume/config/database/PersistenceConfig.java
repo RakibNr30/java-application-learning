@@ -1,7 +1,6 @@
 package com.resume.config.database;
 
 import com.resume.config.properties.DataProperties;
-import com.resume.config.properties.JpaProperties;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,20 +25,18 @@ import java.util.Properties;
 public class PersistenceConfig {
 
     private final DataProperties dataProperties;
-    private final JpaProperties jpaProperties;
 
     @Autowired
-    public PersistenceConfig(DataProperties dataProperties, JpaProperties jpaProperties) {
+    public PersistenceConfig(DataProperties dataProperties) {
         this.dataProperties = dataProperties;
-        this.jpaProperties = jpaProperties;
     }
 
     private Properties getJpaProperties() {
         Properties properties = new Properties();
-        properties.setProperty("show_sql", this.jpaProperties.getIsShowSql());
-        properties.setProperty("format_sql", this.jpaProperties.getIsFormatSql());
-        properties.setProperty("hibernate.dialect", this.jpaProperties.getDialect());
-        properties.setProperty("hibernate.hbm2ddl.auto", this.jpaProperties.getDdlAutoMode());
+        properties.setProperty("show_sql", this.dataProperties.getIsShowSql().toString());
+        properties.setProperty("format_sql", this.dataProperties.getIsFormatSql().toString());
+        properties.setProperty("hibernate.dialect", this.dataProperties.getDialect());
+        properties.setProperty("hibernate.hbm2ddl.auto", this.dataProperties.getDdlAutoMode());
 
         return properties;
     }
@@ -64,7 +61,7 @@ public class PersistenceConfig {
         emf.setPackagesToScan("com.resume.entity");
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         emf.setJpaProperties(this.getJpaProperties());
-        emf.setPersistenceUnitName(this.jpaProperties.getPersistenceUnit());
+        emf.setPersistenceUnitName(this.dataProperties.getPersistenceUnit());
 
         return emf;
     }

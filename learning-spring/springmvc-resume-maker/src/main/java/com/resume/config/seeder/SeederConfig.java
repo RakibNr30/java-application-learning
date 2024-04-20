@@ -1,20 +1,18 @@
 package com.resume.config.seeder;
 
+import com.resume.config.properties.DataMigrationProperties;
 import com.resume.seeder.RoleDataSeeder;
 import com.resume.seeder.UserDataSeeder;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 @Configuration
 @DependsOn("liquibase")
-@PropertySource("classpath:application.properties")
 public class SeederConfig {
 
-    private final Environment environment;
+    private final DataMigrationProperties dataMigrationProperties;
 
     private final RoleDataSeeder roleDataSeeder;
 
@@ -22,15 +20,15 @@ public class SeederConfig {
 
 
     @Autowired
-    public SeederConfig(Environment environment, RoleDataSeeder roleDataSeeder, UserDataSeeder userDataSeeder) {
-        this.environment = environment;
+    public SeederConfig(DataMigrationProperties dataMigrationProperties, RoleDataSeeder roleDataSeeder, UserDataSeeder userDataSeeder) {
+        this.dataMigrationProperties = dataMigrationProperties;
         this.roleDataSeeder = roleDataSeeder;
         this.userDataSeeder = userDataSeeder;
     }
 
     @PostConstruct
     public void seed() {
-        if (environment.getProperty("spring.data-seed.enabled", "").equalsIgnoreCase("true")) {
+        if (dataMigrationProperties.getIsDataSeedEnabled()) {
             this.seedData();
         }
     }

@@ -9,18 +9,33 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class DataProperties {
-    @Value("${spring.datasource.driver}")
+    @Value("${spring.datasource.driver:}")
     private String driver;
 
-    @Value("${spring.datasource.url}")
+    @Value("${spring.datasource.url:}")
     private String url;
 
-    @Value("${spring.datasource.username}")
+    @Value("${spring.datasource.username:}")
     private String username;
 
-    @Value("${spring.datasource.password}")
+    @Value("${spring.datasource.password:}")
     private String password;
 
-    @Value("${spring.data.mongodb.uri}")
+    @Value("${spring.data.mongodb.uri:}")
     private String mongoDbUri;
+
+    @Value("${spring.jpa.properties.hibernate.dialect:}")
+    private String dialect;
+
+    @Value("${spring.jpa.show-sql:false}")
+    private Boolean isShowSql;
+
+    @Value("${spring.jpa.format-sql:false}")
+    private Boolean isFormatSql;
+
+    @Value("${spring.jpa.hibernate.ddl-auto:}")
+    private String ddlAutoMode;
+
+    @Value("${spring.jpa.persistence-unit:db}")
+    private String persistenceUnit;
 }
